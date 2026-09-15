@@ -42,6 +42,10 @@
 
   img {
     object-fit: cover;
+
+    &.is-hidden {
+      display: none;
+    }
   }
 }
 

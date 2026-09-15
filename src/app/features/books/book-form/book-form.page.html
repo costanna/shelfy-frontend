@@ -126,7 +126,14 @@
       </div>
 
       @if (coverPreview()) {
-        <img class="cover-preview" [src]="coverPreview()" [alt]="'bookForm.preview' | translate" />
+        <img
+          class="cover-preview"
+          [class.is-hidden]="coverPreviewFailed()"
+          [src]="coverPreview()"
+          [alt]="'bookForm.preview' | translate"
+          (load)="coverPreviewFailed.set(false)"
+          (error)="coverPreviewFailed.set(true)"
+        />
       }
     </aside>
 

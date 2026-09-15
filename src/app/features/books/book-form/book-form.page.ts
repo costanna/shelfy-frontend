@@ -71,6 +71,7 @@ export class BookFormPage {
   protected readonly coverPreview = toSignal(this.form.controls.coverUrl.valueChanges, {
     initialValue: '',
   });
+  protected readonly coverPreviewFailed = signal(false);
 
   constructor() {
     effect(() => {
