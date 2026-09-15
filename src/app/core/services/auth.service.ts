@@ -1,17 +1,18 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
-import { environment } from '../../../environments/environment';
 import {
   AuthResponse,
   Language,
   LoginRequest,
+  MessageResponse,
   RegisterRequest,
   ThemePreference,
   User,
 } from '../models/user.model';
+import { environment } from '../../../environments/environment';
 
 const TOKEN_KEY = 'shelfy.token';
 const USER_KEY = 'shelfy.user';
@@ -27,16 +28,36 @@ export class AuthService {
   readonly user = this.currentUser.asReadonly();
   readonly isLoggedIn = computed(() => this.currentUser() !== null);
 
-  register(request: RegisterRequest): Observable<AuthResponse> {
-    return this.http
-      .post<AuthResponse>(`${this.baseUrl}/auth/register`, request)
-      .pipe(tap((response) => this.storeSession(response)));
+  register(request: RegisterRequest): Observable<MessageResponse> {
+    return this.http.post<MessageResponse>(`${this.baseUrl}/auth/register`, request);
   }
 
   login(request: LoginRequest): Observable<AuthResponse> {
     return this.http
       .post<AuthResponse>(`${this.baseUrl}/auth/login`, request)
       .pipe(tap((response) => this.storeSession(response)));
+  }
+
+  verifyEmail(token: string): Observable<AuthResponse> {
+    const params = new HttpParams().set('token', token);
+    return this.http
+      .get<AuthResponse>(`${this.baseUrl}/auth/verify-email`, { params })
+      .pipe(tap((response) => this.storeSession(response)));
+  }
+
+  resendVerification(email: string): Observable<MessageResponse> {
+    return this.http.post<MessageResponse>(`${this.baseUrl}/auth/resend-verification`, { email });
+  }
+
+  forgotPassword(email: string): Observable<MessageResponse> {
+    return this.http.post<MessageResponse>(`${this.baseUrl}/auth/forgot-password`, { email });
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<MessageResponse> {
+    return this.http.post<MessageResponse>(`${this.baseUrl}/auth/reset-password`, {
+      token,
+      newPassword,
+    });
   }
 
   logout(): void {

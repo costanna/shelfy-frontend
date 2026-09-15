@@ -25,3 +25,7 @@ export interface LoginRequest {
 export interface RegisterRequest extends LoginRequest {
   name: string;
 }
+
+export interface MessageResponse {
+  message: string;
+}

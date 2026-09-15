@@ -29,7 +29,31 @@
     "goToRegister": "Regístrate",
     "goToLogin": "Entra",
     "loggedOut": "Sesión cerrada",
-    "slowStart": "El servidor puede tardar hasta un minuto en despertar si llevaba un rato sin uso. Un momento…"
+    "slowStart": "El servidor puede tardar hasta un minuto en despertar si llevaba un rato sin uso. Un momento…",
+    "checkEmailTitle": "Revisa tu correo",
+    "checkEmailSubtitle": "Te hemos mandado un enlace de verificación a {{email}}. Ábrelo para activar tu cuenta.",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "resendVerification": "Reenviar email de verificación",
+    "resendSent": "Email reenviado. Revisa tu bandeja de entrada.",
+    "forgotTitle": "Recupera tu contraseña",
+    "forgotSubtitle": "Escribe tu email y te mandamos un enlace para elegir una nueva.",
+    "forgotSubmit": "Enviar enlace",
+    "forgotSentTitle": "Revisa tu correo",
+    "forgotSentSubtitle": "Si esa cuenta existe, te hemos mandado un enlace para restablecer la contraseña. Caduca en 1 hora.",
+    "verifyingTitle": "Verificando tu cuenta…",
+    "verifySuccessTitle": "¡Cuenta verificada!",
+    "verifySuccessSubtitle": "Te hemos iniciado sesión. Entrando en tu biblioteca…",
+    "verifyErrorTitle": "No hemos podido verificar tu cuenta",
+    "verifyMissingToken": "Falta el enlace de verificación. Ábrelo desde el email que te mandamos.",
+    "resetTitle": "Elige una nueva contraseña",
+    "resetSubtitle": "Tiene que tener entre 8 y 72 caracteres.",
+    "newPassword": "Nueva contraseña",
+    "confirmPassword": "Repite la contraseña",
+    "resetSubmit": "Cambiar contraseña",
+    "resetDoneTitle": "Contraseña actualizada",
+    "resetDoneSubtitle": "Ya puedes iniciar sesión con tu nueva contraseña.",
+    "resetInvalidTitle": "Enlace no válido",
+    "resetInvalidSubtitle": "Este enlace para restablecer la contraseña no es válido o ha caducado."
   },
   "books": {
     "title": "Mis libros",
@@ -163,7 +187,8 @@
     "maxlength": "No puede superar los {{max}} caracteres",
     "min": "El valor mínimo es {{min}}",
     "url": "Introduce una URL válida",
-    "dateRange": "No puede ser anterior a la fecha de inicio"
+    "dateRange": "No puede ser anterior a la fecha de inicio",
+    "mismatch": "Las contraseñas no coinciden"
   },
   "errors": {
     "network": "No se puede conectar con el servidor. Inténtalo de nuevo.",

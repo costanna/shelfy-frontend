@@ -8,6 +8,19 @@
     <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
       @if (serverError(); as error) {
         <p class="auth-error" role="alert">{{ error | translate }}</p>
+
+        @if (unverifiedEmail()) {
+          <button
+            type="button"
+            class="btn btn-secondary btn-block"
+            [disabled]="resendingVerification()"
+            (click)="resendVerification()"
+          >
+            {{
+              (resendingVerification() ? 'common.loading' : 'auth.resendVerification') | translate
+            }}
+          </button>
+        }
       }
 
       <div class="field">
@@ -24,7 +37,10 @@
       </div>
 
       <div class="field">
-        <label class="label" for="password">{{ 'auth.password' | translate }}</label>
+        <div class="label-row">
+          <label class="label" for="password">{{ 'auth.password' | translate }}</label>
+          <a class="forgot-link" routerLink="/forgot-password">{{ 'auth.forgotPassword' | translate }}</a>
+        </div>
         <input
           id="password"
           class="input"

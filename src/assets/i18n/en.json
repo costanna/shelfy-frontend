@@ -29,7 +29,31 @@
     "goToRegister": "Sign up",
     "goToLogin": "Sign in",
     "loggedOut": "Signed out",
-    "slowStart": "The server can take up to a minute to wake up if it's been idle. One moment…"
+    "slowStart": "The server can take up to a minute to wake up if it's been idle. One moment…",
+    "checkEmailTitle": "Check your email",
+    "checkEmailSubtitle": "We've sent a verification link to {{email}}. Open it to activate your account.",
+    "forgotPassword": "Forgot your password?",
+    "resendVerification": "Resend verification email",
+    "resendSent": "Email resent. Check your inbox.",
+    "forgotTitle": "Recover your password",
+    "forgotSubtitle": "Enter your email and we'll send you a link to choose a new one.",
+    "forgotSubmit": "Send link",
+    "forgotSentTitle": "Check your email",
+    "forgotSentSubtitle": "If that account exists, we've sent a link to reset the password. It expires in 1 hour.",
+    "verifyingTitle": "Verifying your account…",
+    "verifySuccessTitle": "Account verified!",
+    "verifySuccessSubtitle": "You're signed in now. Taking you to your library…",
+    "verifyErrorTitle": "We couldn't verify your account",
+    "verifyMissingToken": "Missing verification link. Open it from the email we sent you.",
+    "resetTitle": "Choose a new password",
+    "resetSubtitle": "It needs to be between 8 and 72 characters.",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "resetSubmit": "Change password",
+    "resetDoneTitle": "Password updated",
+    "resetDoneSubtitle": "You can now sign in with your new password.",
+    "resetInvalidTitle": "Invalid link",
+    "resetInvalidSubtitle": "This password reset link is invalid or has expired."
   },
   "books": {
     "title": "My books",
@@ -163,7 +187,8 @@
     "maxlength": "Cannot be longer than {{max}} characters",
     "min": "The minimum value is {{min}}",
     "url": "Enter a valid URL",
-    "dateRange": "Can't be earlier than the start date"
+    "dateRange": "Can't be earlier than the start date",
+    "mismatch": "Passwords don't match"
   },
   "errors": {
     "network": "Can't reach the server. Please try again.",

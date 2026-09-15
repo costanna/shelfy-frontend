@@ -1,0 +1,24 @@
+<div class="auth-wrap">
+  <div class="auth-card">
+    @if (status() === 'loading') {
+      <div class="auth-header">
+        <h1 class="auth-title">{{ 'auth.verifyingTitle' | translate }}</h1>
+      </div>
+      <app-spinner />
+    } @else if (status() === 'success') {
+      <div class="auth-header">
+        <h1 class="auth-title">{{ 'auth.verifySuccessTitle' | translate }}</h1>
+        <p class="auth-subtitle">{{ 'auth.verifySuccessSubtitle' | translate }}</p>
+      </div>
+    } @else {
+      <div class="auth-header">
+        <h1 class="auth-title">{{ 'auth.verifyErrorTitle' | translate }}</h1>
+        <p class="auth-subtitle">{{ errorMessage() | translate }}</p>
+      </div>
+
+      <p class="auth-footer">
+        <a routerLink="/login">{{ 'auth.goToLogin' | translate }}</a>
+      </p>
+    }
+  </div>
+</div>
