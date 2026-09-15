@@ -37,6 +37,7 @@ export class IsbnScanner implements AfterViewInit, OnDestroy {
   private reader: BrowserMultiFormatReader | null = null;
   private controls: IScannerControls | null = null;
   private hasScanned = false;
+  private destroyed = false;
 
   async ngAfterViewInit(): Promise<void> {
     if (!navigator.mediaDevices?.getUserMedia) {
@@ -53,7 +54,7 @@ export class IsbnScanner implements AfterViewInit, OnDestroy {
     this.reader = new BrowserMultiFormatReader(hints);
 
     try {
-      this.controls = await this.reader.decodeFromVideoDevice(
+      const controls = await this.reader.decodeFromVideoDevice(
         undefined,
         this.video().nativeElement,
         (result) => {
@@ -64,12 +65,25 @@ export class IsbnScanner implements AfterViewInit, OnDestroy {
           }
         },
       );
+
+      // El componente puede haberse destruido (p. ej. el usuario cierra el
+      // escáner) mientras esta promesa seguía pendiente. ngOnDestroy ya no
+      // puede pararla porque `controls` todavía era null en ese momento, así
+      // que la cámara se quedaría encendida de fondo si no se para aquí.
+      if (this.destroyed) {
+        controls.stop();
+        return;
+      }
+      this.controls = controls;
     } catch {
-      this.error.set('denied');
+      if (!this.destroyed) {
+        this.error.set('denied');
+      }
     }
   }
 
   ngOnDestroy(): void {
+    this.destroyed = true;
     this.controls?.stop();
   }
 

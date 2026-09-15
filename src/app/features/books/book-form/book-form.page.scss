@@ -39,6 +39,10 @@
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: var(--surface-muted);
+
+  &.is-hidden {
+    display: none;
+  }
 }
 
 .isbn-row {

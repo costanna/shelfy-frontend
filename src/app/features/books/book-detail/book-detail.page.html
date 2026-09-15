@@ -6,8 +6,15 @@
   <article class="book-detail">
     <div class="cover">
       @if (item.coverUrl) {
-        <img [src]="item.coverUrl" [alt]="item.title" />
-      } @else {
+        <img
+          [class.is-hidden]="coverFailed()"
+          [src]="item.coverUrl"
+          [alt]="item.title"
+          (load)="coverFailed.set(false)"
+          (error)="coverFailed.set(true)"
+        />
+      }
+      @if (!item.coverUrl || coverFailed()) {
         <div class="cover-placeholder" aria-hidden="true">📖</div>
       }
     </div>
@@ -29,6 +36,18 @@
           <div class="meta-item">
             <dt>{{ 'bookForm.isbn' | translate }}</dt>
             <dd>{{ item.isbn }}</dd>
+          </div>
+        }
+        @if (item.startedAt) {
+          <div class="meta-item">
+            <dt>{{ 'bookForm.startedAt' | translate }}</dt>
+            <dd>{{ item.startedAt | date: 'mediumDate' : 'UTC' }}</dd>
+          </div>
+        }
+        @if (item.finishedAt) {
+          <div class="meta-item">
+            <dt>{{ 'bookForm.finishedAt' | translate }}</dt>
+            <dd>{{ item.finishedAt | date: 'mediumDate' : 'UTC' }}</dd>
           </div>
         }
       </dl>

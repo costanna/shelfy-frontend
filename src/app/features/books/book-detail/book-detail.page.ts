@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, effect, inject, input, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -11,7 +12,7 @@ import { ReviewSection } from '../reviews/review-section/review-section';
 
 @Component({
   selector: 'app-book-detail-page',
-  imports: [RouterLink, TranslatePipe, StatusBadge, Spinner, ReviewSection],
+  imports: [RouterLink, TranslatePipe, DatePipe, StatusBadge, Spinner, ReviewSection],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './book-detail.page.html',
   styleUrl: './book-detail.page.scss',
@@ -26,6 +27,7 @@ export class BookDetailPage {
 
   protected readonly book = signal<Book | null>(null);
   protected readonly loading = signal(true);
+  protected readonly coverFailed = signal(false);
 
   constructor() {
     effect(() => this.load(Number(this.id())));
@@ -52,6 +54,7 @@ export class BookDetailPage {
 
   private load(id: number): void {
     this.loading.set(true);
+    this.coverFailed.set(false);
 
     this.bookService.get(id).subscribe({
       next: (book) => {

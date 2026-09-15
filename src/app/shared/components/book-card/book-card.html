@@ -1,8 +1,16 @@
 <a class="book-card" [routerLink]="['/books', book().id]">
   <div class="cover">
     @if (book().coverUrl) {
-      <img [src]="book().coverUrl" [alt]="book().title" loading="lazy" />
-    } @else {
+      <img
+        [class.is-hidden]="coverFailed()"
+        [src]="book().coverUrl"
+        [alt]="book().title"
+        loading="lazy"
+        (load)="coverFailed.set(false)"
+        (error)="coverFailed.set(true)"
+      />
+    }
+    @if (!book().coverUrl || coverFailed()) {
       <span class="cover-fallback" aria-hidden="true">{{ initials(book().title) }}</span>
     }
     <app-status-badge class="cover-badge" [status]="book().status" />
