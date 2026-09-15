@@ -6,6 +6,7 @@
   "nav": {
     "books": "Els meus llibres",
     "categories": "Categories",
+    "settings": "Ajustos",
     "addBook": "Afegeix un llibre",
     "logout": "Tanca la sessió",
     "menu": "Menú",
@@ -117,6 +118,14 @@
     "light": "Clar",
     "dark": "Fosc",
     "system": "Sistema"
+  },
+  "settings": {
+    "title": "Ajustos",
+    "subtitle": "El teu compte, el tema i l'idioma.",
+    "account": "Compte",
+    "theme": "Tema",
+    "language": "Idioma",
+    "saved": "Preferències desades"
   },
   "validation": {
     "required": "Aquest camp és obligatori",

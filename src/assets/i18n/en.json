@@ -6,6 +6,7 @@
   "nav": {
     "books": "My books",
     "categories": "Categories",
+    "settings": "Settings",
     "addBook": "Add book",
     "logout": "Log out",
     "menu": "Menu",
@@ -117,6 +118,14 @@
     "light": "Light",
     "dark": "Dark",
     "system": "System"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Your account, theme and language.",
+    "account": "Account",
+    "theme": "Theme",
+    "language": "Language",
+    "saved": "Preferences saved"
   },
   "validation": {
     "required": "This field is required",
