@@ -1,0 +1,56 @@
+<div class="page-header">
+  <div>
+    <h1>{{ 'settings.title' | translate }}</h1>
+    <p class="subtitle">{{ 'settings.subtitle' | translate }}</p>
+  </div>
+</div>
+
+@if (user(); as account) {
+  <section class="card card-padded settings-section">
+    <h2>{{ 'settings.account' | translate }}</h2>
+    <dl class="account-info">
+      <div class="account-row">
+        <dt>{{ 'auth.name' | translate }}</dt>
+        <dd>{{ account.name }}</dd>
+      </div>
+      <div class="account-row">
+        <dt>{{ 'auth.email' | translate }}</dt>
+        <dd>{{ account.email }}</dd>
+      </div>
+    </dl>
+  </section>
+}
+
+<section class="card card-padded settings-section">
+  <div class="field">
+    <label class="settings-label" for="settings-theme">{{ 'settings.theme' | translate }}</label>
+    <select
+      id="settings-theme"
+      class="select"
+      [value]="theme()"
+      (change)="onThemeChange($event)"
+    >
+      @for (option of themeOptions; track option) {
+        <option [value]="option">{{ 'theme.' + option.toLowerCase() | translate }}</option>
+      }
+    </select>
+  </div>
+</section>
+
+<section class="card card-padded settings-section">
+  <div class="field">
+    <label class="settings-label" for="settings-language">
+      {{ 'settings.language' | translate }}
+    </label>
+    <select
+      id="settings-language"
+      class="select"
+      [value]="language()"
+      (change)="onLanguageChange($event)"
+    >
+      @for (option of languageOptions; track option) {
+        <option [value]="option">{{ languageLabels[option] }}</option>
+      }
+    </select>
+  </div>
+</section>

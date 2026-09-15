@@ -1,0 +1,42 @@
+.subtitle {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+}
+
+.settings-section {
+  max-width: 480px;
+  margin-bottom: var(--space-4);
+
+  h2 {
+    margin: 0 0 var(--space-4);
+    font-size: 1rem;
+  }
+}
+
+.settings-label {
+  font-weight: 600;
+}
+
+.account-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.account-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+
+  dt {
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 500;
+  }
+}

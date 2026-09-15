@@ -6,6 +6,7 @@
   "nav": {
     "books": "Mis libros",
     "categories": "Categorías",
+    "settings": "Ajustes",
     "addBook": "Añadir libro",
     "logout": "Cerrar sesión",
     "menu": "Menú",
@@ -117,6 +118,14 @@
     "light": "Claro",
     "dark": "Oscuro",
     "system": "Sistema"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "subtitle": "Tu cuenta, el tema y el idioma.",
+    "account": "Cuenta",
+    "theme": "Tema",
+    "language": "Idioma",
+    "saved": "Preferencias guardadas"
   },
   "validation": {
     "required": "Este campo es obligatorio",

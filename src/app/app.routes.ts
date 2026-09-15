@@ -49,6 +49,12 @@ export const routes: Routes = [
         (m) => m.CategoryListPage,
       ),
   },
+  {
+    path: 'settings',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/settings/settings.page').then((m) => m.SettingsPage),
+  },
   { path: '', pathMatch: 'full', redirectTo: 'books' },
   { path: '**', redirectTo: 'books' },
 ];
