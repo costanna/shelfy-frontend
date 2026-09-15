@@ -6,15 +6,17 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { catchError, of } from 'rxjs';
 
 import { BOOK_STATUSES, BookRequest } from '../../../core/models/book.model';
+import { BookLookupService } from '../../../core/services/book-lookup.service';
 import { BookService } from '../../../core/services/book.service';
 import { CategoryService } from '../../../core/services/category.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { FieldError } from '../../../shared/components/field-error/field-error';
+import { IsbnScanner } from '../../../shared/components/isbn-scanner/isbn-scanner';
 import { Spinner } from '../../../shared/components/spinner/spinner';
 
 @Component({
   selector: 'app-book-form-page',
-  imports: [ReactiveFormsModule, TranslatePipe, FieldError, Spinner],
+  imports: [ReactiveFormsModule, TranslatePipe, FieldError, Spinner, IsbnScanner],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './book-form.page.html',
   styleUrl: './book-form.page.scss',
@@ -23,6 +25,7 @@ export class BookFormPage {
   private readonly formBuilder = inject(FormBuilder);
   private readonly bookService = inject(BookService);
   private readonly categoryService = inject(CategoryService);
+  private readonly bookLookup = inject(BookLookupService);
   private readonly router = inject(Router);
   private readonly toast = inject(ToastService);
 
@@ -34,6 +37,8 @@ export class BookFormPage {
   protected readonly loading = signal(false);
   protected readonly saving = signal(false);
   protected readonly submitted = signal(false);
+  protected readonly scannerOpen = signal(false);
+  protected readonly lookingUp = signal(false);
 
   protected readonly selectedCategories = signal<ReadonlySet<number>>(new Set());
 
@@ -79,6 +84,46 @@ export class BookFormPage {
 
   protected isSelected(id: number): boolean {
     return this.selectedCategories().has(id);
+  }
+
+  protected openScanner(): void {
+    this.scannerOpen.set(true);
+  }
+
+  protected closeScanner(): void {
+    this.scannerOpen.set(false);
+  }
+
+  protected onScanned(isbn: string): void {
+    this.scannerOpen.set(false);
+    this.form.controls.isbn.setValue(isbn);
+    this.lookupIsbn();
+  }
+
+  protected lookupIsbn(): void {
+    const isbn = this.form.controls.isbn.value.trim();
+    if (!isbn || this.lookingUp()) {
+      return;
+    }
+    this.lookingUp.set(true);
+
+    this.bookLookup.lookupByIsbn(isbn).subscribe((result) => {
+      this.lookingUp.set(false);
+
+      if (!result) {
+        this.toast.error('bookForm.lookupNotFound');
+        return;
+      }
+
+      this.form.patchValue({
+        title: result.title ?? this.form.controls.title.value,
+        author: result.author ?? this.form.controls.author.value,
+        pageCount: result.pageCount ?? this.form.controls.pageCount.value,
+        coverUrl: result.coverUrl ?? this.form.controls.coverUrl.value,
+        synopsis: result.synopsis ?? this.form.controls.synopsis.value,
+      });
+      this.toast.success('bookForm.lookupSuccess');
+    });
   }
 
   protected submit(): void {

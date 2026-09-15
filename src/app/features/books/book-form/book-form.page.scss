@@ -41,6 +41,21 @@
   background: var(--surface-muted);
 }
 
+.isbn-row {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+
+  .input {
+    flex: 1;
+    min-width: 10rem;
+  }
+
+  .btn {
+    white-space: nowrap;
+  }
+}
+
 .hint {
   margin: 0;
   color: var(--text-muted);

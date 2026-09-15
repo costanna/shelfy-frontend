@@ -1,0 +1,26 @@
+<div class="scanner-backdrop" (click)="close()">
+  <div class="scanner-panel card" (click)="$event.stopPropagation()">
+    <div class="scanner-header">
+      <h2>{{ 'scanner.title' | translate }}</h2>
+      <button
+        type="button"
+        class="btn btn-ghost btn-icon"
+        [attr.aria-label]="'common.close' | translate"
+        (click)="close()"
+      >
+        ✕
+      </button>
+    </div>
+
+    @if (error() === 'denied') {
+      <p class="scanner-message scanner-error">{{ 'scanner.denied' | translate }}</p>
+    } @else if (error() === 'unsupported') {
+      <p class="scanner-message scanner-error">{{ 'scanner.unsupported' | translate }}</p>
+    } @else {
+      <p class="scanner-message">{{ 'scanner.hint' | translate }}</p>
+    }
+
+    <video #video class="scanner-video" [class.is-hidden]="error() !== null" muted playsinline>
+    </video>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+.scanner-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: rgb(0 0 0 / 70%);
+}
+
+.scanner-panel {
+  width: 100%;
+  max-width: 28rem;
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.scanner-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+
+  h2 {
+    margin: 0;
+    font-size: 1.0625rem;
+  }
+}
+
+.scanner-message {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.scanner-error {
+  color: var(--danger);
+}
+
+.scanner-video {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+  background: #000;
+  object-fit: cover;
+
+  &.is-hidden {
+    display: none;
+  }
+}

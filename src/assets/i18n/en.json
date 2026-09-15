@@ -67,6 +67,11 @@
     "coverUrl": "Cover URL",
     "coverUrlPlaceholder": "https://…",
     "isbn": "ISBN",
+    "lookupIsbn": "Look up",
+    "lookingUp": "Looking up…",
+    "scanIsbn": "Scan",
+    "lookupSuccess": "Book details filled in",
+    "lookupNotFound": "We couldn't find that ISBN",
     "synopsis": "Synopsis",
     "synopsisPlaceholder": "What the book is about…",
     "pageCount": "Page count",
@@ -76,6 +81,12 @@
     "save": "Save",
     "cancel": "Cancel",
     "preview": "Cover preview"
+  },
+  "scanner": {
+    "title": "Scan ISBN",
+    "hint": "Point the camera at the barcode on the back cover.",
+    "denied": "Can't access the camera. Check permissions or enter the ISBN by hand.",
+    "unsupported": "This browser doesn't support camera access. Enter the ISBN by hand."
   },
   "status": {
     "WANT_TO_READ": "To read",
