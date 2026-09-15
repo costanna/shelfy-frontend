@@ -13,10 +13,12 @@
 
   <div class="field">
     <label class="visually-hidden" for="filter-status">{{ 'books.filterStatus' | translate }}</label>
-    <select id="filter-status" class="select" [value]="value().status ?? ''" (change)="onStatus($event)">
-      <option value="">{{ 'books.allStatuses' | translate }}</option>
+    <select id="filter-status" class="select" (change)="onStatus($event)">
+      <option value="" [selected]="!value().status">{{ 'books.allStatuses' | translate }}</option>
       @for (status of statuses; track status) {
-        <option [value]="status">{{ 'status.' + status | translate }}</option>
+        <option [value]="status" [selected]="status === value().status">
+          {{ 'status.' + status | translate }}
+        </option>
       }
     </select>
   </div>
@@ -25,15 +27,12 @@
     <label class="visually-hidden" for="filter-category">
       {{ 'books.filterCategory' | translate }}
     </label>
-    <select
-      id="filter-category"
-      class="select"
-      [value]="value().categoryId ?? ''"
-      (change)="onCategory($event)"
-    >
-      <option value="">{{ 'books.allCategories' | translate }}</option>
+    <select id="filter-category" class="select" (change)="onCategory($event)">
+      <option value="" [selected]="!value().categoryId">{{ 'books.allCategories' | translate }}</option>
       @for (category of categories(); track category.id) {
-        <option [value]="category.id">{{ category.name }}</option>
+        <option [value]="category.id" [selected]="category.id === value().categoryId">
+          {{ category.name }}
+        </option>
       }
     </select>
   </div>

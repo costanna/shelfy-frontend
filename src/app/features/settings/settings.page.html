@@ -48,14 +48,11 @@
 <section class="card card-padded settings-section">
   <div class="field">
     <label class="settings-label" for="settings-theme">{{ 'settings.theme' | translate }}</label>
-    <select
-      id="settings-theme"
-      class="select"
-      [value]="theme()"
-      (change)="onThemeChange($event)"
-    >
+    <select id="settings-theme" class="select" (change)="onThemeChange($event)">
       @for (option of themeOptions; track option) {
-        <option [value]="option">{{ 'theme.' + option.toLowerCase() | translate }}</option>
+        <option [value]="option" [selected]="option === theme()">
+          {{ 'theme.' + option.toLowerCase() | translate }}
+        </option>
       }
     </select>
   </div>
@@ -66,14 +63,11 @@
     <label class="settings-label" for="settings-language">
       {{ 'settings.language' | translate }}
     </label>
-    <select
-      id="settings-language"
-      class="select"
-      [value]="language()"
-      (change)="onLanguageChange($event)"
-    >
+    <select id="settings-language" class="select" (change)="onLanguageChange($event)">
       @for (option of languageOptions; track option) {
-        <option [value]="option">{{ languageLabels[option] }}</option>
+        <option [value]="option" [selected]="option === language()">
+          {{ languageLabels[option] }}
+        </option>
       }
     </select>
   </div>
