@@ -33,7 +33,6 @@ export class StatsPage {
     });
   }
 
-  /** "septiembre de 2026", en el idioma activo de la app, sin necesitar datos de locale de Angular. */
   protected monthLabel(entry: MonthlyReadCount): string {
     const date = new Date(entry.year, entry.month - 1, 1);
     const label = new Intl.DateTimeFormat(this.language(), {
@@ -43,7 +42,6 @@ export class StatsPage {
     return label.charAt(0).toUpperCase() + label.slice(1);
   }
 
-  /** Ancho de la barra relativo al mes con más libros, con un mínimo visible. */
   protected barWidth(entry: MonthlyReadCount, months: MonthlyReadCount[]): number {
     const max = Math.max(...months.map((month) => month.count));
     return Math.max(8, Math.round((entry.count / max) * 100));

@@ -21,12 +21,6 @@ interface OpenLibraryWork {
 
 const OPEN_LIBRARY_API = 'https://openlibrary.org';
 
-/**
- * Busca datos de un libro por ISBN en Open Library (API pública, sin clave).
- * Usa `fetch` directamente en vez de HttpClient para no pasar por los
- * interceptores de la app (el de auth añadiría el JWT de Shelfy a una
- * petición a un dominio externo, y probablemente rompería el CORS).
- */
 @Injectable({ providedIn: 'root' })
 export class BookLookupService {
   lookupByIsbn(isbn: string): Observable<BookLookupResult | null> {
@@ -58,12 +52,6 @@ export class BookLookupService {
     );
   }
 
-  /**
-   * La sinopsis no viene en la respuesta anterior: hay que encadenar dos
-   * llamadas más (edición → obra) y ninguna de las dos siempre tiene datos,
-   * así que cualquier fallo se traga en silencio y se deja la sinopsis vacía
-   * en vez de tirar abajo el resto del autorrelleno.
-   */
   private fetchSynopsis(isbn: string): Observable<string | null> {
     return this.fetchJson<OpenLibraryEdition>(`${OPEN_LIBRARY_API}/isbn/${isbn}.json`).pipe(
       switchMap((edition) => {
