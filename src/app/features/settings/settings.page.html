@@ -22,6 +22,30 @@
 }
 
 <section class="card card-padded settings-section">
+  <h2>{{ 'settings.alias' | translate }}</h2>
+  <p class="subtitle">{{ 'settings.aliasHint' | translate }}</p>
+
+  <form [formGroup]="aliasForm" (ngSubmit)="saveAlias()" novalidate>
+    <div class="field">
+      <label class="settings-label" for="settings-alias">{{ 'settings.alias' | translate }}</label>
+      <div class="alias-row">
+        <input
+          id="settings-alias"
+          class="input"
+          type="text"
+          formControlName="alias"
+          [placeholder]="'settings.aliasPlaceholder' | translate"
+        />
+        <button type="submit" class="btn btn-primary" [disabled]="savingAlias()">
+          {{ (savingAlias() ? 'common.loading' : 'settings.aliasSave') | translate }}
+        </button>
+      </div>
+      <app-field-error [control]="aliasForm.controls.alias" [submitted]="aliasSubmitted()" />
+    </div>
+  </form>
+</section>
+
+<section class="card card-padded settings-section">
   <div class="field">
     <label class="settings-label" for="settings-theme">{{ 'settings.theme' | translate }}</label>
     <select

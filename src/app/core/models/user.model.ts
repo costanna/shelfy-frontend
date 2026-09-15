@@ -6,6 +6,7 @@ export interface User {
   id: number;
   email: string;
   name: string;
+  alias: string | null;
   themePreference: ThemePreference;
   languagePreference: Language;
 }

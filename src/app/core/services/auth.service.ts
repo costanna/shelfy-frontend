@@ -80,6 +80,12 @@ export class AuthService {
       .pipe(tap((user) => this.storeUser(user)));
   }
 
+  updateAlias(alias: string): Observable<User> {
+    return this.http
+      .patch<User>(`${this.baseUrl}/users/me/alias`, { alias })
+      .pipe(tap((user) => this.storeUser(user)));
+  }
+
   private storeSession(response: AuthResponse): void {
     localStorage.setItem(TOKEN_KEY, response.token);
     this.storeUser(response.user);

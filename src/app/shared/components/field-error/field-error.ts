@@ -60,5 +60,11 @@ function firstMessage(errors: Record<string, unknown>): ErrorMessage | null {
   if (errors['mismatch']) {
     return { key: 'validation.mismatch', params: {} };
   }
+  if (errors['aliasFormat']) {
+    return { key: 'validation.aliasFormat', params: {} };
+  }
+  if (typeof errors['server'] === 'string') {
+    return { key: errors['server'], params: {} };
+  }
   return { key: 'errors.unexpected', params: {} };
 }

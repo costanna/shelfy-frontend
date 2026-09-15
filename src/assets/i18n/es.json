@@ -162,6 +162,11 @@
     "title": "Ajustes",
     "subtitle": "Tu cuenta, el tema y el idioma.",
     "account": "Cuenta",
+    "alias": "Alias",
+    "aliasHint": "Tu apodo público en Shelfy. Único: nadie más puede tener el mismo.",
+    "aliasPlaceholder": "p_ej_lector_bcn",
+    "aliasSave": "Guardar alias",
+    "aliasSaved": "Alias guardado",
     "theme": "Tema",
     "language": "Idioma",
     "saved": "Preferencias guardadas"
@@ -188,7 +193,8 @@
     "min": "El valor mínimo es {{min}}",
     "url": "Introduce una URL válida",
     "dateRange": "No puede ser anterior a la fecha de inicio",
-    "mismatch": "Las contraseñas no coinciden"
+    "mismatch": "Las contraseñas no coinciden",
+    "aliasFormat": "Solo letras, números y guion bajo, sin espacios"
   },
   "errors": {
     "network": "No se puede conectar con el servidor. Inténtalo de nuevo.",
