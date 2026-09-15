@@ -19,6 +19,28 @@
     </div>
   </div>
 
+  <h2 class="section-title">{{ 'stats.byMonthTitle' | translate }}</h2>
+
+  @if (data.booksByMonth.length === 0) {
+    <app-empty-state icon="📅" [message]="'stats.byMonthEmpty' | translate" />
+  } @else {
+    <ul class="month-list">
+      @for (entry of data.booksByMonth; track entry.year + '-' + entry.month) {
+        <li class="month-row">
+          <span class="month-label">{{ monthLabel(entry) }}</span>
+          <span class="month-bar-track">
+            <span class="month-bar" [style.width.%]="barWidth(entry, data.booksByMonth)"></span>
+          </span>
+          <span class="month-count">
+            {{
+              (entry.count === 1 ? 'stats.bookOne' : 'stats.books') | translate: { count: entry.count }
+            }}
+          </span>
+        </li>
+      }
+    </ul>
+  }
+
   <h2 class="section-title">{{ 'stats.durationsTitle' | translate }}</h2>
 
   @if (data.readingDurations.length === 0) {
@@ -29,7 +51,8 @@
         <li class="duration-row card card-padded">
           <a class="duration-title" [routerLink]="['/books', entry.bookId]">{{ entry.title }}</a>
           <span class="duration-dates">
-            {{ entry.startedAt | date: 'mediumDate' }} — {{ entry.finishedAt | date: 'mediumDate' }}
+            {{ entry.startedAt | date: 'mediumDate' : 'UTC' }} —
+            {{ entry.finishedAt | date: 'mediumDate' : 'UTC' }}
           </span>
           <span class="duration-days">
             {{ (entry.daysReading === 1 ? 'stats.dayOne' : 'stats.days') | translate: { count: entry.daysReading } }}

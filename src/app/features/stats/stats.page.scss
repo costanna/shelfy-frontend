@@ -34,6 +34,57 @@
   font-size: 1.0625rem;
 }
 
+.month-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  list-style: none;
+  max-width: 32rem;
+}
+
+.month-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+
+  @media (max-width: 420px) {
+    grid-template-columns: 1fr auto;
+
+    .month-bar-track {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.month-label {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  text-transform: capitalize;
+}
+
+.month-bar-track {
+  height: 0.5rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface-muted);
+  overflow: hidden;
+}
+
+.month-bar {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--primary);
+}
+
+.month-count {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 .duration-list {
   display: flex;
   flex-direction: column;
