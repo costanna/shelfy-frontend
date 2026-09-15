@@ -19,12 +19,28 @@ export class App {
   private readonly theme = inject(ThemeService);
   private readonly language = inject(LanguageService);
 
+  /**
+   * Solo se aplican tema/idioma del usuario UNA VEZ por sesión (cuando
+   * cambia el id, es decir login/logout), no cada vez que el objeto user
+   * cambia de referencia. Si no, un guardado de preferencias lento (backend
+   * despertando en Render) podía volver a través de este efecto DESPUÉS de
+   * que el usuario ya hubiera elegido otra cosa distinta en Ajustes,
+   * pisando el cambio más reciente con la respuesta más antigua.
+   */
+  private syncedUserId: number | null = null;
+
   constructor() {
     effect(() => {
       const user = this.auth.user();
       if (!user) {
+        this.syncedUserId = null;
         return;
       }
+      if (user.id === this.syncedUserId) {
+        return;
+      }
+
+      this.syncedUserId = user.id;
       this.theme.set(user.themePreference);
       this.language.use(user.languagePreference);
     });
