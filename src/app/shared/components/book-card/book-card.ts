@@ -15,8 +15,6 @@ import { StatusBadge } from '../status-badge/status-badge';
 export class BookCard {
   readonly book = input.required<Book>();
 
-  /** Portadas rellenas por autorrelleno de ISBN a veces enlazan a una imagen
-   * que ya no existe; si falla al cargar, se cae al placeholder de iniciales. */
   protected readonly coverFailed = signal(false);
 
   protected initials(title: string): string {

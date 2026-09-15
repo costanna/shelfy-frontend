@@ -14,11 +14,6 @@ import { BarcodeFormat, DecodeHintType } from '@zxing/library';
 
 type ScannerError = 'denied' | 'unsupported';
 
-/**
- * Overlay a pantalla completa que abre la cámara y decodifica códigos de
- * barras EAN-13 (el formato de los ISBN) con ZXing. Emite el texto
- * decodificado una sola vez y deja de escanear.
- */
 @Component({
   selector: 'app-isbn-scanner',
   imports: [TranslatePipe],
@@ -66,10 +61,6 @@ export class IsbnScanner implements AfterViewInit, OnDestroy {
         },
       );
 
-      // El componente puede haberse destruido (p. ej. el usuario cierra el
-      // escáner) mientras esta promesa seguía pendiente. ngOnDestroy ya no
-      // puede pararla porque `controls` todavía era null en ese momento, así
-      // que la cámara se quedaría encendida de fondo si no se para aquí.
       if (this.destroyed) {
         controls.stop();
         return;

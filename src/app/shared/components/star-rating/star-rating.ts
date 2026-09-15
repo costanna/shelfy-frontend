@@ -6,7 +6,6 @@ const MIN_RATING = 0.5;
 const MAX_RATING = 5;
 const STEP = 0.5;
 
-/** Redondea al múltiplo de 0.5 más cercano, dentro de [MIN_RATING, MAX_RATING]. */
 function clampToStep(value: number): number {
   const rounded = Math.round(value / STEP) * STEP;
   return Math.min(MAX_RATING, Math.max(MIN_RATING, rounded));
@@ -27,15 +26,12 @@ export class StarRating {
 
   protected readonly stars = STARS;
 
-  /** Valor bajo el cursor mientras se pasa por encima (solo en modo editable). */
   private readonly hoverValue = signal<number | null>(null);
 
-  /** Lo que se pinta ahora mismo: la preview del hover si la hay, si no el valor real. */
   protected readonly displayValue = computed(() => this.hoverValue() ?? this.rating());
 
   protected readonly label = computed(() => ({ rating: this.displayValue() }));
 
-  /** Porcentaje de relleno (0/50/100) de la estrella en esa posición. */
   protected fillPercent(star: number): number {
     const filled = this.displayValue() - (star - 1);
     return Math.round(Math.min(1, Math.max(0, filled)) * 100);
@@ -59,7 +55,6 @@ export class StarRating {
     this.ratingChange.emit(this.valueFromEvent(star, event));
   }
 
-  /** Mitad izquierda del glifo = X.5, mitad derecha = X.0. */
   private valueFromEvent(star: number, event: MouseEvent): number {
     const target = event.currentTarget as HTMLElement;
     const { left, width } = target.getBoundingClientRect();

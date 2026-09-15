@@ -211,7 +211,6 @@ export class BookFormPage {
   }
 }
 
-/** Marca finishedAt como inválido si es anterior a startedAt (ambas opcionales). */
 function dateRangeValidator(group: AbstractControl): ValidationErrors | null {
   const startedAt = group.get('startedAt')?.value as string;
   const finishedAt = group.get('finishedAt')?.value as string;
