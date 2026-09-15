@@ -8,6 +8,7 @@
     "categories": "Categories",
     "settings": "Settings",
     "stats": "Stats",
+    "people": "People",
     "addBook": "Add book",
     "logout": "Log out",
     "menu": "Menu",
@@ -184,6 +185,25 @@
     "durationsEmpty": "No books with both a start and finish date yet.",
     "dayOne": "1 day",
     "days": "{{count}} days"
+  },
+  "people": {
+    "title": "People",
+    "subtitle": "Search other Shelfy users and follow their library.",
+    "searchPlaceholder": "Search by alias",
+    "searchHint": "Type an alias to search for users.",
+    "empty": "We couldn't find anyone with that alias.",
+    "follow": "Follow",
+    "unfollow": "Unfollow",
+    "followed": "You're now following this user",
+    "unfollowed": "You've unfollowed this user",
+    "followerOne": "1 follower",
+    "followers": "{{count}} followers",
+    "followingOne": "Following 1",
+    "followingCount": "Following {{count}}",
+    "backToSearch": "Back to search",
+    "private": "Private library",
+    "privateHint": "Follow this user to see their library and reviews.",
+    "booksEmpty": "They don't have any books in their library yet."
   },
   "validation": {
     "required": "This field is required",

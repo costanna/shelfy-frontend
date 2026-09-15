@@ -18,9 +18,11 @@
 
 ## 📖 Qué es
 
-Shelfy es una aplicación fullstack de biblioteca personal, pensada como herramienta individual de
-seguimiento de lectura (no una red social de lectores): cada usuario gestiona sus propios libros,
-categorías y reseñas, en su propio idioma y con el tema que prefiera.
+Shelfy es una aplicación fullstack de biblioteca personal: cada usuario gestiona sus propios libros,
+categorías y reseñas, en su propio idioma y con el tema que prefiera. También tiene una capa social
+opcional — buscar a otros usuarios por alias y seguirlos para ver su biblioteca y sus reseñas —,
+pensada como un vistazo tipo Goodreads sin perder el control de quién ve qué: sin seguidor, nada es
+visible.
 
 Este repositorio es el **frontend** (Angular). El backend (API REST en Spring Boot) vive en
 [**shelfy-backend**](https://github.com/costanna/shelfy-backend).
@@ -37,7 +39,8 @@ cualquiera que abra este README.
 - **Gestión de libros**: título, autor, portada, sinopsis, páginas — añadir, editar, eliminar.
 - **Estados de lectura**: *quiero leer*, *leyendo*, *leído*, *quiero comprar*, con filtros por estado, por categoría y por texto libre.
 - **Categorías propias**: cada usuario crea las suyas (p. ej. "fantasía", "pendientes de Sant Jordi") y las asigna libremente.
-- **Reseñas privadas**: puntuación de 0.5 a 5 estrellas (con medias) y texto de opinión por libro, visibles solo para su autor.
+- **Reseñas**: puntuación de 0.5 a 5 estrellas (con medias) y texto de opinión por libro, visibles para su autor y para quien le siga.
+- **Buscar y seguir a otros usuarios** por alias: seguir a alguien revela toda su biblioteca y sus reseñas (o nada, si no le sigues) — ver [`/people`](src/app/features/people).
 - **Añadir un libro escaneando su ISBN** con la cámara del móvil, o buscándolo a mano: título, autor, páginas, portada y sinopsis se rellenan solos (API pública de Open Library).
 - **Estadísticas de lectura**: cuántos libros llevas leídos, cuántos terminaste cada mes y cuántos días te costó cada uno, entre la fecha de inicio y la de fin que le pongas al libro.
 - **Modo claro / oscuro / según el sistema**, con la preferencia guardada en la cuenta (te sigue entre dispositivos).
@@ -60,6 +63,7 @@ Algunas decisiones concretas, por si son de interés:
 - **Angular Signals** de punta a punta para el estado de los servicios (`AuthService`, `ThemeService`, `LanguageService`...), sin librerías externas de estado.
 - **Integración con una API externa sin librería de terceros**: `BookLookupService` llama a Open Library con `fetch` directamente (no `HttpClient`), para no arrastrar el interceptor que añade el JWT de la app a toda petición saliente.
 - **Nombres de mes en el idioma activo sin datos de locale de Angular**: la sección "libros por mes" de Estadísticas usa `Intl.DateTimeFormat` directamente con el idioma de `LanguageService`, en vez de registrar `LOCALE_ID`/`registerLocaleData` solo para eso.
+- **Visibilidad social sin duplicar datos**: no hay una copia "pública" de libros o reseñas — el backend calcula al vuelo si el visitante puede verlos (`propio || le sigue`) y el frontend simplemente pinta lo que reciba (biblioteca completa o página bloqueada).
 
 ## 🚀 Arrancar en local
 
@@ -99,6 +103,7 @@ src/app/
     ├── auth/       login y registro
     ├── books/      listado, detalle, formulario y reseñas
     ├── categories/ gestión de categorías propias
+    ├── people/     buscar usuarios, perfil público y seguir
     └── settings/   ajustes de cuenta, tema e idioma
 ```
 

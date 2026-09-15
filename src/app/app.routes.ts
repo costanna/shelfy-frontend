@@ -75,6 +75,26 @@ export const routes: Routes = [
     loadComponent: () => import('./features/stats/stats.page').then((m) => m.StatsPage),
   },
   {
+    path: 'people',
+    canActivate: [authGuard],
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./features/people/people-search/people-search.page').then(
+            (m) => m.PeopleSearchPage,
+          ),
+      },
+      {
+        path: ':id',
+        loadComponent: () =>
+          import('./features/people/people-profile/people-profile.page').then(
+            (m) => m.PeopleProfilePage,
+          ),
+      },
+    ],
+  },
+  {
     path: 'settings',
     canActivate: [authGuard],
     loadComponent: () =>

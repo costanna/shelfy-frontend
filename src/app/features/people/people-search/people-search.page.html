@@ -1,0 +1,59 @@
+<div class="page-header">
+  <div>
+    <h1>{{ 'people.title' | translate }}</h1>
+    <p class="subtitle">{{ 'people.subtitle' | translate }}</p>
+  </div>
+</div>
+
+<div class="field search-field">
+  <label class="visually-hidden" for="people-search">{{ 'people.searchPlaceholder' | translate }}</label>
+  <input
+    id="people-search"
+    class="input"
+    type="search"
+    [placeholder]="'people.searchPlaceholder' | translate"
+    [value]="query()"
+    (input)="onSearch($event)"
+  />
+</div>
+
+@if (loading()) {
+  <app-spinner />
+} @else if (!searched()) {
+  <app-empty-state icon="🔍" [message]="'people.searchHint' | translate" />
+} @else if (users().length === 0) {
+  <app-empty-state [message]="'people.empty' | translate" />
+} @else {
+  <ul class="people-list">
+    @for (user of users(); track user.id) {
+      <li class="person card card-padded">
+        <a class="person-link" [routerLink]="['/people', user.id]">
+          <span class="avatar" aria-hidden="true">{{ initials(user.name) }}</span>
+          <span class="person-info">
+            <span class="name">{{ user.name }}</span>
+            @if (user.alias) {
+              <span class="alias">&#64;{{ user.alias }}</span>
+            }
+            <span class="followers">
+              {{
+                (user.followersCount === 1 ? 'people.followerOne' : 'people.followers')
+                  | translate: { count: user.followersCount }
+              }}
+            </span>
+          </span>
+        </a>
+
+        <button
+          type="button"
+          class="btn"
+          [class.btn-primary]="!user.followedByMe"
+          [class.btn-secondary]="user.followedByMe"
+          [disabled]="togglingId() === user.id"
+          (click)="toggleFollow(user)"
+        >
+          {{ (user.followedByMe ? 'people.unfollow' : 'people.follow') | translate }}
+        </button>
+      </li>
+    }
+  </ul>
+}
