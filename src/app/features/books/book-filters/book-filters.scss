@@ -7,7 +7,6 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
 
-  // Móvil: una columna. A partir de tablet, buscador ancho y filtros al lado.
   grid-template-columns: 1fr;
 
   @media (min-width: 640px) {

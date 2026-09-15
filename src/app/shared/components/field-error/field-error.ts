@@ -7,10 +7,6 @@ interface ErrorMessage {
   params: Record<string, unknown>;
 }
 
-/**
- * Muestra el primer error de un control, ya traducido, cuando la persona
- * ya ha interactuado con el campo.
- */
 @Component({
   selector: 'app-field-error',
   imports: [TranslatePipe],
@@ -24,7 +20,6 @@ interface ErrorMessage {
 export class FieldError {
   readonly control = input.required<AbstractControl | null>();
 
-  /** Cambia a true al enviar, para revelar errores de campos no tocados. */
   readonly submitted = input(false);
 
   protected readonly message = computed<ErrorMessage | null>(() => {

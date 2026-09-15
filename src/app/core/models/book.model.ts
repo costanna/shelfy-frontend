@@ -29,7 +29,6 @@ export interface BookRequest {
   categoryIds: number[];
 }
 
-/** Filtros de GET /api/books. */
 export interface BookFilters {
   status?: BookStatus | null;
   categoryId?: number | null;

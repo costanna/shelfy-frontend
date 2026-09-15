@@ -20,7 +20,6 @@ export class LanguageService {
 
   readonly language = this.current.asReadonly();
 
-  /** Se llama una vez al arrancar la app, desde app.config.ts. */
   init(): void {
     this.translate.addLangs([...SUPPORTED_LANGUAGES]);
     this.translate.setFallbackLang('es');

@@ -20,7 +20,6 @@ export class Header {
 
   protected readonly isLoggedIn = this.auth.isLoggedIn;
 
-  /** Estado del menú desplegable en pantallas estrechas. */
   protected readonly menuOpen = signal(false);
 
   protected toggleMenu(): void {

@@ -10,7 +10,6 @@ export interface BookFilterValue {
   q: string;
 }
 
-/** Barra de filtros del listado. No guarda estado: lo emite al padre. */
 @Component({
   selector: 'app-book-filters',
   imports: [TranslatePipe],

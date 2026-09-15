@@ -6,7 +6,6 @@ import { Review, ReviewRequest } from '../../../../core/models/review.model';
 import { FieldError } from '../../../../shared/components/field-error/field-error';
 import { StarRating } from '../../../../shared/components/star-rating/star-rating';
 
-/** Formulario de reseña, tanto para crear como para editar. */
 @Component({
   selector: 'app-review-form',
   imports: [ReactiveFormsModule, TranslatePipe, StarRating, FieldError],
@@ -17,7 +16,6 @@ import { StarRating } from '../../../../shared/components/star-rating/star-ratin
 export class ReviewForm {
   private readonly formBuilder = inject(FormBuilder);
 
-  /** Reseña a editar, o null para crear una nueva. */
   readonly review = input<Review | null>(null);
   readonly saving = input(false);
 
@@ -30,7 +28,6 @@ export class ReviewForm {
   });
 
   constructor() {
-    // Rellena el formulario cuando se pasa una reseña existente.
     effect(() => {
       const current = this.review();
       this.form.reset({

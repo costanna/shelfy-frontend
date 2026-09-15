@@ -3,7 +3,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { ToastService } from '../../../core/services/toast.service';
 
-/** Avisos flotantes. Se monta una sola vez, en el shell de la app. */
 @Component({
   selector: 'app-toast-host',
   imports: [TranslatePipe],

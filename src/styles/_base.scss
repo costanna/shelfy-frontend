@@ -1,5 +1,3 @@
-/* Reset ligero y estilos base compartidos por toda la app. */
-
 *,
 *::before,
 *::after {
@@ -64,7 +62,6 @@ img {
   display: block;
 }
 
-/* Foco visible y coherente en toda la app. */
 :focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
@@ -80,8 +77,6 @@ img {
     transition-duration: 0.01ms !important;
   }
 }
-
-/* ---------- Utilidades de layout ---------- */
 
 .container {
   width: 100%;
@@ -104,7 +99,6 @@ img {
   gap: var(--space-4);
 }
 
-/* Visible solo para lectores de pantalla. */
 .visually-hidden {
   position: absolute;
   width: 1px;

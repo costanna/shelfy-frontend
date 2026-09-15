@@ -4,7 +4,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { ThemeService } from '../../../core/services/theme.service';
 
-/** Alterna claro/oscuro y, si hay sesión, guarda la preferencia en el servidor. */
 @Component({
   selector: 'app-theme-toggle',
   imports: [TranslatePipe],
@@ -33,7 +32,6 @@ export class ThemeToggle {
 
     if (this.auth.isLoggedIn()) {
       this.auth.savePreferences({ themePreference: next }).subscribe({
-        // Si falla, el tema sigue aplicado en local: no merece interrumpir a nadie.
         error: () => undefined,
       });
     }

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
-/** Paginación simple: anterior / siguiente con indicador de posición. */
 @Component({
   selector: 'app-pagination',
   imports: [TranslatePipe],
