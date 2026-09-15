@@ -52,6 +52,10 @@
       <button type="submit" class="btn btn-primary btn-block" [disabled]="submitting()">
         {{ (submitting() ? 'common.loading' : 'auth.register') | translate }}
       </button>
+
+      @if (slowStart()) {
+        <p class="auth-hint">{{ 'auth.slowStart' | translate }}</p>
+      }
     </form>
 
     <p class="auth-footer">

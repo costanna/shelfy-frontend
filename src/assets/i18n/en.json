@@ -28,7 +28,8 @@
     "hasAccount": "Already have an account?",
     "goToRegister": "Sign up",
     "goToLogin": "Sign in",
-    "loggedOut": "Signed out"
+    "loggedOut": "Signed out",
+    "slowStart": "The server can take up to a minute to wake up if it's been idle. One moment…"
   },
   "books": {
     "title": "My books",
