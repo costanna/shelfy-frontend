@@ -99,3 +99,17 @@ Este repo incluye [`render.yaml`](./render.yaml). En el dashboard: **New → Blu
 
 Al ser contenido estático, el frontend no "duerme" como el backend en el plan Free — solo el
 Web Service del backend lo hace.
+
+---
+
+## Desplegar en Vercel
+
+Vercel solo vale para este repo (frontend estático) — el backend Spring Boot sigue necesitando
+Render (u otro hosting con servicio persistente), Vercel no lo soporta.
+
+Este repo incluye [`vercel.json`](./vercel.json) con el build command, el directorio de salida y
+el *rewrite* de SPA ya configurados. En el dashboard de Vercel: **Add New → Project** → importa
+`shelfy-frontend` y despliega; no hace falta tocar nada más.
+
+Igual que con Render: antes de desplegar, actualiza `apiUrl` en `environment.prod.ts` con la URL
+del backend, y añade la URL que te dé Vercel a `CORS_ALLOWED_ORIGINS` en el backend.
