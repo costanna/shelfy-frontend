@@ -57,5 +57,8 @@ function firstMessage(errors: Record<string, unknown>): ErrorMessage | null {
   if (errors['dateRange']) {
     return { key: 'validation.dateRange', params: {} };
   }
+  if (errors['mismatch']) {
+    return { key: 'validation.mismatch', params: {} };
+  }
   return { key: 'errors.unexpected', params: {} };
 }

@@ -29,7 +29,31 @@
     "goToRegister": "Registra't",
     "goToLogin": "Entra",
     "loggedOut": "Sessió tancada",
-    "slowStart": "El servidor pot trigar fins a un minut a despertar si feia estona que no s'usava. Un moment…"
+    "slowStart": "El servidor pot trigar fins a un minut a despertar si feia estona que no s'usava. Un moment…",
+    "checkEmailTitle": "Revisa el teu correu",
+    "checkEmailSubtitle": "T'hem enviat un enllaç de verificació a {{email}}. Obre'l per activar el teu compte.",
+    "forgotPassword": "Has oblidat la contrasenya?",
+    "resendVerification": "Reenvia l'email de verificació",
+    "resendSent": "Email reenviat. Revisa la teva safata d'entrada.",
+    "forgotTitle": "Recupera la teva contrasenya",
+    "forgotSubtitle": "Escriu el teu email i t'enviem un enllaç per triar-ne una de nova.",
+    "forgotSubmit": "Envia l'enllaç",
+    "forgotSentTitle": "Revisa el teu correu",
+    "forgotSentSubtitle": "Si aquest compte existeix, t'hem enviat un enllaç per restablir la contrasenya. Caduca en 1 hora.",
+    "verifyingTitle": "Verificant el teu compte…",
+    "verifySuccessTitle": "Compte verificat!",
+    "verifySuccessSubtitle": "T'hem iniciat la sessió. Entrant a la teva biblioteca…",
+    "verifyErrorTitle": "No hem pogut verificar el teu compte",
+    "verifyMissingToken": "Falta l'enllaç de verificació. Obre'l des de l'email que et vam enviar.",
+    "resetTitle": "Tria una nova contrasenya",
+    "resetSubtitle": "Ha de tenir entre 8 i 72 caràcters.",
+    "newPassword": "Nova contrasenya",
+    "confirmPassword": "Repeteix la contrasenya",
+    "resetSubmit": "Canvia la contrasenya",
+    "resetDoneTitle": "Contrasenya actualitzada",
+    "resetDoneSubtitle": "Ja pots iniciar sessió amb la teva nova contrasenya.",
+    "resetInvalidTitle": "Enllaç no vàlid",
+    "resetInvalidSubtitle": "Aquest enllaç per restablir la contrasenya no és vàlid o ha caducat."
   },
   "books": {
     "title": "Els meus llibres",
@@ -163,7 +187,8 @@
     "maxlength": "No pot superar els {{max}} caràcters",
     "min": "El valor mínim és {{min}}",
     "url": "Introdueix una URL vàlida",
-    "dateRange": "No pot ser anterior a la data d'inici"
+    "dateRange": "No pot ser anterior a la data d'inici",
+    "mismatch": "Les contrasenyes no coincideixen"
   },
   "errors": {
     "network": "No es pot connectar amb el servidor. Torna-ho a provar.",

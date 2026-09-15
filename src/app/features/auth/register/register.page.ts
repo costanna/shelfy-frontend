@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { AuthService } from '../../../core/services/auth.service';
@@ -17,7 +17,6 @@ import { FieldError } from '../../../shared/components/field-error/field-error';
 export class RegisterPage {
   private readonly formBuilder = inject(FormBuilder);
   private readonly auth = inject(AuthService);
-  private readonly router = inject(Router);
 
   protected readonly form = this.formBuilder.nonNullable.group({
     name: ['', [Validators.required, Validators.maxLength(80)]],
@@ -30,6 +29,9 @@ export class RegisterPage {
   protected readonly serverError = signal<string | null>(null);
   protected readonly slowStart = signal(false);
 
+  /** Email al que se acaba de mandar la verificación, una vez el registro sale bien. */
+  protected readonly registeredEmail = signal<string | null>(null);
+
   protected submit(): void {
     this.submitted.set(true);
     this.serverError.set(null);
@@ -41,11 +43,13 @@ export class RegisterPage {
     this.slowStart.set(false);
 
     const warmupTimer = setTimeout(() => this.slowStart.set(true), 4000);
+    const email = this.form.controls.email.value;
 
     this.auth.register(this.form.getRawValue()).subscribe({
       next: () => {
         clearTimeout(warmupTimer);
-        void this.router.navigate(['/books']);
+        this.submitting.set(false);
+        this.registeredEmail.set(email);
       },
       error: (error: HttpErrorResponse) => {
         clearTimeout(warmupTimer);
