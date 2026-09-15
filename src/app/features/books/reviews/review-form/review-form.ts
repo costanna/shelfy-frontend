@@ -23,7 +23,7 @@ export class ReviewForm {
   readonly cancel = output<void>();
 
   protected readonly form = this.formBuilder.nonNullable.group({
-    rating: [5, [Validators.required, Validators.min(1)]],
+    rating: [5, [Validators.required, Validators.min(0.5)]],
     text: ['', [Validators.maxLength(5000)]],
   });
 
