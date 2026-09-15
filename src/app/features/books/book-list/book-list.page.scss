@@ -4,10 +4,6 @@
   font-size: 0.875rem;
 }
 
-/**
- * Cuadrícula fluida: el propio navegador decide cuántas columnas caben,
- * desde 2 en móvil hasta 6 en pantallas grandes.
- */
 .book-grid {
   display: grid;
   gap: var(--space-4);

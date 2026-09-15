@@ -22,14 +22,12 @@ export class BookDetailPage {
   private readonly toast = inject(ToastService);
   private readonly translate = inject(TranslateService);
 
-  /** Llega de la ruta :id gracias a withComponentInputBinding(). */
   readonly id = input.required<string>();
 
   protected readonly book = signal<Book | null>(null);
   protected readonly loading = signal(true);
 
   constructor() {
-    // Recarga si se navega de un libro a otro sin salir de la pantalla.
     effect(() => this.load(Number(this.id())));
   }
 

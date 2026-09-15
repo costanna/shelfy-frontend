@@ -5,7 +5,6 @@ export type ToastKind = 'success' | 'error';
 export interface Toast {
   id: number;
   kind: ToastKind;
-  /** Clave de traducción o, si no existe, texto literal. */
   message: string;
 }
 

@@ -1,14 +1,7 @@
-/**
- * Paleta y escalas de la app como CSS custom properties.
- * El tema se cambia con el atributo data-theme en <html> (ver ThemeService).
- */
-
 :root {
-  // Tipografía
   --font-sans: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
   --font-serif: Georgia, 'Times New Roman', serif;
 
-  // Escala de espaciado
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -17,7 +10,6 @@
   --space-6: 2rem;
   --space-7: 3rem;
 
-  // Radios y sombras
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
@@ -27,14 +19,12 @@
   --shadow-md: 0 4px 14px rgb(0 0 0 / 8%);
   --shadow-lg: 0 12px 32px rgb(0 0 0 / 14%);
 
-  // Medidas de layout
   --container: 1120px;
   --header-height: 60px;
 
   --transition: 160ms ease;
 }
 
-/* ---------- Tema claro (por defecto) ---------- */
 :root,
 :root[data-theme='light'] {
   --bg: #faf7f2;
@@ -61,7 +51,6 @@
   --star: #d99a12;
   --overlay: rgb(43 37 32 / 45%);
 
-  // Estados de lectura
   --status-want-to-read: #2f6fb5;
   --status-want-to-read-soft: #e8f0f9;
   --status-reading: #b5720f;
@@ -72,7 +61,6 @@
   --status-want-to-buy-soft: #f9eaf4;
 }
 
-/* ---------- Tema oscuro ---------- */
 :root[data-theme='dark'] {
   --bg: #151219;
   --bg-elevated: #1d1a24;

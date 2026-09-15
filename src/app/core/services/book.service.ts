@@ -32,7 +32,6 @@ export class BookService {
   }
 }
 
-/** Omite los filtros vacíos para no mandar parámetros en blanco al backend. */
 function buildParams(filters: BookFilters): HttpParams {
   let params = new HttpParams();
 

@@ -5,17 +5,12 @@ import { catchError, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { ToastService } from '../services/toast.service';
 
-/**
- * Traduce los errores de la API a un aviso legible y cierra la sesión
- * cuando el token deja de ser válido.
- */
 export const errorInterceptor: HttpInterceptorFn = (request, next) => {
   const toast = inject(ToastService);
   const auth = inject(AuthService);
 
   return next(request).pipe(
     catchError((error: HttpErrorResponse) => {
-      // En login y registro el propio formulario muestra el error.
       const handledByForm = request.url.includes('/auth/');
 
       if (error.status === 401 && !handledByForm) {

@@ -3,7 +3,6 @@ import { inject } from '@angular/core';
 
 import { AuthService } from '../services/auth.service';
 
-/** Añade el token JWT a todas las peticiones salvo las de login/registro. */
 export const authInterceptor: HttpInterceptorFn = (request, next) => {
   const token = inject(AuthService).getToken();
 

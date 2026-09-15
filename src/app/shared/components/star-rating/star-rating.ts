@@ -3,10 +3,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 const STARS = [1, 2, 3, 4, 5] as const;
 
-/**
- * Muestra una puntuación de 1 a 5. Con [editable]="true" permite elegirla
- * con el ratón o con el teclado (flechas y números).
- */
 @Component({
   selector: 'app-star-rating',
   imports: [TranslatePipe],

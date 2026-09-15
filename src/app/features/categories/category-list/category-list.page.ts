@@ -26,7 +26,6 @@ export class CategoryListPage {
   protected readonly loading = signal(true);
   protected readonly saving = signal(false);
 
-  /** Id de la categoría que se está renombrando, o null. */
   protected readonly editingId = signal<number | null>(null);
 
   protected readonly createForm = this.formBuilder.nonNullable.group({

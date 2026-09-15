@@ -43,10 +43,6 @@ export class BookListPage {
     { initialValue: [] },
   );
 
-  /**
-   * Cada cambio de filtros dispara una búsqueda. switchMap cancela la anterior,
-   * así que al escribir deprisa solo cuenta la última respuesta.
-   */
   protected readonly result = toSignal(
     this.queries.pipe(
       debounceTime(SEARCH_DEBOUNCE_MS),
@@ -88,7 +84,6 @@ export class BookListPage {
     this.queries.next(query);
   }
 
-  /** Mantiene los filtros en la URL para poder compartirla o recargar sin perderlos. */
   private syncUrl(query: Query): void {
     void this.router.navigate([], {
       queryParams: {
