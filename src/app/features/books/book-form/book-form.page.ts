@@ -26,7 +26,6 @@ export class BookFormPage {
   private readonly router = inject(Router);
   private readonly toast = inject(ToastService);
 
-  /** Presente solo en la ruta de edición (/books/:id/edit). */
   readonly id = input<string | undefined>(undefined);
 
   protected readonly statuses = BOOK_STATUSES;
@@ -36,7 +35,6 @@ export class BookFormPage {
   protected readonly saving = signal(false);
   protected readonly submitted = signal(false);
 
-  /** Ids de las categorías marcadas. */
   protected readonly selectedCategories = signal<ReadonlySet<number>>(new Set());
 
   protected readonly categories = toSignal(
@@ -54,7 +52,6 @@ export class BookFormPage {
     status: [BOOK_STATUSES[0] as (typeof BOOK_STATUSES)[number], [Validators.required]],
   });
 
-  /** Vista previa de la portada mientras se escribe la URL. */
   protected readonly coverPreview = toSignal(this.form.controls.coverUrl.valueChanges, {
     initialValue: '',
   });

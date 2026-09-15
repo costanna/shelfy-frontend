@@ -33,8 +33,6 @@
   font-size: 1.25rem;
 }
 
-/* ---------- Navegación ---------- */
-
 .nav {
   display: flex;
   align-items: center;
@@ -71,8 +69,6 @@
   display: none;
   font-size: 1.125rem;
 }
-
-/* ---------- Móvil: el menú se despliega bajo la cabecera ---------- */
 
 @media (max-width: 720px) {
   .menu-button {

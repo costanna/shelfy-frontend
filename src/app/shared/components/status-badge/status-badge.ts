@@ -3,7 +3,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { BookStatus } from '../../../core/models/book.model';
 
-/** Distintivo de color según el estado de lectura del libro. */
 @Component({
   selector: 'app-status-badge',
   imports: [TranslatePipe],

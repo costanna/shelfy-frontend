@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 
 import { authGuard, guestGuard } from './core/guards/auth.guard';
 
-/** Cada pantalla se carga bajo demanda para no inflar el bundle inicial. */
 export const routes: Routes = [
   {
     path: 'login',

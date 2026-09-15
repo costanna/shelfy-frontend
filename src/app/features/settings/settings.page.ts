@@ -13,7 +13,6 @@ import { ToastService } from '../../core/services/toast.service';
 
 const THEME_OPTIONS: readonly ThemePreference[] = ['LIGHT', 'DARK', 'SYSTEM'];
 
-/** Pantalla de "Ajustes de usuario": cuenta, tema e idioma, guardados en la cuenta. */
 @Component({
   selector: 'app-settings-page',
   imports: [TranslatePipe],
@@ -53,7 +52,6 @@ export class SettingsPage {
   }): void {
     this.auth.savePreferences(preferences).subscribe({
       next: () => this.toast.success('settings.saved'),
-      // Si falla, el cambio sigue aplicado en local: no merece interrumpir a nadie.
       error: () => undefined,
     });
   }

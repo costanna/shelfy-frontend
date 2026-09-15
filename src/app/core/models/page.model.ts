@@ -1,4 +1,3 @@
-/** Espejo de PageResponse<T> del backend. */
 export interface Page<T> {
   content: T[];
   page: number;

@@ -20,7 +20,6 @@ export class App {
   private readonly language = inject(LanguageService);
 
   constructor() {
-    // Al iniciar sesión, adopta el tema y el idioma guardados en la cuenta.
     effect(() => {
       const user = this.auth.user();
       if (!user) {

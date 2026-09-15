@@ -50,7 +50,6 @@ export class AuthService {
     return localStorage.getItem(TOKEN_KEY);
   }
 
-  /** Guarda las preferencias en el servidor y refresca el usuario en memoria. */
   savePreferences(preferences: {
     themePreference?: ThemePreference;
     languagePreference?: Language;

@@ -35,7 +35,6 @@ export const appConfig: ApplicationConfig = {
       }),
     }),
 
-    // Deja tema e idioma aplicados antes del primer render.
     provideAppInitializer(() => {
       inject(ThemeService);
       inject(LanguageService).init();

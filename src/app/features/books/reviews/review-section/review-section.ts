@@ -8,7 +8,6 @@ import { ToastService } from '../../../../core/services/toast.service';
 import { StarRating } from '../../../../shared/components/star-rating/star-rating';
 import { ReviewForm } from '../review-form/review-form';
 
-/** Lista las reseñas de un libro y gestiona su alta, edición y borrado. */
 @Component({
   selector: 'app-review-section',
   imports: [DatePipe, TranslatePipe, StarRating, ReviewForm],
@@ -26,7 +25,6 @@ export class ReviewSection {
   protected readonly reviews = signal<Review[]>([]);
   protected readonly saving = signal(false);
 
-  /** null = formulario cerrado; undefined = creando; Review = editando esa reseña. */
   protected readonly editing = signal<Review | null | undefined>(null);
 
   constructor() {
