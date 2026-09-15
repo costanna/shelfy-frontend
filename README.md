@@ -37,7 +37,8 @@ cualquiera que abra este README.
 - **Gestión de libros**: título, autor, portada, sinopsis, páginas — añadir, editar, eliminar.
 - **Estados de lectura**: *quiero leer*, *leyendo*, *leído*, *quiero comprar*, con filtros por estado, por categoría y por texto libre.
 - **Categorías propias**: cada usuario crea las suyas (p. ej. "fantasía", "pendientes de Sant Jordi") y las asigna libremente.
-- **Reseñas privadas**: puntuación de 1 a 5 y texto de opinión por libro, visibles solo para su autor.
+- **Reseñas privadas**: puntuación de 0.5 a 5 estrellas (con medias) y texto de opinión por libro, visibles solo para su autor.
+- **Añadir un libro escaneando su ISBN** con la cámara del móvil, o buscándolo a mano: título, autor, páginas, portada y sinopsis se rellenan solos (API pública de Open Library).
 - **Modo claro / oscuro / según el sistema**, con la preferencia guardada en la cuenta (te sigue entre dispositivos).
 - **Español, catalán e inglés**, cambiables al vuelo, sin recargar la página.
 
@@ -56,6 +57,7 @@ Algunas decisiones concretas, por si son de interés:
 - **Aislamiento por usuario en el backend**: pedir un recurso de otra cuenta devuelve `404`, no `403`, para no filtrar que ese recurso existe.
 - **Tema e idioma con doble persistencia**: se aplican al instante desde `localStorage` (antes del primer render) y se sincronizan con la cuenta vía `PATCH /api/users/me/preferences` si hay sesión iniciada.
 - **Angular Signals** de punta a punta para el estado de los servicios (`AuthService`, `ThemeService`, `LanguageService`...), sin librerías externas de estado.
+- **Integración con una API externa sin librería de terceros**: `BookLookupService` llama a Open Library con `fetch` directamente (no `HttpClient`), para no arrastrar el interceptor que añade el JWT de la app a toda petición saliente.
 
 ## 🚀 Arrancar en local
 
