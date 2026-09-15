@@ -1,0 +1,41 @@
+<div class="page-header">
+  <div>
+    <h1>{{ 'stats.title' | translate }}</h1>
+    <p class="subtitle">{{ 'stats.subtitle' | translate }}</p>
+  </div>
+</div>
+
+@if (loading()) {
+  <app-spinner />
+} @else if (stats(); as data) {
+  <div class="stat-tiles">
+    <div class="card card-padded stat-tile">
+      <span class="stat-value">{{ data.totalBooksRead }}</span>
+      <span class="stat-label">{{ 'stats.totalRead' | translate }}</span>
+    </div>
+    <div class="card card-padded stat-tile">
+      <span class="stat-value">{{ data.totalBooks }}</span>
+      <span class="stat-label">{{ 'stats.totalBooks' | translate }}</span>
+    </div>
+  </div>
+
+  <h2 class="section-title">{{ 'stats.durationsTitle' | translate }}</h2>
+
+  @if (data.readingDurations.length === 0) {
+    <app-empty-state icon="🗓️" [message]="'stats.durationsEmpty' | translate" />
+  } @else {
+    <ul class="duration-list">
+      @for (entry of data.readingDurations; track entry.bookId) {
+        <li class="duration-row card card-padded">
+          <a class="duration-title" [routerLink]="['/books', entry.bookId]">{{ entry.title }}</a>
+          <span class="duration-dates">
+            {{ entry.startedAt | date: 'mediumDate' }} — {{ entry.finishedAt | date: 'mediumDate' }}
+          </span>
+          <span class="duration-days">
+            {{ (entry.daysReading === 1 ? 'stats.dayOne' : 'stats.days') | translate: { count: entry.daysReading } }}
+          </span>
+        </li>
+      }
+    </ul>
+  }
+}

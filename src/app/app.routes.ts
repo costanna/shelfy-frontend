@@ -49,6 +49,11 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'stats',
+    canActivate: [authGuard],
+    loadComponent: () => import('./features/stats/stats.page').then((m) => m.StatsPage),
+  },
+  {
     path: 'settings',
     canActivate: [authGuard],
     loadComponent: () =>

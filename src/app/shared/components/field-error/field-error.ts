@@ -54,5 +54,8 @@ function firstMessage(errors: Record<string, unknown>): ErrorMessage | null {
   if (errors['pattern']) {
     return { key: 'validation.url', params: {} };
   }
+  if (errors['dateRange']) {
+    return { key: 'validation.dateRange', params: {} };
+  }
   return { key: 'errors.unexpected', params: {} };
 }
