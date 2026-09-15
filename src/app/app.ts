@@ -1,0 +1,33 @@
+import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+import { AuthService } from './core/services/auth.service';
+import { LanguageService } from './core/services/language.service';
+import { ThemeService } from './core/services/theme.service';
+import { Header } from './layout/header/header';
+import { ToastHost } from './shared/components/toast-host/toast-host';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, Header, ToastHost],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './app.html',
+  styleUrl: './app.scss',
+})
+export class App {
+  private readonly auth = inject(AuthService);
+  private readonly theme = inject(ThemeService);
+  private readonly language = inject(LanguageService);
+
+  constructor() {
+    // Al iniciar sesión, adopta el tema y el idioma guardados en la cuenta.
+    effect(() => {
+      const user = this.auth.user();
+      if (!user) {
+        return;
+      }
+      this.theme.set(user.themePreference);
+      this.language.use(user.languagePreference);
+    });
+  }
+}

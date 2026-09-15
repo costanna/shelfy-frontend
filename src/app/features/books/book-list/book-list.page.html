@@ -1,0 +1,42 @@
+<div class="page-header">
+  <div>
+    <h1>{{ 'books.title' | translate }}</h1>
+    @if (!loading() && result().totalElements > 0) {
+      <p class="count">
+        {{
+          (result().totalElements === 1 ? 'books.countOne' : 'books.count') | translate: countLabel()
+        }}
+      </p>
+    }
+  </div>
+
+  <a class="btn btn-primary" routerLink="/books/new">{{ 'books.add' | translate }}</a>
+</div>
+
+<app-book-filters
+  [value]="query()"
+  [categories]="categories()"
+  (valueChange)="onFiltersChange($event)"
+/>
+
+@if (loading()) {
+  <app-spinner />
+} @else if (result().content.length === 0) {
+  <app-empty-state [message]="(hasFilters() ? 'books.emptyFiltered' : 'books.empty') | translate">
+    @if (!hasFilters()) {
+      <a class="btn btn-primary" routerLink="/books/new">{{ 'books.emptyAction' | translate }}</a>
+    }
+  </app-empty-state>
+} @else {
+  <ul class="book-grid">
+    @for (book of result().content; track book.id) {
+      <li><app-book-card [book]="book" /></li>
+    }
+  </ul>
+
+  <app-pagination
+    [page]="result().page"
+    [totalPages]="result().totalPages"
+    (pageChange)="onPageChange($event)"
+  />
+}

@@ -1,0 +1,116 @@
+<div class="page-header">
+  <h1>{{ (isEdit() ? 'books.editTitle' : 'books.newTitle') | translate }}</h1>
+</div>
+
+@if (loading()) {
+  <app-spinner />
+} @else {
+  <form class="book-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="form-main">
+      <div class="field">
+        <label class="label" for="title">{{ 'bookForm.title' | translate }}</label>
+        <input
+          id="title"
+          class="input"
+          type="text"
+          formControlName="title"
+          [placeholder]="'bookForm.titlePlaceholder' | translate"
+          [class.is-invalid]="form.controls.title.invalid && form.controls.title.touched"
+        />
+        <app-field-error [control]="form.controls.title" [submitted]="submitted()" />
+      </div>
+
+      <div class="field">
+        <label class="label" for="author">{{ 'bookForm.author' | translate }}</label>
+        <input
+          id="author"
+          class="input"
+          type="text"
+          formControlName="author"
+          [placeholder]="'bookForm.authorPlaceholder' | translate"
+        />
+        <app-field-error [control]="form.controls.author" [submitted]="submitted()" />
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="label" for="status">{{ 'bookForm.status' | translate }}</label>
+          <select id="status" class="select" formControlName="status">
+            @for (status of statuses; track status) {
+              <option [value]="status">{{ 'status.' + status | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="label" for="pageCount">{{ 'bookForm.pageCount' | translate }}</label>
+          <input id="pageCount" class="input" type="number" min="1" formControlName="pageCount" />
+          <app-field-error [control]="form.controls.pageCount" [submitted]="submitted()" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="isbn">{{ 'bookForm.isbn' | translate }}</label>
+        <input id="isbn" class="input" type="text" formControlName="isbn" />
+        <app-field-error [control]="form.controls.isbn" [submitted]="submitted()" />
+      </div>
+
+      <div class="field">
+        <label class="label" for="synopsis">{{ 'bookForm.synopsis' | translate }}</label>
+        <textarea
+          id="synopsis"
+          class="textarea"
+          formControlName="synopsis"
+          [placeholder]="'bookForm.synopsisPlaceholder' | translate"
+        ></textarea>
+      </div>
+
+      <div class="field">
+        <span class="label">{{ 'bookForm.categories' | translate }}</span>
+        @if (categories().length === 0) {
+          <p class="hint">{{ 'bookForm.noCategories' | translate }}</p>
+        } @else {
+          <div class="checkbox-grid">
+            @for (category of categories(); track category.id) {
+              <label class="checkbox-chip">
+                <input
+                  type="checkbox"
+                  [checked]="isSelected(category.id)"
+                  (change)="toggleCategory(category.id)"
+                />
+                {{ category.name }}
+              </label>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <aside class="form-side">
+      <div class="field">
+        <label class="label" for="coverUrl">{{ 'bookForm.coverUrl' | translate }}</label>
+        <input
+          id="coverUrl"
+          class="input"
+          type="url"
+          formControlName="coverUrl"
+          [placeholder]="'bookForm.coverUrlPlaceholder' | translate"
+        />
+        <app-field-error [control]="form.controls.coverUrl" [submitted]="submitted()" />
+      </div>
+
+      @if (coverPreview()) {
+        <img class="cover-preview" [src]="coverPreview()" [alt]="'bookForm.preview' | translate" />
+      }
+    </aside>
+
+    <div class="form-actions form-footer">
+      <button type="button" class="btn btn-secondary" (click)="cancel()">
+        {{ 'bookForm.cancel' | translate }}
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="saving()">
+        {{ (saving() ? 'common.loading' : 'bookForm.save') | translate }}
+      </button>
+    </div>
+  </form>
+}

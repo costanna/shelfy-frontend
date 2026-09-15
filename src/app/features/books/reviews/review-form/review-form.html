@@ -1,0 +1,30 @@
+<form class="review-form card card-padded" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <div class="field">
+    <span class="label">{{ 'reviews.rating' | translate }}</span>
+    <app-star-rating
+      [rating]="form.controls.rating.value"
+      [editable]="true"
+      (ratingChange)="setRating($event)"
+    />
+  </div>
+
+  <div class="field">
+    <label class="label" for="review-text">{{ 'reviews.text' | translate }}</label>
+    <textarea
+      id="review-text"
+      class="textarea"
+      formControlName="text"
+      [placeholder]="'reviews.textPlaceholder' | translate"
+    ></textarea>
+    <app-field-error [control]="form.controls.text" />
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn btn-secondary" (click)="cancel.emit()">
+      {{ 'reviews.cancel' | translate }}
+    </button>
+    <button type="submit" class="btn btn-primary" [disabled]="saving()">
+      {{ (review() ? 'reviews.update' : 'reviews.save') | translate }}
+    </button>
+  </div>
+</form>

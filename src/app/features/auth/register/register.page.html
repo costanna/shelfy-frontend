@@ -1,0 +1,62 @@
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1 class="auth-title">{{ 'auth.registerTitle' | translate }}</h1>
+      <p class="auth-subtitle">{{ 'auth.registerSubtitle' | translate }}</p>
+    </div>
+
+    <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      @if (serverError(); as error) {
+        <p class="auth-error" role="alert">{{ error | translate }}</p>
+      }
+
+      <div class="field">
+        <label class="label" for="name">{{ 'auth.name' | translate }}</label>
+        <input
+          id="name"
+          class="input"
+          type="text"
+          autocomplete="name"
+          formControlName="name"
+          [class.is-invalid]="form.controls.name.invalid && form.controls.name.touched"
+        />
+        <app-field-error [control]="form.controls.name" [submitted]="submitted()" />
+      </div>
+
+      <div class="field">
+        <label class="label" for="email">{{ 'auth.email' | translate }}</label>
+        <input
+          id="email"
+          class="input"
+          type="email"
+          autocomplete="email"
+          formControlName="email"
+          [class.is-invalid]="form.controls.email.invalid && form.controls.email.touched"
+        />
+        <app-field-error [control]="form.controls.email" [submitted]="submitted()" />
+      </div>
+
+      <div class="field">
+        <label class="label" for="password">{{ 'auth.password' | translate }}</label>
+        <input
+          id="password"
+          class="input"
+          type="password"
+          autocomplete="new-password"
+          formControlName="password"
+          [class.is-invalid]="form.controls.password.invalid && form.controls.password.touched"
+        />
+        <app-field-error [control]="form.controls.password" [submitted]="submitted()" />
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="submitting()">
+        {{ (submitting() ? 'common.loading' : 'auth.register') | translate }}
+      </button>
+    </form>
+
+    <p class="auth-footer">
+      {{ 'auth.hasAccount' | translate }}
+      <a routerLink="/login">{{ 'auth.goToLogin' | translate }}</a>
+    </p>
+  </div>
+</div>

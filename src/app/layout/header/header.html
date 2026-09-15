@@ -1,0 +1,48 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" routerLink="/books" (click)="closeMenu()">
+      <span class="brand-mark" aria-hidden="true">📖</span>
+      <span class="brand-name">{{ 'app.name' | translate }}</span>
+    </a>
+
+    @if (isLoggedIn()) {
+      <button
+        type="button"
+        class="btn btn-ghost btn-icon menu-button"
+        [attr.aria-expanded]="menuOpen()"
+        [attr.aria-label]="'nav.menu' | translate"
+        aria-controls="main-nav"
+        (click)="toggleMenu()"
+      >
+        <span aria-hidden="true">{{ menuOpen() ? '✕' : '☰' }}</span>
+      </button>
+    }
+
+    <nav id="main-nav" class="nav" [class.is-open]="menuOpen()">
+      @if (isLoggedIn()) {
+        <a class="nav-link" routerLink="/books" routerLinkActive="is-active" (click)="closeMenu()">
+          {{ 'nav.books' | translate }}
+        </a>
+        <a
+          class="nav-link"
+          routerLink="/categories"
+          routerLinkActive="is-active"
+          (click)="closeMenu()"
+        >
+          {{ 'nav.categories' | translate }}
+        </a>
+      }
+
+      <div class="nav-tools">
+        <app-language-switcher />
+        <app-theme-toggle />
+
+        @if (isLoggedIn()) {
+          <button type="button" class="btn btn-secondary logout-button" (click)="logout()">
+            {{ 'nav.logout' | translate }}
+          </button>
+        }
+      </div>
+    </nav>
+  </div>
+</header>

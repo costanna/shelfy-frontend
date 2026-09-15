@@ -1,0 +1,143 @@
+{
+  "app": {
+    "name": "Shelfy",
+    "tagline": "Tu biblioteca personal"
+  },
+  "nav": {
+    "books": "Mis libros",
+    "categories": "Categorías",
+    "addBook": "Añadir libro",
+    "logout": "Cerrar sesión",
+    "menu": "Menú",
+    "theme": "Cambiar tema",
+    "language": "Idioma"
+  },
+  "auth": {
+    "loginTitle": "Entra en tu biblioteca",
+    "loginSubtitle": "Organiza lo que lees, lo que te falta y lo que quieres comprar.",
+    "registerTitle": "Crea tu cuenta",
+    "registerSubtitle": "Empieza a ordenar tus lecturas en un minuto.",
+    "email": "Email",
+    "password": "Contraseña",
+    "name": "Nombre",
+    "login": "Entrar",
+    "register": "Crear cuenta",
+    "noAccount": "¿Aún no tienes cuenta?",
+    "hasAccount": "¿Ya tienes cuenta?",
+    "goToRegister": "Regístrate",
+    "goToLogin": "Entra",
+    "loggedOut": "Sesión cerrada"
+  },
+  "books": {
+    "title": "Mis libros",
+    "count": "{{count}} libros",
+    "countOne": "1 libro",
+    "add": "Añadir libro",
+    "edit": "Editar libro",
+    "newTitle": "Nuevo libro",
+    "editTitle": "Editar libro",
+    "search": "Buscar por título o autor",
+    "filterStatus": "Estado",
+    "filterCategory": "Categoría",
+    "allStatuses": "Todos los estados",
+    "allCategories": "Todas las categorías",
+    "clearFilters": "Limpiar filtros",
+    "empty": "Todavía no has añadido ningún libro.",
+    "emptyFiltered": "Ningún libro coincide con los filtros.",
+    "emptyAction": "Añade el primero",
+    "pages": "{{count}} páginas",
+    "noAuthor": "Autor desconocido",
+    "created": "Libro añadido",
+    "updated": "Libro actualizado",
+    "deleted": "Libro eliminado",
+    "deleteConfirm": "¿Seguro que quieres eliminar «{{title}}»? También se borrarán sus reseñas.",
+    "backToList": "Volver a mis libros",
+    "synopsis": "Sinopsis",
+    "details": "Detalles",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "pageOf": "Página {{page}} de {{total}}"
+  },
+  "bookForm": {
+    "title": "Título",
+    "titlePlaceholder": "El nombre del viento",
+    "author": "Autor",
+    "authorPlaceholder": "Patrick Rothfuss",
+    "coverUrl": "URL de la portada",
+    "coverUrlPlaceholder": "https://…",
+    "isbn": "ISBN",
+    "synopsis": "Sinopsis",
+    "synopsisPlaceholder": "De qué va el libro…",
+    "pageCount": "Número de páginas",
+    "status": "Estado",
+    "categories": "Categorías",
+    "noCategories": "Aún no tienes categorías. Créalas desde la sección Categorías.",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "preview": "Vista previa de la portada"
+  },
+  "status": {
+    "WANT_TO_READ": "Pendiente",
+    "READING": "Leyendo",
+    "READ": "Leído",
+    "WANT_TO_BUY": "Por comprar"
+  },
+  "categories": {
+    "title": "Mis categorías",
+    "subtitle": "Agrupa tus libros como te resulte útil.",
+    "namePlaceholder": "Nombre de la categoría",
+    "add": "Añadir",
+    "empty": "Todavía no has creado ninguna categoría.",
+    "created": "Categoría creada",
+    "updated": "Categoría actualizada",
+    "deleted": "Categoría eliminada",
+    "deleteConfirm": "¿Eliminar la categoría «{{name}}»? Los libros no se borran.",
+    "rename": "Renombrar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar"
+  },
+  "reviews": {
+    "title": "Mis reseñas",
+    "add": "Escribir una reseña",
+    "empty": "Todavía no has reseñado este libro.",
+    "rating": "Puntuación",
+    "text": "Tu reseña",
+    "textPlaceholder": "Qué te ha parecido…",
+    "save": "Publicar",
+    "update": "Guardar cambios",
+    "cancel": "Cancelar",
+    "created": "Reseña publicada",
+    "updated": "Reseña actualizada",
+    "deleted": "Reseña eliminada",
+    "deleteConfirm": "¿Eliminar esta reseña?",
+    "starsOf": "{{rating}} de 5 estrellas"
+  },
+  "theme": {
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema"
+  },
+  "validation": {
+    "required": "Este campo es obligatorio",
+    "email": "Introduce un email válido",
+    "minlength": "Debe tener al menos {{min}} caracteres",
+    "maxlength": "No puede superar los {{max}} caracteres",
+    "min": "El valor mínimo es {{min}}",
+    "url": "Introduce una URL válida"
+  },
+  "errors": {
+    "network": "No se puede conectar con el servidor. Inténtalo de nuevo.",
+    "unexpected": "Algo ha salido mal. Inténtalo de nuevo.",
+    "sessionExpired": "Tu sesión ha caducado. Vuelve a entrar.",
+    "notFound": "No encontramos lo que buscas."
+  },
+  "common": {
+    "loading": "Cargando…",
+    "delete": "Eliminar",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "retry": "Reintentar"
+  }
+}

@@ -1,0 +1,62 @@
+<div class="page-header">
+  <div>
+    <h1>{{ 'categories.title' | translate }}</h1>
+    <p class="subtitle">{{ 'categories.subtitle' | translate }}</p>
+  </div>
+</div>
+
+<form class="create-form" [formGroup]="createForm" (ngSubmit)="create()" novalidate>
+  <div class="field create-field">
+    <label class="visually-hidden" for="new-category">
+      {{ 'categories.namePlaceholder' | translate }}
+    </label>
+    <input
+      id="new-category"
+      class="input"
+      type="text"
+      formControlName="name"
+      [placeholder]="'categories.namePlaceholder' | translate"
+    />
+    <app-field-error [control]="createForm.controls.name" />
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="saving()">
+    {{ 'categories.add' | translate }}
+  </button>
+</form>
+
+@if (loading()) {
+  <app-spinner />
+} @else if (categories().length === 0) {
+  <app-empty-state icon="🏷️" [message]="'categories.empty' | translate" />
+} @else {
+  <ul class="category-list">
+    @for (category of categories(); track category.id) {
+      <li class="category card">
+        @if (editingId() === category.id) {
+          <form class="edit-form" [formGroup]="editForm" (ngSubmit)="saveEdit(category.id)">
+            <input class="input" type="text" formControlName="name" autofocus />
+            <div class="actions">
+              <button type="button" class="btn btn-ghost" (click)="cancelEdit()">
+                {{ 'categories.cancel' | translate }}
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="saving()">
+                {{ 'categories.save' | translate }}
+              </button>
+            </div>
+          </form>
+        } @else {
+          <span class="category-name">{{ category.name }}</span>
+          <div class="actions">
+            <button type="button" class="btn btn-ghost" (click)="startEdit(category)">
+              {{ 'categories.rename' | translate }}
+            </button>
+            <button type="button" class="btn btn-danger" (click)="remove(category)">
+              {{ 'categories.delete' | translate }}
+            </button>
+          </div>
+        }
+      </li>
+    }
+  </ul>
+}

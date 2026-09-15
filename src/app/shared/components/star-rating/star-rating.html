@@ -1,0 +1,30 @@
+@if (editable()) {
+  <div
+    class="stars stars-editable"
+    role="slider"
+    tabindex="0"
+    aria-valuemin="1"
+    aria-valuemax="5"
+    [attr.aria-valuenow]="rating()"
+    [attr.aria-label]="'reviews.rating' | translate"
+    (keydown)="onKeydown($event)"
+  >
+    @for (star of stars; track star) {
+      <button
+        type="button"
+        class="star"
+        [class.is-filled]="star <= rating()"
+        [attr.aria-label]="'reviews.starsOf' | translate: { rating: star }"
+        (click)="select(star)"
+      >
+        ★
+      </button>
+    }
+  </div>
+} @else {
+  <div class="stars" [attr.aria-label]="'reviews.starsOf' | translate: label()">
+    @for (star of stars; track star) {
+      <span class="star" aria-hidden="true" [class.is-filled]="star <= rating()">★</span>
+    }
+  </div>
+}

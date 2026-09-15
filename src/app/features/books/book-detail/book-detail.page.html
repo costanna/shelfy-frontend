@@ -1,0 +1,63 @@
+@if (loading()) {
+  <app-spinner />
+} @else if (book(); as item) {
+  <a class="back-link" routerLink="/books">← {{ 'books.backToList' | translate }}</a>
+
+  <article class="book-detail">
+    <div class="cover">
+      @if (item.coverUrl) {
+        <img [src]="item.coverUrl" [alt]="item.title" />
+      } @else {
+        <div class="cover-placeholder" aria-hidden="true">📖</div>
+      }
+    </div>
+
+    <div class="info">
+      <app-status-badge [status]="item.status" />
+
+      <h1 class="title">{{ item.title }}</h1>
+      <p class="author">{{ item.author || ('books.noAuthor' | translate) }}</p>
+
+      <dl class="meta">
+        @if (item.pageCount) {
+          <div class="meta-item">
+            <dt>{{ 'bookForm.pageCount' | translate }}</dt>
+            <dd>{{ item.pageCount }}</dd>
+          </div>
+        }
+        @if (item.isbn) {
+          <div class="meta-item">
+            <dt>{{ 'bookForm.isbn' | translate }}</dt>
+            <dd>{{ item.isbn }}</dd>
+          </div>
+        }
+      </dl>
+
+      @if (item.categories.length) {
+        <ul class="categories">
+          @for (category of item.categories; track category.id) {
+            <li class="chip">{{ category.name }}</li>
+          }
+        </ul>
+      }
+
+      @if (item.synopsis) {
+        <section class="synopsis">
+          <h2>{{ 'books.synopsis' | translate }}</h2>
+          <p>{{ item.synopsis }}</p>
+        </section>
+      }
+
+      <div class="actions">
+        <a class="btn btn-secondary" [routerLink]="['/books', item.id, 'edit']">
+          {{ 'books.edit' | translate }}
+        </a>
+        <button type="button" class="btn btn-danger" (click)="remove()">
+          {{ 'common.delete' | translate }}
+        </button>
+      </div>
+    </div>
+  </article>
+
+  <app-review-section [bookId]="item.id" />
+}

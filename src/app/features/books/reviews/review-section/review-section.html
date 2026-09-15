@@ -1,0 +1,50 @@
+<section class="reviews">
+  <div class="reviews-header">
+    <h2>{{ 'reviews.title' | translate }}</h2>
+
+    @if (editing() === null) {
+      <button type="button" class="btn btn-secondary" (click)="startCreate()">
+        {{ 'reviews.add' | translate }}
+      </button>
+    }
+  </div>
+
+  @if (editing() !== null) {
+    <app-review-form
+      [review]="editing() ?? null"
+      [saving]="saving()"
+      (save)="onSave($event)"
+      (cancel)="closeForm()"
+    />
+  }
+
+  @if (reviews().length === 0) {
+    <p class="reviews-empty">{{ 'reviews.empty' | translate }}</p>
+  } @else {
+    <ul class="review-list">
+      @for (review of reviews(); track review.id) {
+        <li class="review card card-padded">
+          <div class="review-head">
+            <app-star-rating [rating]="review.rating" />
+            <time class="review-date" [attr.datetime]="review.createdAt">
+              {{ review.createdAt | date: 'mediumDate' }}
+            </time>
+          </div>
+
+          @if (review.text) {
+            <p class="review-text">{{ review.text }}</p>
+          }
+
+          <div class="review-actions">
+            <button type="button" class="btn btn-ghost" (click)="startEdit(review)">
+              {{ 'books.edit' | translate }}
+            </button>
+            <button type="button" class="btn btn-danger" (click)="remove(review)">
+              {{ 'common.delete' | translate }}
+            </button>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</section>
