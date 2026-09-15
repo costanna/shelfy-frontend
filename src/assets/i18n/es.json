@@ -67,6 +67,11 @@
     "coverUrl": "URL de la portada",
     "coverUrlPlaceholder": "https://…",
     "isbn": "ISBN",
+    "lookupIsbn": "Buscar",
+    "lookingUp": "Buscando…",
+    "scanIsbn": "Escanear",
+    "lookupSuccess": "Datos del libro completados",
+    "lookupNotFound": "No hemos encontrado ese ISBN",
     "synopsis": "Sinopsis",
     "synopsisPlaceholder": "De qué va el libro…",
     "pageCount": "Número de páginas",
@@ -76,6 +81,12 @@
     "save": "Guardar",
     "cancel": "Cancelar",
     "preview": "Vista previa de la portada"
+  },
+  "scanner": {
+    "title": "Escanear ISBN",
+    "hint": "Apunta la cámara al código de barras de la contraportada.",
+    "denied": "No se puede acceder a la cámara. Comprueba los permisos o introduce el ISBN a mano.",
+    "unsupported": "Este navegador no permite usar la cámara. Introduce el ISBN a mano."
   },
   "status": {
     "WANT_TO_READ": "Pendiente",

@@ -51,7 +51,20 @@
 
       <div class="field">
         <label class="label" for="isbn">{{ 'bookForm.isbn' | translate }}</label>
-        <input id="isbn" class="input" type="text" formControlName="isbn" />
+        <div class="isbn-row">
+          <input id="isbn" class="input" type="text" formControlName="isbn" />
+          <button
+            type="button"
+            class="btn btn-secondary"
+            [disabled]="!form.controls.isbn.value.trim() || lookingUp()"
+            (click)="lookupIsbn()"
+          >
+            {{ (lookingUp() ? 'bookForm.lookingUp' : 'bookForm.lookupIsbn') | translate }}
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="openScanner()">
+            📷 {{ 'bookForm.scanIsbn' | translate }}
+          </button>
+        </div>
         <app-field-error [control]="form.controls.isbn" [submitted]="submitted()" />
       </div>
 
@@ -113,4 +126,8 @@
       </button>
     </div>
   </form>
+}
+
+@if (scannerOpen()) {
+  <app-isbn-scanner (scanned)="onScanned($event)" (closed)="closeScanner()" />
 }

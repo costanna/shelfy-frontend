@@ -67,6 +67,11 @@
     "coverUrl": "URL de la portada",
     "coverUrlPlaceholder": "https://…",
     "isbn": "ISBN",
+    "lookupIsbn": "Cerca",
+    "lookingUp": "Cercant…",
+    "scanIsbn": "Escaneja",
+    "lookupSuccess": "Dades del llibre completades",
+    "lookupNotFound": "No hem trobat aquest ISBN",
     "synopsis": "Sinopsi",
     "synopsisPlaceholder": "De què va el llibre…",
     "pageCount": "Nombre de pàgines",
@@ -76,6 +81,12 @@
     "save": "Desa",
     "cancel": "Cancel·la",
     "preview": "Vista prèvia de la portada"
+  },
+  "scanner": {
+    "title": "Escaneja l'ISBN",
+    "hint": "Apunta la càmera al codi de barres de la contraportada.",
+    "denied": "No es pot accedir a la càmera. Comprova els permisos o introdueix l'ISBN a mà.",
+    "unsupported": "Aquest navegador no permet fer servir la càmera. Introdueix l'ISBN a mà."
   },
   "status": {
     "WANT_TO_READ": "Pendent",
