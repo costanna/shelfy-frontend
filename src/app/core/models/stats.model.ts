@@ -6,8 +6,15 @@ export interface BookReadingDuration {
   daysReading: number;
 }
 
+export interface MonthlyReadCount {
+  year: number;
+  month: number;
+  count: number;
+}
+
 export interface ReadingStats {
   totalBooksRead: number;
   totalBooks: number;
   readingDurations: BookReadingDuration[];
+  booksByMonth: MonthlyReadCount[];
 }
