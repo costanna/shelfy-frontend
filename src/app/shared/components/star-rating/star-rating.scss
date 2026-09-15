@@ -1,0 +1,31 @@
+.stars {
+  display: inline-flex;
+  gap: 0.125rem;
+  line-height: 1;
+}
+
+.star {
+  color: var(--border-strong);
+  font-size: 1.125rem;
+
+  &.is-filled {
+    color: var(--star);
+  }
+}
+
+.stars-editable {
+  gap: var(--space-1);
+
+  .star {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: 1.75rem;
+    cursor: pointer;
+    transition: transform var(--transition);
+
+    &:hover {
+      transform: scale(1.15);
+    }
+  }
+}

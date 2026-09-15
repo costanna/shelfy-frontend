@@ -1,0 +1,46 @@
+<div class="filters">
+  <div class="field search-field">
+    <label class="visually-hidden" for="filter-search">{{ 'books.search' | translate }}</label>
+    <input
+      id="filter-search"
+      class="input"
+      type="search"
+      [placeholder]="'books.search' | translate"
+      [value]="value().q"
+      (input)="onSearch($event)"
+    />
+  </div>
+
+  <div class="field">
+    <label class="visually-hidden" for="filter-status">{{ 'books.filterStatus' | translate }}</label>
+    <select id="filter-status" class="select" [value]="value().status ?? ''" (change)="onStatus($event)">
+      <option value="">{{ 'books.allStatuses' | translate }}</option>
+      @for (status of statuses; track status) {
+        <option [value]="status">{{ 'status.' + status | translate }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="field">
+    <label class="visually-hidden" for="filter-category">
+      {{ 'books.filterCategory' | translate }}
+    </label>
+    <select
+      id="filter-category"
+      class="select"
+      [value]="value().categoryId ?? ''"
+      (change)="onCategory($event)"
+    >
+      <option value="">{{ 'books.allCategories' | translate }}</option>
+      @for (category of categories(); track category.id) {
+        <option [value]="category.id">{{ category.name }}</option>
+      }
+    </select>
+  </div>
+
+  @if (hasActiveFilters()) {
+    <button type="button" class="btn btn-ghost clear-button" (click)="clear()">
+      {{ 'books.clearFilters' | translate }}
+    </button>
+  }
+</div>

@@ -1,0 +1,49 @@
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1 class="auth-title">{{ 'auth.loginTitle' | translate }}</h1>
+      <p class="auth-subtitle">{{ 'auth.loginSubtitle' | translate }}</p>
+    </div>
+
+    <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      @if (serverError(); as error) {
+        <p class="auth-error" role="alert">{{ error | translate }}</p>
+      }
+
+      <div class="field">
+        <label class="label" for="email">{{ 'auth.email' | translate }}</label>
+        <input
+          id="email"
+          class="input"
+          type="email"
+          autocomplete="email"
+          formControlName="email"
+          [class.is-invalid]="form.controls.email.invalid && form.controls.email.touched"
+        />
+        <app-field-error [control]="form.controls.email" [submitted]="submitted()" />
+      </div>
+
+      <div class="field">
+        <label class="label" for="password">{{ 'auth.password' | translate }}</label>
+        <input
+          id="password"
+          class="input"
+          type="password"
+          autocomplete="current-password"
+          formControlName="password"
+          [class.is-invalid]="form.controls.password.invalid && form.controls.password.touched"
+        />
+        <app-field-error [control]="form.controls.password" [submitted]="submitted()" />
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="submitting()">
+        {{ (submitting() ? 'common.loading' : 'auth.login') | translate }}
+      </button>
+    </form>
+
+    <p class="auth-footer">
+      {{ 'auth.noAccount' | translate }}
+      <a routerLink="/register">{{ 'auth.goToRegister' | translate }}</a>
+    </p>
+  </div>
+</div>

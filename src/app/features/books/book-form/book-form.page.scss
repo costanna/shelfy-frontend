@@ -1,0 +1,57 @@
+/* Móvil: todo en una columna. Escritorio: datos a la izquierda, portada a la derecha. */
+.book-form {
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: 1fr;
+  max-width: 900px;
+
+  @media (min-width: 820px) {
+    grid-template-columns: 1fr minmax(200px, 260px);
+    align-items: start;
+  }
+}
+
+.form-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.form-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.field-row {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr;
+
+  @media (min-width: 480px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cover-preview {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface-muted);
+}
+
+.hint {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.form-footer {
+  justify-content: flex-end;
+
+  @media (min-width: 820px) {
+    grid-column: 1 / -1;
+  }
+}

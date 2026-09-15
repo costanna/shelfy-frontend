@@ -1,0 +1,157 @@
+/* Botones, tarjetas y distintivos reutilizables. */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.625rem var(--space-4);
+  min-height: 44px; // objetivo táctil cómodo en móvil
+  font: inherit;
+  font-weight: 600;
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    color var(--transition),
+    transform var(--transition);
+
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--primary-contrast);
+
+  &:hover:not(:disabled) {
+    background: var(--primary-hover);
+  }
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border-strong);
+
+  &:hover:not(:disabled) {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+
+  &:hover:not(:disabled) {
+    background: var(--surface-muted);
+    color: var(--text);
+  }
+}
+
+.btn-danger {
+  background: var(--danger-soft);
+  color: var(--danger);
+  border-color: transparent;
+
+  &:hover:not(:disabled) {
+    background: var(--danger);
+    color: var(--primary-contrast);
+  }
+}
+
+.btn-icon {
+  padding: var(--space-2);
+  min-width: 44px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* ---------- Tarjetas ---------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.card-padded {
+  padding: var(--space-5);
+
+  @media (max-width: 480px) {
+    padding: var(--space-4);
+  }
+}
+
+/* ---------- Distintivos de estado ---------- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1875rem var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.badge-want_to_read {
+  background: var(--status-want-to-read-soft);
+  color: var(--status-want-to-read);
+}
+
+.badge-reading {
+  background: var(--status-reading-soft);
+  color: var(--status-reading);
+}
+
+.badge-read {
+  background: var(--status-read-soft);
+  color: var(--status-read);
+}
+
+.badge-want_to_buy {
+  background: var(--status-want-to-buy-soft);
+  color: var(--status-want-to-buy);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+/* ---------- Cabecera de página ---------- */
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+
+  h1 {
+    margin: 0;
+  }
+}

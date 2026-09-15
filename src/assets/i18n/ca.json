@@ -1,0 +1,143 @@
+{
+  "app": {
+    "name": "Shelfy",
+    "tagline": "La teva biblioteca personal"
+  },
+  "nav": {
+    "books": "Els meus llibres",
+    "categories": "Categories",
+    "addBook": "Afegeix un llibre",
+    "logout": "Tanca la sessió",
+    "menu": "Menú",
+    "theme": "Canvia el tema",
+    "language": "Idioma"
+  },
+  "auth": {
+    "loginTitle": "Entra a la teva biblioteca",
+    "loginSubtitle": "Organitza el que llegeixes, el que tens pendent i el que vols comprar.",
+    "registerTitle": "Crea el teu compte",
+    "registerSubtitle": "Comença a ordenar les teves lectures en un minut.",
+    "email": "Correu electrònic",
+    "password": "Contrasenya",
+    "name": "Nom",
+    "login": "Entra",
+    "register": "Crea el compte",
+    "noAccount": "Encara no tens compte?",
+    "hasAccount": "Ja tens compte?",
+    "goToRegister": "Registra't",
+    "goToLogin": "Entra",
+    "loggedOut": "Sessió tancada"
+  },
+  "books": {
+    "title": "Els meus llibres",
+    "count": "{{count}} llibres",
+    "countOne": "1 llibre",
+    "add": "Afegeix un llibre",
+    "edit": "Edita el llibre",
+    "newTitle": "Llibre nou",
+    "editTitle": "Edita el llibre",
+    "search": "Cerca per títol o autor",
+    "filterStatus": "Estat",
+    "filterCategory": "Categoria",
+    "allStatuses": "Tots els estats",
+    "allCategories": "Totes les categories",
+    "clearFilters": "Neteja els filtres",
+    "empty": "Encara no has afegit cap llibre.",
+    "emptyFiltered": "Cap llibre coincideix amb els filtres.",
+    "emptyAction": "Afegeix-ne el primer",
+    "pages": "{{count}} pàgines",
+    "noAuthor": "Autor desconegut",
+    "created": "Llibre afegit",
+    "updated": "Llibre actualitzat",
+    "deleted": "Llibre eliminat",
+    "deleteConfirm": "Segur que vols eliminar «{{title}}»? També se'n esborraran les ressenyes.",
+    "backToList": "Torna als meus llibres",
+    "synopsis": "Sinopsi",
+    "details": "Detalls",
+    "previous": "Anterior",
+    "next": "Següent",
+    "pageOf": "Pàgina {{page}} de {{total}}"
+  },
+  "bookForm": {
+    "title": "Títol",
+    "titlePlaceholder": "El nom del vent",
+    "author": "Autor",
+    "authorPlaceholder": "Patrick Rothfuss",
+    "coverUrl": "URL de la portada",
+    "coverUrlPlaceholder": "https://…",
+    "isbn": "ISBN",
+    "synopsis": "Sinopsi",
+    "synopsisPlaceholder": "De què va el llibre…",
+    "pageCount": "Nombre de pàgines",
+    "status": "Estat",
+    "categories": "Categories",
+    "noCategories": "Encara no tens categories. Crea'n des de la secció Categories.",
+    "save": "Desa",
+    "cancel": "Cancel·la",
+    "preview": "Vista prèvia de la portada"
+  },
+  "status": {
+    "WANT_TO_READ": "Pendent",
+    "READING": "Llegint",
+    "READ": "Llegit",
+    "WANT_TO_BUY": "Per comprar"
+  },
+  "categories": {
+    "title": "Les meves categories",
+    "subtitle": "Agrupa els llibres com et vagi bé.",
+    "namePlaceholder": "Nom de la categoria",
+    "add": "Afegeix",
+    "empty": "Encara no has creat cap categoria.",
+    "created": "Categoria creada",
+    "updated": "Categoria actualitzada",
+    "deleted": "Categoria eliminada",
+    "deleteConfirm": "Vols eliminar la categoria «{{name}}»? Els llibres no s'esborren.",
+    "rename": "Canvia el nom",
+    "save": "Desa",
+    "cancel": "Cancel·la",
+    "delete": "Elimina"
+  },
+  "reviews": {
+    "title": "Les meves ressenyes",
+    "add": "Escriu una ressenya",
+    "empty": "Encara no has ressenyat aquest llibre.",
+    "rating": "Puntuació",
+    "text": "La teva ressenya",
+    "textPlaceholder": "Què t'ha semblat…",
+    "save": "Publica",
+    "update": "Desa els canvis",
+    "cancel": "Cancel·la",
+    "created": "Ressenya publicada",
+    "updated": "Ressenya actualitzada",
+    "deleted": "Ressenya eliminada",
+    "deleteConfirm": "Vols eliminar aquesta ressenya?",
+    "starsOf": "{{rating}} de 5 estrelles"
+  },
+  "theme": {
+    "light": "Clar",
+    "dark": "Fosc",
+    "system": "Sistema"
+  },
+  "validation": {
+    "required": "Aquest camp és obligatori",
+    "email": "Introdueix un correu electrònic vàlid",
+    "minlength": "Ha de tenir com a mínim {{min}} caràcters",
+    "maxlength": "No pot superar els {{max}} caràcters",
+    "min": "El valor mínim és {{min}}",
+    "url": "Introdueix una URL vàlida"
+  },
+  "errors": {
+    "network": "No es pot connectar amb el servidor. Torna-ho a provar.",
+    "unexpected": "Alguna cosa ha anat malament. Torna-ho a provar.",
+    "sessionExpired": "La sessió ha caducat. Torna a entrar.",
+    "notFound": "No hem trobat el que busques."
+  },
+  "common": {
+    "loading": "S'està carregant…",
+    "delete": "Elimina",
+    "confirm": "Confirma",
+    "cancel": "Cancel·la",
+    "close": "Tanca",
+    "retry": "Torna-ho a provar"
+  }
+}
