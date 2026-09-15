@@ -5,16 +5,32 @@
 }
 
 .star {
-  color: var(--border-strong);
+  position: relative;
+  display: inline-block;
   font-size: 1.125rem;
+}
 
-  &.is-filled {
-    color: var(--star);
-  }
+.star-bg,
+.star-fg {
+  display: block;
+}
+
+.star-bg {
+  color: var(--border-strong);
+}
+
+.star-fg {
+  position: absolute;
+  inset: 0;
+  width: var(--fill, 0%);
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--star);
 }
 
 .stars-editable {
   gap: var(--space-1);
+  cursor: pointer;
 
   .star {
     padding: 0;
