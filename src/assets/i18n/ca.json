@@ -162,6 +162,11 @@
     "title": "Ajustos",
     "subtitle": "El teu compte, el tema i l'idioma.",
     "account": "Compte",
+    "alias": "Àlies",
+    "aliasHint": "El teu sobrenom públic a Shelfy. Únic: ningú més el pot tenir.",
+    "aliasPlaceholder": "p_ex_lector_bcn",
+    "aliasSave": "Desa l'àlies",
+    "aliasSaved": "Àlies desat",
     "theme": "Tema",
     "language": "Idioma",
     "saved": "Preferències desades"
@@ -188,7 +193,8 @@
     "min": "El valor mínim és {{min}}",
     "url": "Introdueix una URL vàlida",
     "dateRange": "No pot ser anterior a la data d'inici",
-    "mismatch": "Les contrasenyes no coincideixen"
+    "mismatch": "Les contrasenyes no coincideixen",
+    "aliasFormat": "Només lletres, números i guions baixos, sense espais"
   },
   "errors": {
     "network": "No es pot connectar amb el servidor. Torna-ho a provar.",

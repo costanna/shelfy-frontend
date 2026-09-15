@@ -162,6 +162,11 @@
     "title": "Settings",
     "subtitle": "Your account, theme and language.",
     "account": "Account",
+    "alias": "Alias",
+    "aliasHint": "Your public handle on Shelfy. Unique: no one else can have the same one.",
+    "aliasPlaceholder": "e_g_bcn_reader",
+    "aliasSave": "Save alias",
+    "aliasSaved": "Alias saved",
     "theme": "Theme",
     "language": "Language",
     "saved": "Preferences saved"
@@ -188,7 +193,8 @@
     "min": "The minimum value is {{min}}",
     "url": "Enter a valid URL",
     "dateRange": "Can't be earlier than the start date",
-    "mismatch": "Passwords don't match"
+    "mismatch": "Passwords don't match",
+    "aliasFormat": "Letters, numbers and underscores only, no spaces"
   },
   "errors": {
     "network": "Can't reach the server. Please try again.",
