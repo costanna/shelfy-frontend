@@ -7,6 +7,7 @@
     "books": "Mis libros",
     "categories": "Categorías",
     "settings": "Ajustes",
+    "stats": "Estadísticas",
     "addBook": "Añadir libro",
     "logout": "Cerrar sesión",
     "menu": "Menú",
@@ -76,6 +77,8 @@
     "synopsisPlaceholder": "De qué va el libro…",
     "pageCount": "Número de páginas",
     "status": "Estado",
+    "startedAt": "Empezado el",
+    "finishedAt": "Terminado el",
     "categories": "Categorías",
     "noCategories": "Aún no tienes categorías. Créalas desde la sección Categorías.",
     "save": "Guardar",
@@ -138,13 +141,24 @@
     "language": "Idioma",
     "saved": "Preferencias guardadas"
   },
+  "stats": {
+    "title": "Estadísticas",
+    "subtitle": "Cuánto tardas en leer y cuántos libros llevas.",
+    "totalRead": "Libros leídos",
+    "totalBooks": "Libros en tu biblioteca",
+    "durationsTitle": "Días de lectura por libro",
+    "durationsEmpty": "Todavía no tienes libros con fecha de inicio y de fin.",
+    "dayOne": "1 día",
+    "days": "{{count}} días"
+  },
   "validation": {
     "required": "Este campo es obligatorio",
     "email": "Introduce un email válido",
     "minlength": "Debe tener al menos {{min}} caracteres",
     "maxlength": "No puede superar los {{max}} caracteres",
     "min": "El valor mínimo es {{min}}",
-    "url": "Introduce una URL válida"
+    "url": "Introduce una URL válida",
+    "dateRange": "No puede ser anterior a la fecha de inicio"
   },
   "errors": {
     "network": "No se puede conectar con el servidor. Inténtalo de nuevo.",

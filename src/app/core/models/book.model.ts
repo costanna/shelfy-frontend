@@ -13,6 +13,8 @@ export interface Book {
   synopsis: string | null;
   pageCount: number | null;
   status: BookStatus;
+  startedAt: string | null;
+  finishedAt: string | null;
   categories: Category[];
   createdAt: string;
   updatedAt: string;
@@ -26,6 +28,8 @@ export interface BookRequest {
   synopsis: string | null;
   pageCount: number | null;
   status: BookStatus;
+  startedAt: string | null;
+  finishedAt: string | null;
   categoryIds: number[];
 }
 

@@ -7,6 +7,7 @@
     "books": "Els meus llibres",
     "categories": "Categories",
     "settings": "Ajustos",
+    "stats": "Estadístiques",
     "addBook": "Afegeix un llibre",
     "logout": "Tanca la sessió",
     "menu": "Menú",
@@ -76,6 +77,8 @@
     "synopsisPlaceholder": "De què va el llibre…",
     "pageCount": "Nombre de pàgines",
     "status": "Estat",
+    "startedAt": "Començat el",
+    "finishedAt": "Acabat el",
     "categories": "Categories",
     "noCategories": "Encara no tens categories. Crea'n des de la secció Categories.",
     "save": "Desa",
@@ -138,13 +141,24 @@
     "language": "Idioma",
     "saved": "Preferències desades"
   },
+  "stats": {
+    "title": "Estadístiques",
+    "subtitle": "Quant trigues a llegir i quants llibres portes.",
+    "totalRead": "Llibres llegits",
+    "totalBooks": "Llibres a la teva biblioteca",
+    "durationsTitle": "Dies de lectura per llibre",
+    "durationsEmpty": "Encara no tens llibres amb data d'inici i de fi.",
+    "dayOne": "1 dia",
+    "days": "{{count}} dies"
+  },
   "validation": {
     "required": "Aquest camp és obligatori",
     "email": "Introdueix un correu electrònic vàlid",
     "minlength": "Ha de tenir com a mínim {{min}} caràcters",
     "maxlength": "No pot superar els {{max}} caràcters",
     "min": "El valor mínim és {{min}}",
-    "url": "Introdueix una URL vàlida"
+    "url": "Introdueix una URL vàlida",
+    "dateRange": "No pot ser anterior a la data d'inici"
   },
   "errors": {
     "network": "No es pot connectar amb el servidor. Torna-ho a provar.",

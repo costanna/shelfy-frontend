@@ -1,5 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -47,15 +53,20 @@ export class BookFormPage {
     { initialValue: [] },
   );
 
-  protected readonly form = this.formBuilder.nonNullable.group({
-    title: ['', [Validators.required, Validators.maxLength(255)]],
-    author: ['', [Validators.maxLength(255)]],
-    coverUrl: ['', [Validators.maxLength(1000)]],
-    isbn: ['', [Validators.maxLength(20)]],
-    synopsis: [''],
-    pageCount: [null as number | null, [Validators.min(1)]],
-    status: [BOOK_STATUSES[0] as (typeof BOOK_STATUSES)[number], [Validators.required]],
-  });
+  protected readonly form = this.formBuilder.nonNullable.group(
+    {
+      title: ['', [Validators.required, Validators.maxLength(255)]],
+      author: ['', [Validators.maxLength(255)]],
+      coverUrl: ['', [Validators.maxLength(1000)]],
+      isbn: ['', [Validators.maxLength(20)]],
+      synopsis: [''],
+      pageCount: [null as number | null, [Validators.min(1)]],
+      status: [BOOK_STATUSES[0] as (typeof BOOK_STATUSES)[number], [Validators.required]],
+      startedAt: [''],
+      finishedAt: [''],
+    },
+    { validators: [dateRangeValidator] },
+  );
 
   protected readonly coverPreview = toSignal(this.form.controls.coverUrl.valueChanges, {
     initialValue: '',
@@ -166,6 +177,8 @@ export class BookFormPage {
       synopsis: value.synopsis.trim() || null,
       pageCount: value.pageCount,
       status: value.status,
+      startedAt: value.startedAt || null,
+      finishedAt: value.finishedAt || null,
       categoryIds: [...this.selectedCategories()],
     };
   }
@@ -183,6 +196,8 @@ export class BookFormPage {
           synopsis: book.synopsis ?? '',
           pageCount: book.pageCount,
           status: book.status,
+          startedAt: book.startedAt ?? '',
+          finishedAt: book.finishedAt ?? '',
         });
         this.selectedCategories.set(new Set(book.categories.map((category) => category.id)));
         this.loading.set(false);
@@ -193,4 +208,20 @@ export class BookFormPage {
       },
     });
   }
+}
+
+/** Marca finishedAt como inválido si es anterior a startedAt (ambas opcionales). */
+function dateRangeValidator(group: AbstractControl): ValidationErrors | null {
+  const startedAt = group.get('startedAt')?.value as string;
+  const finishedAt = group.get('finishedAt')?.value as string;
+  const finishedControl = group.get('finishedAt');
+
+  if (startedAt && finishedAt && finishedAt < startedAt) {
+    finishedControl?.setErrors({ ...finishedControl.errors, dateRange: true });
+  } else if (finishedControl?.hasError('dateRange')) {
+    const { dateRange, ...rest } = finishedControl.errors ?? {};
+    finishedControl.setErrors(Object.keys(rest).length > 0 ? rest : null);
+  }
+
+  return null;
 }

@@ -7,6 +7,7 @@
     "books": "My books",
     "categories": "Categories",
     "settings": "Settings",
+    "stats": "Stats",
     "addBook": "Add book",
     "logout": "Log out",
     "menu": "Menu",
@@ -76,6 +77,8 @@
     "synopsisPlaceholder": "What the book is about…",
     "pageCount": "Page count",
     "status": "Status",
+    "startedAt": "Started on",
+    "finishedAt": "Finished on",
     "categories": "Categories",
     "noCategories": "You have no categories yet. Create them in the Categories section.",
     "save": "Save",
@@ -138,13 +141,24 @@
     "language": "Language",
     "saved": "Preferences saved"
   },
+  "stats": {
+    "title": "Stats",
+    "subtitle": "How long you take to read, and how many books you've read.",
+    "totalRead": "Books read",
+    "totalBooks": "Books in your library",
+    "durationsTitle": "Reading days per book",
+    "durationsEmpty": "No books with both a start and finish date yet.",
+    "dayOne": "1 day",
+    "days": "{{count}} days"
+  },
   "validation": {
     "required": "This field is required",
     "email": "Enter a valid email address",
     "minlength": "Must be at least {{min}} characters",
     "maxlength": "Cannot be longer than {{max}} characters",
     "min": "The minimum value is {{min}}",
-    "url": "Enter a valid URL"
+    "url": "Enter a valid URL",
+    "dateRange": "Can't be earlier than the start date"
   },
   "errors": {
     "network": "Can't reach the server. Please try again.",

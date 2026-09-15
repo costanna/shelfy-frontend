@@ -1,0 +1,75 @@
+.subtitle {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+}
+
+.stat-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  max-width: 32rem;
+}
+
+.stat-tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-label {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.section-title {
+  margin: 0 0 var(--space-4);
+  font-size: 1.0625rem;
+}
+
+.duration-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 640px;
+}
+
+.duration-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+}
+
+.duration-title {
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  flex: 1;
+  min-width: 10rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.duration-dates {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.duration-days {
+  font-weight: 600;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}

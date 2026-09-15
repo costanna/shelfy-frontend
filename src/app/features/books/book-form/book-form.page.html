@@ -49,6 +49,19 @@
         </div>
       </div>
 
+      <div class="field-row">
+        <div class="field">
+          <label class="label" for="startedAt">{{ 'bookForm.startedAt' | translate }}</label>
+          <input id="startedAt" class="input" type="date" formControlName="startedAt" />
+        </div>
+
+        <div class="field">
+          <label class="label" for="finishedAt">{{ 'bookForm.finishedAt' | translate }}</label>
+          <input id="finishedAt" class="input" type="date" formControlName="finishedAt" />
+          <app-field-error [control]="form.controls.finishedAt" [submitted]="submitted()" />
+        </div>
+      </div>
+
       <div class="field">
         <label class="label" for="isbn">{{ 'bookForm.isbn' | translate }}</label>
         <div class="isbn-row">

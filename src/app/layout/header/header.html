@@ -33,6 +33,14 @@
         </a>
         <a
           class="nav-link"
+          routerLink="/stats"
+          routerLinkActive="is-active"
+          (click)="closeMenu()"
+        >
+          {{ 'nav.stats' | translate }}
+        </a>
+        <a
+          class="nav-link"
           routerLink="/settings"
           routerLinkActive="is-active"
           (click)="closeMenu()"
