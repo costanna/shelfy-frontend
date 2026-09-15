@@ -1,0 +1,161 @@
+.back-link {
+  display: inline-block;
+  margin-bottom: var(--space-4);
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+
+  &:hover {
+    color: var(--primary);
+  }
+}
+
+.profile-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.identity {
+  flex: 1;
+  min-width: 0;
+
+  .name {
+    margin: 0;
+  }
+
+  .alias {
+    margin: 0;
+    color: var(--text-muted);
+  }
+}
+
+.counts {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.private-hint {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.profile-books {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.profile-book {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr;
+
+  @media (min-width: 640px) {
+    grid-template-columns: minmax(120px, 160px) 1fr;
+  }
+}
+
+.cover {
+  max-width: 160px;
+  margin-inline: auto;
+  width: 100%;
+
+  @media (min-width: 640px) {
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  img,
+  .cover-placeholder {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    border-radius: var(--radius-md);
+    object-fit: cover;
+  }
+}
+
+.cover-placeholder {
+  display: grid;
+  place-items: center;
+  background: var(--surface-muted);
+  font-size: 2rem;
+}
+
+.book-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  min-width: 0;
+
+  .title {
+    margin: 0;
+    font-size: 1.0625rem;
+  }
+
+  .author {
+    margin: 0;
+    color: var(--text-muted);
+  }
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.book-reviews {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: var(--space-2) 0 0;
+  padding: var(--space-3) 0 0;
+  border-top: 1px solid var(--border);
+  width: 100%;
+  list-style: none;
+}
+
+.review-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.review-date {
+  color: var(--text-faint);
+  font-size: 0.8125rem;
+}
+
+.review-text {
+  margin: var(--space-1) 0 0;
+  color: var(--text-muted);
+  white-space: pre-line;
+}

@@ -8,6 +8,7 @@
     "categories": "Categories",
     "settings": "Ajustos",
     "stats": "Estadístiques",
+    "people": "Persones",
     "addBook": "Afegeix un llibre",
     "logout": "Tanca la sessió",
     "menu": "Menú",
@@ -184,6 +185,25 @@
     "durationsEmpty": "Encara no tens llibres amb data d'inici i de fi.",
     "dayOne": "1 dia",
     "days": "{{count}} dies"
+  },
+  "people": {
+    "title": "Persones",
+    "subtitle": "Cerca altres usuaris de Shelfy i segueix la seva biblioteca.",
+    "searchPlaceholder": "Cerca per àlies",
+    "searchHint": "Escriu un àlies per cercar usuaris.",
+    "empty": "No hem trobat ningú amb aquest àlies.",
+    "follow": "Segueix",
+    "unfollow": "Deixa de seguir",
+    "followed": "Ara segueixes aquest usuari",
+    "unfollowed": "Has deixat de seguir aquest usuari",
+    "followerOne": "1 seguidor",
+    "followers": "{{count}} seguidors",
+    "followingOne": "Segueix 1",
+    "followingCount": "Segueix {{count}}",
+    "backToSearch": "Torna a la cerca",
+    "private": "Biblioteca privada",
+    "privateHint": "Segueix aquest usuari per veure la seva biblioteca i les seves ressenyes.",
+    "booksEmpty": "Encara no té llibres a la seva biblioteca."
   },
   "validation": {
     "required": "Aquest camp és obligatori",
