@@ -39,6 +39,7 @@ cualquiera que abra este README.
 - **Categorías propias**: cada usuario crea las suyas (p. ej. "fantasía", "pendientes de Sant Jordi") y las asigna libremente.
 - **Reseñas privadas**: puntuación de 0.5 a 5 estrellas (con medias) y texto de opinión por libro, visibles solo para su autor.
 - **Añadir un libro escaneando su ISBN** con la cámara del móvil, o buscándolo a mano: título, autor, páginas, portada y sinopsis se rellenan solos (API pública de Open Library).
+- **Estadísticas de lectura**: cuántos libros llevas leídos, cuántos terminaste cada mes y cuántos días te costó cada uno, entre la fecha de inicio y la de fin que le pongas al libro.
 - **Modo claro / oscuro / según el sistema**, con la preferencia guardada en la cuenta (te sigue entre dispositivos).
 - **Español, catalán e inglés**, cambiables al vuelo, sin recargar la página.
 
@@ -58,6 +59,7 @@ Algunas decisiones concretas, por si son de interés:
 - **Tema e idioma con doble persistencia**: se aplican al instante desde `localStorage` (antes del primer render) y se sincronizan con la cuenta vía `PATCH /api/users/me/preferences` si hay sesión iniciada.
 - **Angular Signals** de punta a punta para el estado de los servicios (`AuthService`, `ThemeService`, `LanguageService`...), sin librerías externas de estado.
 - **Integración con una API externa sin librería de terceros**: `BookLookupService` llama a Open Library con `fetch` directamente (no `HttpClient`), para no arrastrar el interceptor que añade el JWT de la app a toda petición saliente.
+- **Nombres de mes en el idioma activo sin datos de locale de Angular**: la sección "libros por mes" de Estadísticas usa `Intl.DateTimeFormat` directamente con el idioma de `LanguageService`, en vez de registrar `LOCALE_ID`/`registerLocaleData` solo para eso.
 
 ## 🚀 Arrancar en local
 
