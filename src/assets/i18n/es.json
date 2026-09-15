@@ -28,7 +28,8 @@
     "hasAccount": "¿Ya tienes cuenta?",
     "goToRegister": "Regístrate",
     "goToLogin": "Entra",
-    "loggedOut": "Sesión cerrada"
+    "loggedOut": "Sesión cerrada",
+    "slowStart": "El servidor puede tardar hasta un minuto en despertar si llevaba un rato sin uso. Un momento…"
   },
   "books": {
     "title": "Mis libros",

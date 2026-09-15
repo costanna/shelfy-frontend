@@ -28,7 +28,8 @@
     "hasAccount": "Ja tens compte?",
     "goToRegister": "Registra't",
     "goToLogin": "Entra",
-    "loggedOut": "Sessió tancada"
+    "loggedOut": "Sessió tancada",
+    "slowStart": "El servidor pot trigar fins a un minut a despertar si feia estona que no s'usava. Un moment…"
   },
   "books": {
     "title": "Els meus llibres",

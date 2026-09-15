@@ -28,6 +28,7 @@ export class RegisterPage {
   protected readonly submitting = signal(false);
   protected readonly submitted = signal(false);
   protected readonly serverError = signal<string | null>(null);
+  protected readonly slowStart = signal(false);
 
   protected submit(): void {
     this.submitted.set(true);
@@ -37,11 +38,19 @@ export class RegisterPage {
       return;
     }
     this.submitting.set(true);
+    this.slowStart.set(false);
+
+    const warmupTimer = setTimeout(() => this.slowStart.set(true), 4000);
 
     this.auth.register(this.form.getRawValue()).subscribe({
-      next: () => void this.router.navigate(['/books']),
+      next: () => {
+        clearTimeout(warmupTimer);
+        void this.router.navigate(['/books']);
+      },
       error: (error: HttpErrorResponse) => {
+        clearTimeout(warmupTimer);
         this.submitting.set(false);
+        this.slowStart.set(false);
         this.serverError.set(errorMessage(error));
       },
     });
