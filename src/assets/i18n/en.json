@@ -1,7 +1,7 @@
 {
   "app": {
     "name": "Shelfy",
-    "tagline": "Your personal library"
+    "tagline": "Your personal shelf"
   },
   "nav": {
     "books": "My books",
@@ -16,12 +16,14 @@
     "language": "Language"
   },
   "auth": {
-    "loginTitle": "Sign in to your library",
+    "loginTitle": "Sign in to your shelf",
     "loginSubtitle": "Keep track of what you read, what's next and what to buy.",
     "registerTitle": "Create your account",
     "registerSubtitle": "Start organising your reading in a minute.",
     "email": "Email",
     "password": "Password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
     "name": "Name",
     "login": "Sign in",
     "register": "Create account",
@@ -43,7 +45,7 @@
     "forgotSentSubtitle": "If that account exists, we've sent a link to reset the password. It expires in 1 hour.",
     "verifyingTitle": "Verifying your account…",
     "verifySuccessTitle": "Account verified!",
-    "verifySuccessSubtitle": "You're signed in now. Taking you to your library…",
+    "verifySuccessSubtitle": "You're signed in now. Taking you to your shelf…",
     "verifyErrorTitle": "We couldn't verify your account",
     "verifyMissingToken": "Missing verification link. Open it from the email we sent you.",
     "resetTitle": "Choose a new password",
@@ -199,7 +201,7 @@
     "datesRemoved": "Reading dates removed",
     "removeDatesConfirm": "Remove the reading dates for \"{{title}}\"? The book itself isn't deleted, it just loses its start and finish dates.",
     "totalRead": "Books read",
-    "totalBooks": "Books in your library",
+    "totalBooks": "Books on your shelf",
     "byMonthTitle": "Books finished per month",
     "byMonthEmpty": "You haven't finished a book with a finish date yet.",
     "bookOne": "1 book",
@@ -211,7 +213,7 @@
   },
   "people": {
     "title": "People",
-    "subtitle": "Search other Shelfy users and follow their library.",
+    "subtitle": "Search other Shelfy users and follow their shelf.",
     "searchPlaceholder": "Search by alias",
     "searchHint": "Type an alias to search for users.",
     "empty": "We couldn't find anyone with that alias.",
@@ -224,9 +226,9 @@
     "followingOne": "Following 1",
     "followingCount": "Following {{count}}",
     "backToSearch": "Back to search",
-    "private": "Private library",
-    "privateHint": "Follow this user to see their library and reviews.",
-    "booksEmpty": "They don't have any books in their library yet."
+    "private": "Private shelf",
+    "privateHint": "Follow this user to see their shelf and reviews.",
+    "booksEmpty": "They don't have any books on their shelf yet."
   },
   "validation": {
     "required": "This field is required",
@@ -253,5 +255,8 @@
     "cancel": "Cancel",
     "close": "Close",
     "retry": "Retry"
+  },
+  "footer": {
+    "madeBy": "made by"
   }
 }

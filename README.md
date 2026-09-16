@@ -47,6 +47,7 @@ cualquiera que abra este README.
 - **Calendario de lectura interactivo**: marca qué libro(s) leíste cada día directamente sobre un calendario mensual (al estilo Leero) — independiente del rango de inicio/fin del libro, para llevar el día a día. Muestra también la racha actual y el récord de días seguidos. Estadísticas ya no es de solo lectura: se puede eliminar cualquier día marcado desde una lista por libro, y editar o borrar el rango de inicio/fin de cada libro sin salir de la página.
 - **Modo claro / oscuro / según el sistema**, con la preferencia guardada en la cuenta (te sigue entre dispositivos).
 - **Español, catalán e inglés**, cambiables al vuelo, sin recargar la página.
+- **Mostrar/ocultar la contraseña** al escribirla, en inicio de sesión, registro y restablecer contraseña.
 
 ## 🛠️ Cómo está hecho
 

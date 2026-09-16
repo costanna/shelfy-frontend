@@ -7,10 +7,11 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { FieldError } from '../../../shared/components/field-error/field-error';
+import { PasswordToggle } from '../../../shared/components/password-toggle/password-toggle';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, RouterLink, TranslatePipe, FieldError],
+  imports: [ReactiveFormsModule, RouterLink, TranslatePipe, FieldError, PasswordToggle],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './login.page.html',
   styleUrl: '../auth-card.scss',
@@ -30,6 +31,7 @@ export class LoginPage {
   protected readonly submitted = signal(false);
   protected readonly serverError = signal<string | null>(null);
   protected readonly slowStart = signal(false);
+  protected readonly showPassword = signal(false);
 
   protected readonly unverifiedEmail = signal<string | null>(null);
   protected readonly resendingVerification = signal(false);

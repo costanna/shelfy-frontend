@@ -6,10 +6,11 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { AuthService } from '../../../core/services/auth.service';
 import { FieldError } from '../../../shared/components/field-error/field-error';
+import { PasswordToggle } from '../../../shared/components/password-toggle/password-toggle';
 
 @Component({
   selector: 'app-reset-password-page',
-  imports: [ReactiveFormsModule, RouterLink, TranslatePipe, FieldError],
+  imports: [ReactiveFormsModule, RouterLink, TranslatePipe, FieldError, PasswordToggle],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './reset-password.page.html',
   styleUrl: '../auth-card.scss',
@@ -32,6 +33,8 @@ export class ResetPasswordPage {
   protected readonly submitted = signal(false);
   protected readonly serverError = signal<string | null>(null);
   protected readonly done = signal(false);
+  protected readonly showNewPassword = signal(false);
+  protected readonly showConfirmPassword = signal(false);
 
   protected submit(): void {
     this.submitted.set(true);
