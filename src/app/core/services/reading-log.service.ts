@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import {
   MarkReadingDayRequest,
   ReadingCalendar,
+  ReadingLogBookSummary,
   ReadingStreak,
 } from '../models/reading-log.model';
 
@@ -20,6 +21,10 @@ export class ReadingLogService {
 
   streak(): Observable<ReadingStreak> {
     return this.http.get<ReadingStreak>(`${this.baseUrl}/streak`);
+  }
+
+  summary(): Observable<ReadingLogBookSummary[]> {
+    return this.http.get<ReadingLogBookSummary[]>(`${this.baseUrl}/summary`);
   }
 
   mark(request: MarkReadingDayRequest): Observable<void> {

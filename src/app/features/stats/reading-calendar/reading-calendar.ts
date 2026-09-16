@@ -2,7 +2,12 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } 
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { Book } from '../../../core/models/book.model';
-import { ReadingCalendar as ReadingCalendarData, ReadingLogBook, ReadingStreak } from '../../../core/models/reading-log.model';
+import {
+  ReadingCalendar as ReadingCalendarData,
+  ReadingLogBook,
+  ReadingLogBookSummary,
+  ReadingStreak,
+} from '../../../core/models/reading-log.model';
 import { BookService } from '../../../core/services/book.service';
 import { LanguageService } from '../../../core/services/language.service';
 import { ReadingLogService } from '../../../core/services/reading-log.service';
@@ -89,6 +94,10 @@ export class ReadingCalendar {
   protected readonly activeDay = signal<string | null>(null);
   protected readonly togglingBookId = signal<number | null>(null);
 
+  protected readonly summary = signal<ReadingLogBookSummary[]>([]);
+  protected readonly expandedBookId = signal<number | null>(null);
+  protected readonly removingKey = signal<string | null>(null);
+
   protected readonly weeks = computed(() => buildWeeks(this.viewYear(), this.viewMonth(), this.todayKey));
 
   protected readonly daysByDate = computed(() => {
@@ -137,6 +146,7 @@ export class ReadingCalendar {
       next: (page) => this.books.set(page.content),
     });
     this.loadStreak();
+    this.loadSummary();
 
     effect(() => {
       this.loadCalendar(this.viewYear(), this.viewMonth());
@@ -181,11 +191,40 @@ export class ReadingCalendar {
     request.subscribe({
       next: () => {
         this.togglingBookId.set(null);
-        this.loadCalendar(this.viewYear(), this.viewMonth());
-        this.loadStreak();
+        this.refreshAfterChange();
       },
       error: () => this.togglingBookId.set(null),
     });
+  }
+
+  protected toggleExpanded(bookId: number): void {
+    this.expandedBookId.set(this.expandedBookId() === bookId ? null : bookId);
+  }
+
+  protected formatDate(dateKey: string): string {
+    return new Intl.DateTimeFormat(this.language(), { dateStyle: 'medium' }).format(parseDateKey(dateKey));
+  }
+
+  protected removeMarkedDay(bookId: number, date: string): void {
+    const key = `${bookId}-${date}`;
+    if (this.removingKey() !== null) {
+      return;
+    }
+    this.removingKey.set(key);
+
+    this.readingLogService.unmark(bookId, date).subscribe({
+      next: () => {
+        this.removingKey.set(null);
+        this.refreshAfterChange();
+      },
+      error: () => this.removingKey.set(null),
+    });
+  }
+
+  private refreshAfterChange(): void {
+    this.loadCalendar(this.viewYear(), this.viewMonth());
+    this.loadStreak();
+    this.loadSummary();
   }
 
   private shiftMonth(delta: number): void {
@@ -216,6 +255,12 @@ export class ReadingCalendar {
   private loadStreak(): void {
     this.readingLogService.streak().subscribe({
       next: (streak) => this.streak.set(streak),
+    });
+  }
+
+  private loadSummary(): void {
+    this.readingLogService.summary().subscribe({
+      next: (summary) => this.summary.set(summary),
     });
   }
 }

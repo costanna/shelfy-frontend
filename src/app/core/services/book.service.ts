@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { Book, BookFilters, BookRequest } from '../models/book.model';
+import { Book, BookFilters, BookRequest, UpdateReadingDatesRequest } from '../models/book.model';
 import { Page } from '../models/page.model';
 
 @Injectable({ providedIn: 'root' })
@@ -29,6 +29,10 @@ export class BookService {
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  updateReadingDates(id: number, request: UpdateReadingDatesRequest): Observable<Book> {
+    return this.http.patch<Book>(`${this.baseUrl}/${id}/reading-dates`, request);
   }
 }
 
