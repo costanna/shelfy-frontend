@@ -5,6 +5,7 @@ export interface UserSummary {
   id: number;
   alias: string | null;
   name: string;
+  avatarUpdatedAt: string | null;
   followersCount: number;
   followedByMe: boolean;
 }
@@ -32,6 +33,7 @@ export interface UserProfile {
   id: number;
   alias: string | null;
   name: string;
+  avatarUpdatedAt: string | null;
   followersCount: number;
   followingCount: number;
   followedByMe: boolean;

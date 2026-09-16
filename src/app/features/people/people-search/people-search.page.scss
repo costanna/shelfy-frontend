@@ -45,6 +45,10 @@
   width: 2.75rem;
   height: 2.75rem;
   border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-fallback {
   background: var(--primary-soft);
   color: var(--primary);
   font-weight: 700;

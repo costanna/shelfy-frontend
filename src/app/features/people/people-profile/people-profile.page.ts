@@ -1,11 +1,20 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, inject, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { UserProfile } from '../../../core/models/social.model';
 import { FollowService } from '../../../core/services/follow.service';
 import { ToastService } from '../../../core/services/toast.service';
+import { avatarUrl, initials } from '../../../core/util/avatar-url';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { Spinner } from '../../../shared/components/spinner/spinner';
 import { StarRating } from '../../../shared/components/star-rating/star-rating';
@@ -33,14 +42,12 @@ export class PeopleProfilePage {
     effect(() => this.load(Number(this.id())));
   }
 
-  protected initials(name: string): string {
-    return name
-      .split(/\s+/)
-      .filter((word) => word.length > 1)
-      .slice(0, 2)
-      .map((word) => word[0]?.toUpperCase() ?? '')
-      .join('');
-  }
+  protected readonly initials = initials;
+
+  protected readonly avatarSrc = computed(() => {
+    const account = this.profile();
+    return account ? avatarUrl(account.id, account.avatarUpdatedAt) : null;
+  });
 
   protected toggleFollow(): void {
     const current = this.profile();

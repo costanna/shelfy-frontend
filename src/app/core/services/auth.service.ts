@@ -86,6 +86,20 @@ export class AuthService {
       .pipe(tap((user) => this.storeUser(user)));
   }
 
+  uploadAvatar(file: File): Observable<User> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http
+      .post<User>(`${this.baseUrl}/users/me/avatar`, formData)
+      .pipe(tap((user) => this.storeUser(user)));
+  }
+
+  removeAvatar(): Observable<User> {
+    return this.http
+      .delete<User>(`${this.baseUrl}/users/me/avatar`)
+      .pipe(tap((user) => this.storeUser(user)));
+  }
+
   private storeSession(response: AuthResponse): void {
     localStorage.setItem(TOKEN_KEY, response.token);
     this.storeUser(response.user);

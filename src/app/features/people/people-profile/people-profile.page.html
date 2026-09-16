@@ -4,7 +4,11 @@
   <a class="back-link" routerLink="/people">← {{ 'people.backToSearch' | translate }}</a>
 
   <header class="profile-header card card-padded">
-    <span class="avatar" aria-hidden="true">{{ initials(item.name) }}</span>
+    @if (avatarSrc(); as src) {
+      <img class="avatar" [src]="src" [alt]="item.name" />
+    } @else {
+      <span class="avatar avatar-fallback" aria-hidden="true">{{ initials(item.name) }}</span>
+    }
 
     <div class="identity">
       <h1 class="name">{{ item.name }}</h1>
