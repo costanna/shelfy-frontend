@@ -8,6 +8,8 @@ import { Footer } from './layout/footer/footer';
 import { Header } from './layout/header/header';
 import { ToastHost } from './shared/components/toast-host/toast-host';
 
+const SYNCED_USER_KEY = 'shelfy.synced-preferences-user-id';
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, Header, Footer, ToastHost],
@@ -20,20 +22,18 @@ export class App {
   private readonly theme = inject(ThemeService);
   private readonly language = inject(LanguageService);
 
-  private syncedUserId: number | null = null;
-
   constructor() {
     effect(() => {
       const user = this.auth.user();
       if (!user) {
-        this.syncedUserId = null;
+        localStorage.removeItem(SYNCED_USER_KEY);
         return;
       }
-      if (user.id === this.syncedUserId) {
+      if (localStorage.getItem(SYNCED_USER_KEY) === String(user.id)) {
         return;
       }
 
-      this.syncedUserId = user.id;
+      localStorage.setItem(SYNCED_USER_KEY, String(user.id));
       this.theme.set(user.themePreference);
       this.language.use(user.languagePreference);
     });
