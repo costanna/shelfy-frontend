@@ -235,6 +235,7 @@
     "followingOne": "Segueix 1",
     "followingCount": "Segueix {{count}}",
     "backToSearch": "Torna a la cerca",
+    "loadMore": "Carrega'n més",
     "private": "Prestatgeria privada",
     "privateHint": "Segueix aquest usuari per veure la seva prestatgeria i les seves ressenyes.",
     "booksEmpty": "Encara no té llibres a la seva prestatgeria."
