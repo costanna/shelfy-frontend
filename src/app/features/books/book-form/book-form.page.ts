@@ -57,7 +57,7 @@ export class BookFormPage {
       author: ['', [Validators.maxLength(255)]],
       coverUrl: ['', [Validators.maxLength(1000)]],
       isbn: ['', [Validators.maxLength(20)]],
-      synopsis: [''],
+      synopsis: ['', [Validators.maxLength(5000)]],
       pageCount: [null as number | null, [Validators.min(1)]],
       status: [BOOK_STATUSES[0] as (typeof BOOK_STATUSES)[number], [Validators.required]],
       startedAt: [''],
