@@ -58,6 +58,11 @@
     "resetInvalidTitle": "Invalid link",
     "resetInvalidSubtitle": "This password reset link is invalid or has expired."
   },
+  "recommendations": {
+    "title": "Because you've read {{author}}",
+    "add": "Add to my shelf",
+    "added": "Book added to \"Want to read\""
+  },
   "books": {
     "title": "My books",
     "count": "{{count}} books",

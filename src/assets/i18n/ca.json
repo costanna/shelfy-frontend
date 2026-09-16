@@ -58,6 +58,11 @@
     "resetInvalidTitle": "Enllaç no vàlid",
     "resetInvalidSubtitle": "Aquest enllaç per restablir la contrasenya no és vàlid o ha caducat."
   },
+  "recommendations": {
+    "title": "Perquè has llegit {{author}}",
+    "add": "Afegeix a la meva prestatgeria",
+    "added": "Llibre afegit a \"Vull llegir\""
+  },
   "books": {
     "title": "Els meus llibres",
     "count": "{{count}} llibres",

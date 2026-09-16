@@ -1,0 +1,34 @@
+@if (!loading() && results().length > 0) {
+  <section class="recommendations">
+    <h2 class="section-title">
+      {{ 'recommendations.title' | translate: { author: basedOnAuthor() } }}
+    </h2>
+
+    <ul class="recommendation-list">
+      @for (result of results(); track result.key) {
+        <li class="recommendation card">
+          @if (result.coverUrl) {
+            <img class="recommendation-cover" [src]="result.coverUrl" [alt]="result.title" />
+          } @else {
+            <div class="recommendation-cover recommendation-cover-fallback" aria-hidden="true">📖</div>
+          }
+
+          <div class="recommendation-body">
+            <p class="recommendation-title">{{ result.title }}</p>
+            @if (result.author) {
+              <p class="recommendation-author">{{ result.author }}</p>
+            }
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm"
+              [disabled]="addingKey() === result.key"
+              (click)="add(result)"
+            >
+              {{ (addingKey() === result.key ? 'common.loading' : 'recommendations.add') | translate }}
+            </button>
+          </div>
+        </li>
+      }
+    </ul>
+  </section>
+}

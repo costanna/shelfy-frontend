@@ -13,6 +13,7 @@ import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { Pagination } from '../../../shared/components/pagination/pagination';
 import { Spinner } from '../../../shared/components/spinner/spinner';
 import { BookFilterValue, BookFilters } from '../book-filters/book-filters';
+import { Recommendations } from '../recommendations/recommendations';
 
 const PAGE_SIZE = 12;
 const SEARCH_DEBOUNCE_MS = 300;
@@ -23,7 +24,7 @@ interface Query extends BookFilterValue {
 
 @Component({
   selector: 'app-book-list-page',
-  imports: [RouterLink, TranslatePipe, BookFilters, BookCard, EmptyState, Pagination, Spinner],
+  imports: [RouterLink, TranslatePipe, BookFilters, BookCard, EmptyState, Pagination, Spinner, Recommendations],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './book-list.page.html',
   styleUrl: './book-list.page.scss',
