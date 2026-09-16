@@ -96,6 +96,8 @@
     "searchPlaceholder": "Title or author",
     "searchHint": "Type something to search.",
     "searchEmpty": "We couldn't find any book matching that title or author.",
+    "sourceOpenLibrary": "Open Library",
+    "sourceGoogleBooksEs": "Google Books (Spain)",
     "title": "Title",
     "titlePlaceholder": "The Name of the Wind",
     "author": "Author",

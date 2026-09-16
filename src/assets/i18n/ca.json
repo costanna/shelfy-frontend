@@ -96,6 +96,8 @@
     "searchPlaceholder": "Títol o autor",
     "searchHint": "Escriu alguna cosa per cercar.",
     "searchEmpty": "No hem trobat cap llibre amb aquest títol o autor.",
+    "sourceOpenLibrary": "Open Library",
+    "sourceGoogleBooksEs": "Google Books (Espanya)",
     "title": "Títol",
     "titlePlaceholder": "El nom del vent",
     "author": "Autor",

@@ -27,6 +27,27 @@
       />
     </div>
 
+    @if (googleBooksAvailable) {
+      <div class="search-tabs">
+        <button
+          type="button"
+          class="search-tab"
+          [class.is-active]="source() === 'openLibrary'"
+          (click)="setSource('openLibrary')"
+        >
+          {{ 'bookForm.sourceOpenLibrary' | translate }}
+        </button>
+        <button
+          type="button"
+          class="search-tab"
+          [class.is-active]="source() === 'googleBooks'"
+          (click)="setSource('googleBooks')"
+        >
+          {{ 'bookForm.sourceGoogleBooksEs' | translate }}
+        </button>
+      </div>
+    }
+
     <div class="search-results">
       @if (loading()) {
         <app-spinner />

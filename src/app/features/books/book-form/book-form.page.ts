@@ -151,6 +151,7 @@ export class BookFormPage {
       pageCount: result.pageCount ?? this.form.controls.pageCount.value,
       coverUrl: result.coverUrl ?? this.form.controls.coverUrl.value,
       synopsis: result.synopsis ?? this.form.controls.synopsis.value,
+      isbn: result.isbn ?? this.form.controls.isbn.value,
     });
   }
 

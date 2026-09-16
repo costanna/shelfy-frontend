@@ -96,6 +96,8 @@
     "searchPlaceholder": "Título o autor",
     "searchHint": "Escribe algo para buscar.",
     "searchEmpty": "No hemos encontrado ningún libro con ese título o autor.",
+    "sourceOpenLibrary": "Open Library",
+    "sourceGoogleBooksEs": "Google Books (España)",
     "title": "Título",
     "titlePlaceholder": "El nombre del viento",
     "author": "Autor",

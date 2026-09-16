@@ -4,7 +4,10 @@ export interface BookLookupResult {
   pageCount: number | null;
   coverUrl: string | null;
   synopsis: string | null;
+  isbn: string | null;
 }
+
+export type BookSearchSource = 'openLibrary' | 'googleBooks';
 
 export interface BookSearchResult {
   key: string;
@@ -14,4 +17,5 @@ export interface BookSearchResult {
   coverUrl: string | null;
   isbn: string | null;
   pageCount: number | null;
+  synopsis?: string | null;
 }
