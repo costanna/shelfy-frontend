@@ -31,7 +31,6 @@ export class LoginPage {
   protected readonly serverError = signal<string | null>(null);
   protected readonly slowStart = signal(false);
 
-  /** Email a reintentar verificar, solo cuando el login falla por 403 (cuenta sin verificar). */
   protected readonly unverifiedEmail = signal<string | null>(null);
   protected readonly resendingVerification = signal(false);
 

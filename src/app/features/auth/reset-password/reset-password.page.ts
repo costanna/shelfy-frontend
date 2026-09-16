@@ -56,7 +56,6 @@ export class ResetPasswordPage {
   }
 }
 
-/** Marca confirmPassword como inválido si no coincide con newPassword. */
 function passwordsMatchValidator(group: AbstractControl): ValidationErrors | null {
   const newPassword = group.get('newPassword')?.value as string;
   const confirmPassword = group.get('confirmPassword')?.value as string;
