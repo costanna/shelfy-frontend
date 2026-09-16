@@ -8,11 +8,12 @@ import { BookService } from '../../../core/services/book.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { Spinner } from '../../../shared/components/spinner/spinner';
 import { StatusBadge } from '../../../shared/components/status-badge/status-badge';
+import { NoteSection } from '../notes/note-section/note-section';
 import { ReviewSection } from '../reviews/review-section/review-section';
 
 @Component({
   selector: 'app-book-detail-page',
-  imports: [RouterLink, TranslatePipe, DatePipe, StatusBadge, Spinner, ReviewSection],
+  imports: [RouterLink, TranslatePipe, DatePipe, StatusBadge, Spinner, ReviewSection, NoteSection],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './book-detail.page.html',
   styleUrl: './book-detail.page.scss',

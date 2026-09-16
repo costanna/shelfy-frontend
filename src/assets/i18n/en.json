@@ -165,6 +165,19 @@
     "deleteConfirm": "Delete this review?",
     "starsOf": "{{rating}} out of 5 stars"
   },
+  "notes": {
+    "title": "Notes & quotes",
+    "add": "Add a note",
+    "empty": "You haven't added any notes to this book yet.",
+    "contentLabel": "Note or quote",
+    "contentPlaceholder": "Write a note or paste a quote…",
+    "pageLabel": "Page (optional)",
+    "pageBadge": "Page {{page}}",
+    "save": "Save note",
+    "created": "Note saved",
+    "deleted": "Note deleted",
+    "deleteConfirm": "Delete this note?"
+  },
   "theme": {
     "light": "Light",
     "dark": "Dark",

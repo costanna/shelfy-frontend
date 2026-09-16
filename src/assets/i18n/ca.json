@@ -165,6 +165,19 @@
     "deleteConfirm": "Vols eliminar aquesta ressenya?",
     "starsOf": "{{rating}} de 5 estrelles"
   },
+  "notes": {
+    "title": "Notes i cites",
+    "add": "Afegeix una nota",
+    "empty": "Encara no has afegit cap nota a aquest llibre.",
+    "contentLabel": "Nota o cita",
+    "contentPlaceholder": "Escriu una nota o enganxa una cita…",
+    "pageLabel": "Pàgina (opcional)",
+    "pageBadge": "Pàg. {{page}}",
+    "save": "Desa la nota",
+    "created": "Nota desada",
+    "deleted": "Nota eliminada",
+    "deleteConfirm": "Vols eliminar aquesta nota?"
+  },
   "theme": {
     "light": "Clar",
     "dark": "Fosc",

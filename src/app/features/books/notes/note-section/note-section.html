@@ -1,0 +1,66 @@
+<section class="notes">
+  <div class="notes-header">
+    <h2>{{ 'notes.title' | translate }}</h2>
+
+    @if (!formOpen()) {
+      <button type="button" class="btn btn-secondary" (click)="openForm()">
+        {{ 'notes.add' | translate }}
+      </button>
+    }
+  </div>
+
+  @if (formOpen()) {
+    <form class="note-form card card-padded" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="field">
+        <label class="label" for="note-content">{{ 'notes.contentLabel' | translate }}</label>
+        <textarea
+          id="note-content"
+          class="textarea"
+          formControlName="content"
+          [placeholder]="'notes.contentPlaceholder' | translate"
+        ></textarea>
+      </div>
+
+      <div class="field note-page-field">
+        <label class="label" for="note-page">{{ 'notes.pageLabel' | translate }}</label>
+        <input id="note-page" class="input" type="number" min="1" formControlName="pageReference" />
+      </div>
+
+      <div class="note-form-actions">
+        <button type="button" class="btn btn-ghost" (click)="closeForm()">
+          {{ 'bookForm.cancel' | translate }}
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || saving()">
+          {{ (saving() ? 'common.loading' : 'notes.save') | translate }}
+        </button>
+      </div>
+    </form>
+  }
+
+  @if (notes().length === 0) {
+    <p class="notes-empty">{{ 'notes.empty' | translate }}</p>
+  } @else {
+    <ul class="note-list">
+      @for (note of notes(); track note.id) {
+        <li class="note card card-padded">
+          <div class="note-head">
+            @if (note.pageReference) {
+              <span class="note-page">{{ 'notes.pageBadge' | translate: { page: note.pageReference } }}</span>
+            }
+            <time class="note-date" [attr.datetime]="note.createdAt">
+              {{ note.createdAt | date: 'mediumDate' }}
+            </time>
+          </div>
+
+          <p class="note-text">{{ note.content }}</p>
+
+          <div class="note-actions">
+            <button type="button" class="btn btn-danger" (click)="remove(note)">
+              {{ 'common.delete' | translate }}
+            </button>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</section>
