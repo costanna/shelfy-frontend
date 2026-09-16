@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Subject, catchError, of, switchMap } from 'rxjs';
 
 import { Book } from '../../../core/models/book.model';
 import {
@@ -98,6 +100,8 @@ export class ReadingCalendar {
   protected readonly expandedBookId = signal<number | null>(null);
   protected readonly removingKey = signal<string | null>(null);
 
+  private readonly calendarRequest$ = new Subject<{ year: number; month: number }>();
+
   protected readonly weeks = computed(() => buildWeeks(this.viewYear(), this.viewMonth(), this.todayKey));
 
   protected readonly daysByDate = computed(() => {
@@ -148,8 +152,23 @@ export class ReadingCalendar {
     this.loadStreak();
     this.loadSummary();
 
+    this.calendarRequest$
+      .pipe(
+        switchMap(({ year, month }) => {
+          this.loading.set(true);
+          return this.readingLogService.calendar(year, month).pipe(catchError(() => of(null)));
+        }),
+        takeUntilDestroyed(),
+      )
+      .subscribe((calendar) => {
+        this.loading.set(false);
+        if (calendar) {
+          this.calendar.set(calendar);
+        }
+      });
+
     effect(() => {
-      this.loadCalendar(this.viewYear(), this.viewMonth());
+      this.calendarRequest$.next({ year: this.viewYear(), month: this.viewMonth() });
     });
   }
 
@@ -222,7 +241,7 @@ export class ReadingCalendar {
   }
 
   private refreshAfterChange(): void {
-    this.loadCalendar(this.viewYear(), this.viewMonth());
+    this.calendarRequest$.next({ year: this.viewYear(), month: this.viewMonth() });
     this.loadStreak();
     this.loadSummary();
   }
@@ -239,17 +258,6 @@ export class ReadingCalendar {
     }
     this.viewYear.set(year);
     this.viewMonth.set(month);
-  }
-
-  private loadCalendar(year: number, month: number): void {
-    this.loading.set(true);
-    this.readingLogService.calendar(year, month).subscribe({
-      next: (calendar) => {
-        this.calendar.set(calendar);
-        this.loading.set(false);
-      },
-      error: () => this.loading.set(false),
-    });
   }
 
   private loadStreak(): void {
