@@ -8,6 +8,9 @@
 @if (loading()) {
   <app-spinner />
 } @else if (stats(); as data) {
+  <h2 class="section-title">{{ 'stats.calendarTitle' | translate }}</h2>
+  <app-reading-calendar />
+
   <div class="stat-tiles">
     <div class="card card-padded stat-tile">
       <span class="stat-value">{{ data.totalBooksRead }}</span>

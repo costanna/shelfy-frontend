@@ -8,10 +8,11 @@ import { LanguageService } from '../../core/services/language.service';
 import { StatsService } from '../../core/services/stats.service';
 import { EmptyState } from '../../shared/components/empty-state/empty-state';
 import { Spinner } from '../../shared/components/spinner/spinner';
+import { ReadingCalendar } from './reading-calendar/reading-calendar';
 
 @Component({
   selector: 'app-stats-page',
-  imports: [RouterLink, TranslatePipe, DatePipe, Spinner, EmptyState],
+  imports: [RouterLink, TranslatePipe, DatePipe, Spinner, EmptyState, ReadingCalendar],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './stats.page.html',
   styleUrl: './stats.page.scss',

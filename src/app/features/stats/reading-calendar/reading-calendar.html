@@ -1,0 +1,119 @@
+<div class="calendar-card card card-padded">
+  <div class="calendar-header">
+    <button
+      type="button"
+      class="btn btn-ghost btn-icon"
+      [attr.aria-label]="'stats.previousMonth' | translate"
+      (click)="previousMonth()"
+    >
+      ‹
+    </button>
+    <h2 class="calendar-title">{{ monthLabel() }}</h2>
+    <button
+      type="button"
+      class="btn btn-ghost btn-icon"
+      [attr.aria-label]="'stats.nextMonth' | translate"
+      (click)="nextMonth()"
+    >
+      ›
+    </button>
+  </div>
+
+  @if (streak(); as s) {
+    <div class="streak-row">
+      <span class="streak-badge">
+        🔥
+        {{
+          (s.currentStreak === 1 ? 'stats.streakDayOne' : 'stats.streakDays')
+            | translate: { count: s.currentStreak }
+        }}
+      </span>
+      @if (s.longestStreak > s.currentStreak) {
+        <span class="streak-best">
+          {{ 'stats.streakBest' | translate: { count: s.longestStreak } }}
+        </span>
+      }
+    </div>
+  }
+
+  @if (loading()) {
+    <app-spinner />
+  } @else {
+    <div class="weekday-row">
+      @for (label of weekdayLabels(); track label) {
+        <span class="weekday">{{ label }}</span>
+      }
+    </div>
+
+    <div class="calendar-grid">
+      @for (week of weeks(); track $index) {
+        @for (cell of week; track cell.dateKey) {
+          <button
+            type="button"
+            class="day-cell"
+            [class.is-outside]="!cell.inMonth"
+            [class.is-today]="cell.isToday"
+            [class.has-books]="dayBooks(cell.dateKey).length > 0"
+            [disabled]="cell.isFuture"
+            (click)="openDay(cell)"
+          >
+            <span class="day-number">{{ cell.day }}</span>
+            @if (dayBooks(cell.dateKey).length) {
+              <span class="day-dots">
+                @for (book of dayBooks(cell.dateKey).slice(0, 3); track book.id) {
+                  <span class="day-dot"></span>
+                }
+                @if (dayBooks(cell.dateKey).length > 3) {
+                  <span class="day-dot-more">+{{ dayBooks(cell.dateKey).length - 3 }}</span>
+                }
+              </span>
+            }
+          </button>
+        }
+      }
+    </div>
+  }
+</div>
+
+@if (activeDay()) {
+  <div class="day-picker-backdrop" (click)="closeDay()">
+    <div class="day-picker card card-padded" (click)="$event.stopPropagation()">
+      <div class="day-picker-header">
+        <h3>{{ formattedActiveDay() }}</h3>
+        <button
+          type="button"
+          class="btn btn-ghost btn-icon"
+          [attr.aria-label]="'common.close' | translate"
+          (click)="closeDay()"
+        >
+          ✕
+        </button>
+      </div>
+
+      @if (books().length === 0) {
+        <p class="day-picker-empty">{{ 'stats.calendarNoBooks' | translate }}</p>
+      } @else {
+        <ul class="day-picker-list">
+          @for (item of activeDayBooks(); track item.book.id) {
+            <li>
+              <button
+                type="button"
+                class="day-picker-item"
+                [class.is-marked]="item.marked"
+                [disabled]="togglingBookId() === item.book.id"
+                (click)="toggleBook(item.book)"
+              >
+                <span class="day-picker-check" aria-hidden="true">
+                  @if (item.marked) {
+                    ✓
+                  }
+                </span>
+                <span class="day-picker-title">{{ item.book.title }}</span>
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+}
