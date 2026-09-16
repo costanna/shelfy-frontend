@@ -58,6 +58,11 @@
     "resetInvalidTitle": "Enlace no válido",
     "resetInvalidSubtitle": "Este enlace para restablecer la contraseña no es válido o ha caducado."
   },
+  "recommendations": {
+    "title": "Porque has leído a {{author}}",
+    "add": "Añadir a mi estantería",
+    "added": "Libro añadido a \"Quiero leer\""
+  },
   "books": {
     "title": "Mis libros",
     "count": "{{count}} libros",

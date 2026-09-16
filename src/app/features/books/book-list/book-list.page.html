@@ -19,6 +19,10 @@
   (valueChange)="onFiltersChange($event)"
 />
 
+@if (!hasFilters()) {
+  <app-recommendations />
+}
+
 @if (loading()) {
   <app-spinner />
 } @else if (result().content.length === 0) {
