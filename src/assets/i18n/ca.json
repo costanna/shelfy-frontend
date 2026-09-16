@@ -89,6 +89,13 @@
     "pageOf": "Pàgina {{page}} de {{total}}"
   },
   "bookForm": {
+    "searchBooks": "Busques un llibre?",
+    "searchBooksHint": "Troba'l per títol o autor i emplena les dades automàticament.",
+    "searchBooksAction": "Cerca un llibre",
+    "searchTitle": "Cerca un llibre",
+    "searchPlaceholder": "Títol o autor",
+    "searchHint": "Escriu alguna cosa per cercar.",
+    "searchEmpty": "No hem trobat cap llibre amb aquest títol o autor.",
     "title": "Títol",
     "titlePlaceholder": "El nom del vent",
     "author": "Autor",

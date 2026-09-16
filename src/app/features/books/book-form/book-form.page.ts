@@ -6,18 +6,20 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { catchError, of } from 'rxjs';
 
 import { BOOK_STATUSES, BookRequest } from '../../../core/models/book.model';
+import { BookLookupResult } from '../../../core/models/book-lookup.model';
 import { BookLookupService } from '../../../core/services/book-lookup.service';
 import { BookService } from '../../../core/services/book.service';
 import { CategoryService } from '../../../core/services/category.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { dateRangeValidator } from '../../../core/util/date-range.validator';
+import { BookSearch } from '../../../shared/components/book-search/book-search';
 import { FieldError } from '../../../shared/components/field-error/field-error';
 import { IsbnScanner } from '../../../shared/components/isbn-scanner/isbn-scanner';
 import { Spinner } from '../../../shared/components/spinner/spinner';
 
 @Component({
   selector: 'app-book-form-page',
-  imports: [ReactiveFormsModule, TranslatePipe, FieldError, Spinner, IsbnScanner],
+  imports: [ReactiveFormsModule, TranslatePipe, FieldError, Spinner, IsbnScanner, BookSearch],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './book-form.page.html',
   styleUrl: './book-form.page.scss',
@@ -39,6 +41,7 @@ export class BookFormPage {
   protected readonly saving = signal(false);
   protected readonly submitted = signal(false);
   protected readonly scannerOpen = signal(false);
+  protected readonly searchOpen = signal(false);
   protected readonly lookingUp = signal(false);
 
   protected readonly selectedCategories = signal<ReadonlySet<number>>(new Set());
@@ -122,14 +125,32 @@ export class BookFormPage {
         return;
       }
 
-      this.form.patchValue({
-        title: result.title ?? this.form.controls.title.value,
-        author: result.author ?? this.form.controls.author.value,
-        pageCount: result.pageCount ?? this.form.controls.pageCount.value,
-        coverUrl: result.coverUrl ?? this.form.controls.coverUrl.value,
-        synopsis: result.synopsis ?? this.form.controls.synopsis.value,
-      });
+      this.applyLookupResult(result);
       this.toast.success('bookForm.lookupSuccess');
+    });
+  }
+
+  protected openSearch(): void {
+    this.searchOpen.set(true);
+  }
+
+  protected closeSearch(): void {
+    this.searchOpen.set(false);
+  }
+
+  protected onBookSelected(result: BookLookupResult): void {
+    this.searchOpen.set(false);
+    this.applyLookupResult(result);
+    this.toast.success('bookForm.lookupSuccess');
+  }
+
+  private applyLookupResult(result: BookLookupResult): void {
+    this.form.patchValue({
+      title: result.title ?? this.form.controls.title.value,
+      author: result.author ?? this.form.controls.author.value,
+      pageCount: result.pageCount ?? this.form.controls.pageCount.value,
+      coverUrl: result.coverUrl ?? this.form.controls.coverUrl.value,
+      synopsis: result.synopsis ?? this.form.controls.synopsis.value,
     });
   }
 
