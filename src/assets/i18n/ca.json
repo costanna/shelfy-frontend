@@ -202,7 +202,14 @@
     "aliasSaved": "Àlies desat",
     "theme": "Tema",
     "language": "Idioma",
-    "saved": "Preferències desades"
+    "saved": "Preferències desades",
+    "libraryData": "La teva estanteria",
+    "libraryDataHint": "Exporta els teus llibres a un fitxer CSV o importa'n un per afegir llibres en bloc.",
+    "exportLibrary": "Exporta a CSV",
+    "importLibrary": "Importa des de CSV",
+    "importSuccess": "Importació completada",
+    "importResultOne": "S'ha importat 1 llibre ({{skipped}} omesos).",
+    "importResult": "S'han importat {{imported}} llibres ({{skipped}} omesos)."
   },
   "readingGoal": {
     "title": "Repte de lectura {{year}}",

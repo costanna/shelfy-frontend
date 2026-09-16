@@ -9,8 +9,10 @@ import {
 } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 
+import { BookImportResult } from '../../core/models/book.model';
 import { Language, ThemePreference } from '../../core/models/user.model';
 import { AuthService } from '../../core/services/auth.service';
+import { BookService } from '../../core/services/book.service';
 import {
   LANGUAGE_LABELS,
   LanguageService,
@@ -39,6 +41,7 @@ export class SettingsPage {
   private readonly themeService = inject(ThemeService);
   private readonly languageService = inject(LanguageService);
   private readonly toast = inject(ToastService);
+  private readonly bookService = inject(BookService);
 
   protected readonly user = this.auth.user;
   protected readonly theme = this.themeService.theme;
@@ -58,6 +61,9 @@ export class SettingsPage {
   protected readonly savingAlias = signal(false);
   protected readonly aliasSubmitted = signal(false);
   protected readonly uploadingAvatar = signal(false);
+  protected readonly exportingLibrary = signal(false);
+  protected readonly importingLibrary = signal(false);
+  protected readonly importResult = signal<BookImportResult | null>(null);
 
   protected readonly avatarSrc = computed(() => {
     const account = this.user();
@@ -150,6 +156,44 @@ export class SettingsPage {
     });
   }
 
+  protected exportLibrary(): void {
+    if (this.exportingLibrary()) {
+      return;
+    }
+    this.exportingLibrary.set(true);
+
+    this.bookService.exportCsv().subscribe({
+      next: (blob) => {
+        this.exportingLibrary.set(false);
+        downloadBlob(blob, 'shelfy-biblioteca.csv');
+      },
+      error: () => this.exportingLibrary.set(false),
+    });
+  }
+
+  protected onImportFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0] ?? null;
+    input.value = '';
+
+    if (!file || this.importingLibrary()) {
+      return;
+    }
+    this.importingLibrary.set(true);
+    this.importResult.set(null);
+
+    this.bookService.importCsv(file).subscribe({
+      next: (result) => {
+        this.importingLibrary.set(false);
+        this.importResult.set(result);
+        if (result.imported > 0) {
+          this.toast.success('settings.importSuccess');
+        }
+      },
+      error: () => this.importingLibrary.set(false),
+    });
+  }
+
   private savePreferences(preferences: {
     themePreference?: ThemePreference;
     languagePreference?: Language;
@@ -159,6 +203,15 @@ export class SettingsPage {
       error: () => undefined,
     });
   }
+}
+
+function downloadBlob(blob: Blob, filename: string): void {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(url);
 }
 
 function aliasFormatValidator(control: AbstractControl): ValidationErrors | null {

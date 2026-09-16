@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { Book, BookFilters, BookRequest, UpdateReadingDatesRequest } from '../models/book.model';
+import { Book, BookFilters, BookImportResult, BookRequest, UpdateReadingDatesRequest } from '../models/book.model';
 import { Page } from '../models/page.model';
 
 @Injectable({ providedIn: 'root' })
@@ -33,6 +33,16 @@ export class BookService {
 
   updateReadingDates(id: number, request: UpdateReadingDatesRequest): Observable<Book> {
     return this.http.patch<Book>(`${this.baseUrl}/${id}/reading-dates`, request);
+  }
+
+  exportCsv(): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/export`, { responseType: 'blob' });
+  }
+
+  importCsv(file: File): Observable<BookImportResult> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<BookImportResult>(`${this.baseUrl}/import`, formData);
   }
 }
 

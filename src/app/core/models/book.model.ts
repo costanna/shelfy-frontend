@@ -45,3 +45,9 @@ export interface BookFilters {
   page?: number;
   size?: number;
 }
+
+export interface BookImportResult {
+  imported: number;
+  skipped: number;
+  messages: string[];
+}

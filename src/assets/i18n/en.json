@@ -202,7 +202,14 @@
     "aliasSaved": "Alias saved",
     "theme": "Theme",
     "language": "Language",
-    "saved": "Preferences saved"
+    "saved": "Preferences saved",
+    "libraryData": "Your library",
+    "libraryDataHint": "Export your books to a CSV file, or import one to add books in bulk.",
+    "exportLibrary": "Export to CSV",
+    "importLibrary": "Import from CSV",
+    "importSuccess": "Import complete",
+    "importResultOne": "Imported 1 book ({{skipped}} skipped).",
+    "importResult": "Imported {{imported}} books ({{skipped}} skipped)."
   },
   "readingGoal": {
     "title": "{{year}} reading challenge",

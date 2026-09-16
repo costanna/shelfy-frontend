@@ -116,3 +116,34 @@
     font-weight: 500;
   }
 }
+
+.library-data-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+
+  label.btn {
+    cursor: pointer;
+
+    &.is-disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+  }
+}
+
+.import-result {
+  margin-top: var(--space-4);
+
+  p {
+    margin: 0 0 var(--space-2);
+  }
+}
+
+.import-messages {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+}
