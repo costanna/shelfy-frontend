@@ -5,6 +5,18 @@
 @if (loading()) {
   <app-spinner />
 } @else {
+  @if (!isEdit()) {
+    <div class="search-cta card card-padded">
+      <div>
+        <p class="search-cta-title">{{ 'bookForm.searchBooks' | translate }}</p>
+        <p class="hint">{{ 'bookForm.searchBooksHint' | translate }}</p>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="openSearch()">
+        🔍 {{ 'bookForm.searchBooksAction' | translate }}
+      </button>
+    </div>
+  }
+
   <form class="book-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
     <div class="form-main">
       <div class="field">
@@ -150,4 +162,8 @@
 
 @if (scannerOpen()) {
   <app-isbn-scanner (scanned)="onScanned($event)" (closed)="closeScanner()" />
+}
+
+@if (searchOpen()) {
+  <app-book-search (selected)="onBookSelected($event)" (closed)="closeSearch()" />
 }

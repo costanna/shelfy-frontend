@@ -1,0 +1,129 @@
+.search-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: rgb(0 0 0 / 70%);
+}
+
+.search-panel {
+  width: 100%;
+  max-width: 32rem;
+  max-height: min(36rem, 85dvh);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.search-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+
+  h2 {
+    margin: 0;
+    font-size: 1.0625rem;
+  }
+}
+
+.search-results {
+  overflow-y: auto;
+  min-height: 4rem;
+}
+
+.search-hint {
+  margin: var(--space-4) 0;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.search-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.search-result {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background var(--transition),
+    border-color var(--transition);
+
+  &:hover:not(:disabled) {
+    border-color: var(--primary);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.search-cover {
+  flex-shrink: 0;
+  width: 2.75rem;
+
+  img,
+  .search-cover-placeholder {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+
+  .search-cover-placeholder {
+    display: grid;
+    place-items: center;
+    background: var(--surface-muted);
+    font-size: 1.125rem;
+  }
+}
+
+.search-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.search-title {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-meta {
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-adding {
+  flex-shrink: 0;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+}

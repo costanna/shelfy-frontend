@@ -1,0 +1,73 @@
+<div class="search-backdrop" (click)="close()">
+  <div class="search-panel card" (click)="$event.stopPropagation()">
+    <div class="search-header">
+      <h2>{{ 'bookForm.searchTitle' | translate }}</h2>
+      <button
+        type="button"
+        class="btn btn-ghost btn-icon"
+        [attr.aria-label]="'common.close' | translate"
+        (click)="close()"
+      >
+        ✕
+      </button>
+    </div>
+
+    <div class="field">
+      <label class="visually-hidden" for="book-search-input">
+        {{ 'bookForm.searchPlaceholder' | translate }}
+      </label>
+      <input
+        id="book-search-input"
+        class="input"
+        type="search"
+        autofocus
+        [placeholder]="'bookForm.searchPlaceholder' | translate"
+        [value]="query()"
+        (input)="onSearch($event)"
+      />
+    </div>
+
+    <div class="search-results">
+      @if (loading()) {
+        <app-spinner />
+      } @else if (!searched()) {
+        <p class="search-hint">{{ 'bookForm.searchHint' | translate }}</p>
+      } @else if (results().length === 0) {
+        <p class="search-hint">{{ 'bookForm.searchEmpty' | translate }}</p>
+      } @else {
+        <ul class="search-list">
+          @for (result of results(); track result.key) {
+            <li>
+              <button
+                type="button"
+                class="search-result"
+                [disabled]="addingKey() === result.key"
+                (click)="pick(result)"
+              >
+                <span class="search-cover">
+                  @if (result.coverUrl) {
+                    <img [src]="result.coverUrl" [alt]="result.title" loading="lazy" />
+                  } @else {
+                    <span class="search-cover-placeholder" aria-hidden="true">📖</span>
+                  }
+                </span>
+                <span class="search-info">
+                  <span class="search-title">{{ result.title }}</span>
+                  <span class="search-meta">
+                    {{ result.author || ('books.noAuthor' | translate) }}
+                    @if (result.firstPublishYear) {
+                      · {{ result.firstPublishYear }}
+                    }
+                  </span>
+                </span>
+                @if (addingKey() === result.key) {
+                  <span class="search-adding">{{ 'common.loading' | translate }}</span>
+                }
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+</div>

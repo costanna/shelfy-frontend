@@ -89,6 +89,13 @@
     "pageOf": "Página {{page}} de {{total}}"
   },
   "bookForm": {
+    "searchBooks": "¿Buscas un libro?",
+    "searchBooksHint": "Encuéntralo por título o autor y rellena los datos automáticamente.",
+    "searchBooksAction": "Buscar libro",
+    "searchTitle": "Buscar un libro",
+    "searchPlaceholder": "Título o autor",
+    "searchHint": "Escribe algo para buscar.",
+    "searchEmpty": "No hemos encontrado ningún libro con ese título o autor.",
     "title": "Título",
     "titlePlaceholder": "El nombre del viento",
     "author": "Autor",

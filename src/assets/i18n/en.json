@@ -89,6 +89,13 @@
     "pageOf": "Page {{page}} of {{total}}"
   },
   "bookForm": {
+    "searchBooks": "Looking for a book?",
+    "searchBooksHint": "Find it by title or author and fill in the details automatically.",
+    "searchBooksAction": "Search for a book",
+    "searchTitle": "Search for a book",
+    "searchPlaceholder": "Title or author",
+    "searchHint": "Type something to search.",
+    "searchEmpty": "We couldn't find any book matching that title or author.",
     "title": "Title",
     "titlePlaceholder": "The Name of the Wind",
     "author": "Author",
