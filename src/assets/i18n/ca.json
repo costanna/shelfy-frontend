@@ -183,6 +183,13 @@
   "stats": {
     "title": "Estadístiques",
     "subtitle": "Quant trigues a llegir i quants llibres portes.",
+    "calendarTitle": "Calendari de lectura",
+    "previousMonth": "Mes anterior",
+    "nextMonth": "Mes següent",
+    "streakDayOne": "1 dia seguit",
+    "streakDays": "{{count}} dies seguits",
+    "streakBest": "Rècord: {{count}}",
+    "calendarNoBooks": "Encara no tens llibres per marcar. Afegeix-ne un primer.",
     "totalRead": "Llibres llegits",
     "totalBooks": "Llibres a la teva biblioteca",
     "byMonthTitle": "Llibres acabats per mes",

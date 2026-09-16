@@ -183,6 +183,13 @@
   "stats": {
     "title": "Estadísticas",
     "subtitle": "Cuánto tardas en leer y cuántos libros llevas.",
+    "calendarTitle": "Calendario de lectura",
+    "previousMonth": "Mes anterior",
+    "nextMonth": "Mes siguiente",
+    "streakDayOne": "1 día seguido",
+    "streakDays": "{{count}} días seguidos",
+    "streakBest": "Récord: {{count}}",
+    "calendarNoBooks": "Todavía no tienes libros para marcar. Añade uno primero.",
     "totalRead": "Libros leídos",
     "totalBooks": "Libros en tu biblioteca",
     "byMonthTitle": "Libros terminados por mes",
