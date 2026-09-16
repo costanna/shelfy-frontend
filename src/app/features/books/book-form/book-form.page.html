@@ -101,6 +101,7 @@
           formControlName="synopsis"
           [placeholder]="'bookForm.synopsisPlaceholder' | translate"
         ></textarea>
+        <app-field-error [control]="form.controls.synopsis" [submitted]="submitted()" />
       </div>
 
       <div class="field">
