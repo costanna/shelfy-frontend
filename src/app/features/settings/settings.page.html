@@ -120,4 +120,44 @@
       </select>
     </div>
   </section>
+
+  <section class="card card-padded settings-section">
+    <h2>{{ 'settings.libraryData' | translate }}</h2>
+    <p class="hint">{{ 'settings.libraryDataHint' | translate }}</p>
+
+    <div class="library-data-actions">
+      <button type="button" class="btn btn-secondary" [disabled]="exportingLibrary()" (click)="exportLibrary()">
+        {{ (exportingLibrary() ? 'common.loading' : 'settings.exportLibrary') | translate }}
+      </button>
+
+      <label class="btn btn-secondary" [class.is-disabled]="importingLibrary()">
+        {{ (importingLibrary() ? 'common.loading' : 'settings.importLibrary') | translate }}
+        <input
+          type="file"
+          accept=".csv,text/csv"
+          class="visually-hidden"
+          [disabled]="importingLibrary()"
+          (change)="onImportFileSelected($event)"
+        />
+      </label>
+    </div>
+
+    @if (importResult(); as result) {
+      <div class="import-result">
+        <p>
+          {{
+            (result.imported === 1 ? 'settings.importResultOne' : 'settings.importResult')
+              | translate: { imported: result.imported, skipped: result.skipped }
+          }}
+        </p>
+        @if (result.messages.length > 0) {
+          <ul class="import-messages">
+            @for (message of result.messages; track message) {
+              <li>{{ message }}</li>
+            }
+          </ul>
+        }
+      </div>
+    }
+  </section>
 </div>
