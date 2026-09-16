@@ -74,6 +74,7 @@ export class AuthService {
   savePreferences(preferences: {
     themePreference?: ThemePreference;
     languagePreference?: Language;
+    remindersEnabled?: boolean;
   }): Observable<User> {
     return this.http
       .patch<User>(`${this.baseUrl}/users/me/preferences`, preferences)

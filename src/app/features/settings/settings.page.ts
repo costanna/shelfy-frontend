@@ -93,6 +93,11 @@ export class SettingsPage {
     this.savePreferences({ languagePreference: language });
   }
 
+  protected onRemindersToggle(event: Event): void {
+    const remindersEnabled = (event.target as HTMLInputElement).checked;
+    this.savePreferences({ remindersEnabled });
+  }
+
   protected saveAlias(): void {
     this.aliasSubmitted.set(true);
 
@@ -197,6 +202,7 @@ export class SettingsPage {
   private savePreferences(preferences: {
     themePreference?: ThemePreference;
     languagePreference?: Language;
+    remindersEnabled?: boolean;
   }): void {
     this.auth.savePreferences(preferences).subscribe({
       next: () => this.toast.success('settings.saved'),

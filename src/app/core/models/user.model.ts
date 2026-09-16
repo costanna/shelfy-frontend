@@ -10,6 +10,7 @@ export interface User {
   themePreference: ThemePreference;
   languagePreference: Language;
   avatarUpdatedAt: string | null;
+  remindersEnabled: boolean;
 }
 
 export interface AuthResponse {

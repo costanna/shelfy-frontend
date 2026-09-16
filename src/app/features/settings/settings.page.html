@@ -122,6 +122,19 @@
   </section>
 
   <section class="card card-padded settings-section">
+    <h2>{{ 'settings.notifications' | translate }}</h2>
+    <label class="reminders-toggle">
+      <input
+        type="checkbox"
+        [checked]="user()?.remindersEnabled ?? true"
+        (change)="onRemindersToggle($event)"
+      />
+      <span>{{ 'settings.remindersEnabled' | translate }}</span>
+    </label>
+    <p class="hint">{{ 'settings.remindersHint' | translate }}</p>
+  </section>
+
+  <section class="card card-padded settings-section">
     <h2>{{ 'settings.libraryData' | translate }}</h2>
     <p class="hint">{{ 'settings.libraryDataHint' | translate }}</p>
 
