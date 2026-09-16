@@ -43,7 +43,7 @@ cualquiera que abra este README.
 - **Buscar y seguir a otros usuarios** por alias: seguir a alguien revela toda su biblioteca y sus reseñas (o nada, si no le sigues) — ver [`/people`](src/app/features/people).
 - **Foto de perfil**: se sube desde Ajustes (PNG/JPEG/WEBP, máx. 5 MB — el backend la recorta a cuadrado y la redimensiona), y aparece también en la cabecera como acceso directo a Ajustes.
 - **Añadir un libro escaneando su ISBN** con la cámara del móvil, o buscándolo a mano: título, autor, páginas, portada y sinopsis se rellenan solos (API pública de Open Library).
-- **Buscar un libro por título o autor** (al estilo Goodreads) para añadirlo sin teclear nada a mano: se elige de una lista de resultados con portada y año, y el formulario se rellena solo.
+- **Buscar un libro por título o autor** (al estilo Goodreads) para añadirlo sin teclear nada a mano: se elige de una lista de resultados con portada y año, y el formulario se rellena solo. Dos fuentes a elegir: Open Library (siempre activa) y Google Books limitado a España (opcional, hace falta una clave gratuita — ver "Configuración").
 - **Estadísticas de lectura**: cuántos libros llevas leídos, cuántos terminaste cada mes y cuántos días te costó cada uno, entre la fecha de inicio y la de fin que le pongas al libro.
 - **Calendario de lectura interactivo**: marca qué libro(s) leíste cada día directamente sobre un calendario mensual (al estilo Leero) — independiente del rango de inicio/fin del libro, para llevar el día a día. Muestra también la racha actual y el récord de días seguidos. Estadísticas ya no es de solo lectura: se puede eliminar cualquier día marcado desde una lista por libro, y editar o borrar el rango de inicio/fin de cada libro sin salir de la página.
 - **Modo claro / oscuro / según el sistema**, con la preferencia guardada en la cuenta (te sigue entre dispositivos).
@@ -89,6 +89,24 @@ La URL del backend se fija en tiempo de build, no por variable de entorno:
 |---|---|---|
 | `src/environments/environment.ts` | `npm start` | `http://localhost:8080/api` |
 | `src/environments/environment.prod.ts` | `npm run build` | el backend en Render |
+
+**Búsqueda por Google Books (opcional):** la pestaña "Google Books (España)" del buscador de
+libros solo aparece si hay una clave configurada — sin ella, la app funciona igual, solo con Open
+Library. Para activarla:
+
+1. En [Google Cloud Console](https://console.cloud.google.com/), crea un proyecto (o usa uno que
+   ya tengas) y habilita la **Books API**.
+2. En **APIs y servicios → Credenciales**, crea una **clave de API**. Restríngela a la Books API y,
+   en "Restricciones de la aplicación", a **referentes HTTP** con tu dominio (p. ej.
+   `https://shelfy-reads.vercel.app/*`) — es una clave que viaja al navegador, así que restringirla
+   evita que otra web la use en tu cuota.
+3. En Vercel, **Project Settings → Environment Variables**, añade `GOOGLE_BOOKS_API_KEY` con esa
+   clave (entorno Production) y vuelve a desplegar.
+
+`npm run build` la inyecta en `environment.prod.ts` en tiempo de compilación
+(`scripts/set-env.js`, vía el hook `prebuild` de npm) — la clave nunca se guarda en el repo, solo
+en la variable de entorno de Vercel. La cuota gratuita de Google (1000 peticiones/día) es de sobra
+para uso personal.
 
 ### Internacionalización y tema
 

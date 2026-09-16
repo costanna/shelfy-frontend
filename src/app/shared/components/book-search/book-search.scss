@@ -31,6 +31,37 @@
   }
 }
 
+.search-tabs {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.search-tab {
+  padding: 0.375rem var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    color var(--transition);
+
+  &:hover {
+    border-color: var(--primary);
+  }
+
+  &.is-active {
+    background: var(--primary-soft);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}
+
 .search-results {
   overflow-y: auto;
   min-height: 4rem;

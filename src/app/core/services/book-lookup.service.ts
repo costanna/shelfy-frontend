@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, from, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
+import { environment } from '../../../environments/environment';
 import { BookLookupResult, BookSearchResult } from '../models/book-lookup.model';
 
 interface OpenLibraryBookData {
@@ -33,12 +34,32 @@ interface OpenLibrarySearchResponse {
   docs?: OpenLibrarySearchDoc[];
 }
 
+interface GoogleBooksVolume {
+  id: string;
+  volumeInfo?: {
+    title?: string;
+    authors?: string[];
+    publishedDate?: string;
+    pageCount?: number;
+    imageLinks?: { thumbnail?: string; smallThumbnail?: string };
+    description?: string;
+    industryIdentifiers?: { type: string; identifier: string }[];
+  };
+}
+
+interface GoogleBooksResponse {
+  items?: GoogleBooksVolume[];
+}
+
 const OPEN_LIBRARY_API = 'https://openlibrary.org';
 const OPEN_LIBRARY_COVERS = 'https://covers.openlibrary.org';
+const GOOGLE_BOOKS_API = 'https://www.googleapis.com/books/v1';
 const SEARCH_LIMIT = 20;
 
 @Injectable({ providedIn: 'root' })
 export class BookLookupService {
+  readonly googleBooksAvailable = !!environment.googleBooksApiKey;
+
   search(query: string): Observable<BookSearchResult[]> {
     const trimmed = query.trim();
     if (!trimmed) {
@@ -54,6 +75,26 @@ export class BookLookupService {
 
     return this.fetchJson<OpenLibrarySearchResponse>(url).pipe(
       map((data) => (data?.docs ?? []).map(toSearchResult)),
+      catchError(() => of([])),
+    );
+  }
+
+  searchGoogleBooks(query: string): Observable<BookSearchResult[]> {
+    const trimmed = query.trim();
+    if (!trimmed || !this.googleBooksAvailable) {
+      return of([]);
+    }
+
+    const params = new URLSearchParams({
+      q: trimmed,
+      country: 'ES',
+      maxResults: String(SEARCH_LIMIT),
+      key: environment.googleBooksApiKey,
+    });
+    const url = `${GOOGLE_BOOKS_API}/volumes?${params.toString()}`;
+
+    return this.fetchJson<GoogleBooksResponse>(url).pipe(
+      map((data) => (data?.items ?? []).map(toGoogleBooksResult)),
       catchError(() => of([])),
     );
   }
@@ -79,6 +120,7 @@ export class BookLookupService {
           pageCount: entry.number_of_pages ?? null,
           coverUrl: entry.cover?.large ?? entry.cover?.medium ?? entry.cover?.small ?? null,
           synopsis: null,
+          isbn: clean,
         };
 
         return this.fetchSynopsis(clean).pipe(map((synopsis) => ({ ...base, synopsis })));
@@ -124,5 +166,24 @@ function toSearchResult(doc: OpenLibrarySearchDoc): BookSearchResult {
     coverUrl: doc.cover_i ? `${OPEN_LIBRARY_COVERS}/b/id/${doc.cover_i}-M.jpg` : null,
     isbn: doc.isbn?.[0] ?? null,
     pageCount: doc.number_of_pages_median ?? null,
+  };
+}
+
+function toGoogleBooksResult(volume: GoogleBooksVolume): BookSearchResult {
+  const info = volume.volumeInfo ?? {};
+  const year = info.publishedDate ? Number(info.publishedDate.slice(0, 4)) : NaN;
+  const isbn13 = info.industryIdentifiers?.find((id) => id.type === 'ISBN_13')?.identifier;
+  const isbn10 = info.industryIdentifiers?.find((id) => id.type === 'ISBN_10')?.identifier;
+  const thumbnail = info.imageLinks?.thumbnail ?? info.imageLinks?.smallThumbnail ?? null;
+
+  return {
+    key: `gb-${volume.id}`,
+    title: info.title?.trim() || '',
+    author: info.authors?.[0]?.trim() || null,
+    firstPublishYear: Number.isFinite(year) ? year : null,
+    coverUrl: thumbnail ? thumbnail.replace(/^http:/, 'https:') : null,
+    isbn: isbn13 ?? isbn10 ?? null,
+    pageCount: info.pageCount ?? null,
+    synopsis: info.description?.trim() || null,
   };
 }
