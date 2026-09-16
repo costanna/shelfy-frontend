@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.costanna.shelfy",
+      "sha256_cert_fingerprints": [
+        "14:41:DB:23:82:CF:96:FD:C6:91:21:20:85:B5:9B:78:D4:D4:54:FC:CB:A5:D7:CE:4A:C8:8B:02:10:0A:CB:FA"
+      ]
+    }
+  }
+]
