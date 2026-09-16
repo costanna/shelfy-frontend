@@ -1,11 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  ReactiveFormsModule,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -16,6 +10,7 @@ import { BookLookupService } from '../../../core/services/book-lookup.service';
 import { BookService } from '../../../core/services/book.service';
 import { CategoryService } from '../../../core/services/category.service';
 import { ToastService } from '../../../core/services/toast.service';
+import { dateRangeValidator } from '../../../core/util/date-range.validator';
 import { FieldError } from '../../../shared/components/field-error/field-error';
 import { IsbnScanner } from '../../../shared/components/isbn-scanner/isbn-scanner';
 import { Spinner } from '../../../shared/components/spinner/spinner';
@@ -209,19 +204,4 @@ export class BookFormPage {
       },
     });
   }
-}
-
-function dateRangeValidator(group: AbstractControl): ValidationErrors | null {
-  const startedAt = group.get('startedAt')?.value as string;
-  const finishedAt = group.get('finishedAt')?.value as string;
-  const finishedControl = group.get('finishedAt');
-
-  if (startedAt && finishedAt && finishedAt < startedAt) {
-    finishedControl?.setErrors({ ...finishedControl.errors, dateRange: true });
-  } else if (finishedControl?.hasError('dateRange')) {
-    const { dateRange, ...rest } = finishedControl.errors ?? {};
-    finishedControl.setErrors(Object.keys(rest).length > 0 ? rest : null);
-  }
-
-  return null;
 }

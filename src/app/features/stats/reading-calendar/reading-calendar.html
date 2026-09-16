@@ -75,6 +75,54 @@
   }
 </div>
 
+<div class="marked-days-card card card-padded">
+  <h3 class="marked-days-title">{{ 'stats.markedDaysTitle' | translate }}</h3>
+
+  @if (summary().length === 0) {
+    <p class="marked-days-empty">{{ 'stats.markedDaysEmpty' | translate }}</p>
+  } @else {
+    <ul class="marked-days-list">
+      @for (entry of summary(); track entry.bookId) {
+        <li class="marked-days-book">
+          <button
+            type="button"
+            class="marked-days-toggle"
+            [attr.aria-expanded]="expandedBookId() === entry.bookId"
+            (click)="toggleExpanded(entry.bookId)"
+          >
+            <span class="marked-days-book-title">{{ entry.title }}</span>
+            <span class="marked-days-count">
+              {{
+                (entry.dates.length === 1 ? 'stats.markedDayOne' : 'stats.markedDaysCount')
+                  | translate: { count: entry.dates.length }
+              }}
+            </span>
+          </button>
+
+          @if (expandedBookId() === entry.bookId) {
+            <ul class="marked-day-chips">
+              @for (date of entry.dates; track date) {
+                <li class="marked-day-chip">
+                  <span>{{ formatDate(date) }}</span>
+                  <button
+                    type="button"
+                    class="marked-day-remove"
+                    [attr.aria-label]="'stats.removeMarkedDay' | translate"
+                    [disabled]="removingKey() === entry.bookId + '-' + date"
+                    (click)="removeMarkedDay(entry.bookId, date)"
+                  >
+                    ✕
+                  </button>
+                </li>
+              }
+            </ul>
+          }
+        </li>
+      }
+    </ul>
+  }
+</div>
+
 @if (activeDay()) {
   <div class="day-picker-backdrop" (click)="closeDay()">
     <div class="day-picker card card-padded" (click)="$event.stopPropagation()">

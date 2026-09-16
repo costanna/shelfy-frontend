@@ -33,6 +33,11 @@ export interface BookRequest {
   categoryIds: number[];
 }
 
+export interface UpdateReadingDatesRequest {
+  startedAt: string | null;
+  finishedAt: string | null;
+}
+
 export interface BookFilters {
   status?: BookStatus | null;
   categoryId?: number | null;

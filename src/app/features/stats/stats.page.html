@@ -52,14 +52,65 @@
     <ul class="duration-list">
       @for (entry of data.readingDurations; track entry.bookId) {
         <li class="duration-row card card-padded">
-          <a class="duration-title" [routerLink]="['/books', entry.bookId]">{{ entry.title }}</a>
-          <span class="duration-dates">
-            {{ entry.startedAt | date: 'mediumDate' }} —
-            {{ entry.finishedAt | date: 'mediumDate' }}
-          </span>
-          <span class="duration-days">
-            {{ (entry.daysReading === 1 ? 'stats.dayOne' : 'stats.days') | translate: { count: entry.daysReading } }}
-          </span>
+          @if (editingBookId() === entry.bookId) {
+            <form class="duration-edit-form" [formGroup]="datesForm" (ngSubmit)="saveDates(entry.bookId)">
+              <span class="duration-title">{{ entry.title }}</span>
+
+              <div class="duration-edit-fields">
+                <div class="field">
+                  <label class="visually-hidden" [for]="'edit-started-' + entry.bookId">
+                    {{ 'bookForm.startedAt' | translate }}
+                  </label>
+                  <input
+                    [id]="'edit-started-' + entry.bookId"
+                    class="input"
+                    type="date"
+                    formControlName="startedAt"
+                  />
+                </div>
+                <div class="field">
+                  <label class="visually-hidden" [for]="'edit-finished-' + entry.bookId">
+                    {{ 'bookForm.finishedAt' | translate }}
+                  </label>
+                  <input
+                    [id]="'edit-finished-' + entry.bookId"
+                    class="input"
+                    type="date"
+                    formControlName="finishedAt"
+                  />
+                </div>
+              </div>
+              <app-field-error [control]="datesForm.controls.finishedAt" [submitted]="editSubmitted()" />
+
+              <div class="actions">
+                <button type="button" class="btn btn-ghost" (click)="cancelEdit()">
+                  {{ 'common.cancel' | translate }}
+                </button>
+                <button type="submit" class="btn btn-primary" [disabled]="savingDates()">
+                  {{ (savingDates() ? 'common.loading' : 'common.confirm') | translate }}
+                </button>
+              </div>
+            </form>
+          } @else {
+            <a class="duration-title" [routerLink]="['/books', entry.bookId]">{{ entry.title }}</a>
+            <span class="duration-dates">
+              {{ entry.startedAt | date: 'mediumDate' }} —
+              {{ entry.finishedAt | date: 'mediumDate' }}
+            </span>
+            <span class="duration-days">
+              {{
+                (entry.daysReading === 1 ? 'stats.dayOne' : 'stats.days') | translate: { count: entry.daysReading }
+              }}
+            </span>
+            <div class="actions">
+              <button type="button" class="btn btn-ghost" (click)="startEdit(entry)">
+                {{ 'common.edit' | translate }}
+              </button>
+              <button type="button" class="btn btn-danger" (click)="removeDates(entry)">
+                {{ 'common.delete' | translate }}
+              </button>
+            </div>
+          }
         </li>
       }
     </ul>

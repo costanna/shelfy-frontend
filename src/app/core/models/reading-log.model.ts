@@ -24,3 +24,9 @@ export interface MarkReadingDayRequest {
   bookId: number;
   date: string;
 }
+
+export interface ReadingLogBookSummary {
+  bookId: number;
+  title: string;
+  dates: string[];
+}
