@@ -165,6 +165,19 @@
     "deleteConfirm": "¿Eliminar esta reseña?",
     "starsOf": "{{rating}} de 5 estrellas"
   },
+  "notes": {
+    "title": "Notas y citas",
+    "add": "Añadir nota",
+    "empty": "Todavía no has añadido notas a este libro.",
+    "contentLabel": "Nota o cita",
+    "contentPlaceholder": "Escribe una nota o copia una cita…",
+    "pageLabel": "Página (opcional)",
+    "pageBadge": "Pág. {{page}}",
+    "save": "Guardar nota",
+    "created": "Nota guardada",
+    "deleted": "Nota eliminada",
+    "deleteConfirm": "¿Eliminar esta nota?"
+  },
   "theme": {
     "light": "Claro",
     "dark": "Oscuro",
