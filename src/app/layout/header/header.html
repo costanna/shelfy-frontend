@@ -62,6 +62,20 @@
         <app-theme-toggle />
 
         @if (isLoggedIn()) {
+          <a
+            class="avatar-link"
+            routerLink="/settings"
+            routerLinkActive="is-active"
+            [attr.aria-label]="'nav.settings' | translate"
+            (click)="closeMenu()"
+          >
+            @if (avatarSrc(); as src) {
+              <img [src]="src" [alt]="user()?.name ?? ''" />
+            } @else {
+              <span class="avatar-fallback" aria-hidden="true">{{ avatarInitials() }}</span>
+            }
+          </a>
+
           <button type="button" class="btn btn-secondary logout-button" (click)="logout()">
             {{ 'nav.logout' | translate }}
           </button>

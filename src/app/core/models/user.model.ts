@@ -9,6 +9,7 @@ export interface User {
   alias: string | null;
   themePreference: ThemePreference;
   languagePreference: Language;
+  avatarUpdatedAt: string | null;
 }
 
 export interface AuthResponse {

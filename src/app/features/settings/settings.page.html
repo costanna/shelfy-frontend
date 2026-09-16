@@ -5,70 +5,119 @@
   </div>
 </div>
 
-@if (user(); as account) {
+<div class="settings-grid">
+  @if (user(); as account) {
+    <section class="card card-padded settings-section settings-section--wide">
+      <h2>{{ 'settings.account' | translate }}</h2>
+
+      <div class="avatar-editor">
+        <div class="avatar-preview">
+          @if (avatarSrc(); as src) {
+            <img [src]="src" [alt]="account.name" />
+          } @else {
+            <span class="avatar-fallback" aria-hidden="true">{{ avatarInitials() }}</span>
+          }
+        </div>
+
+        <div class="avatar-actions">
+          <label class="btn btn-secondary" for="avatar-input">
+            {{
+              (uploadingAvatar()
+                ? 'common.loading'
+                : avatarSrc()
+                  ? 'settings.avatarChange'
+                  : 'settings.avatarUpload'
+              ) | translate
+            }}
+          </label>
+          <input
+            id="avatar-input"
+            type="file"
+            accept="image/png,image/jpeg,image/webp"
+            class="visually-hidden"
+            [disabled]="uploadingAvatar()"
+            (change)="onAvatarSelected($event)"
+          />
+          @if (avatarSrc()) {
+            <button
+              type="button"
+              class="btn btn-ghost"
+              [disabled]="uploadingAvatar()"
+              (click)="removeAvatar()"
+            >
+              {{ 'settings.avatarRemove' | translate }}
+            </button>
+          }
+          <p class="avatar-hint">{{ 'settings.avatarHint' | translate }}</p>
+        </div>
+      </div>
+
+      <dl class="account-info">
+        <div class="account-row">
+          <dt>{{ 'auth.name' | translate }}</dt>
+          <dd>{{ account.name }}</dd>
+        </div>
+        <div class="account-row">
+          <dt>{{ 'auth.email' | translate }}</dt>
+          <dd>{{ account.email }}</dd>
+        </div>
+      </dl>
+    </section>
+  }
+
   <section class="card card-padded settings-section">
-    <h2>{{ 'settings.account' | translate }}</h2>
-    <dl class="account-info">
-      <div class="account-row">
-        <dt>{{ 'auth.name' | translate }}</dt>
-        <dd>{{ account.name }}</dd>
+    <h2>{{ 'settings.alias' | translate }}</h2>
+    <p class="subtitle">{{ 'settings.aliasHint' | translate }}</p>
+
+    <form [formGroup]="aliasForm" (ngSubmit)="saveAlias()" novalidate>
+      <div class="field">
+        <label class="settings-label" for="settings-alias">{{ 'settings.alias' | translate }}</label>
+        <div class="alias-row">
+          <input
+            id="settings-alias"
+            class="input"
+            type="text"
+            formControlName="alias"
+            [placeholder]="'settings.aliasPlaceholder' | translate"
+          />
+          <button type="submit" class="btn btn-primary" [disabled]="savingAlias()">
+            {{ (savingAlias() ? 'common.loading' : 'settings.aliasSave') | translate }}
+          </button>
+        </div>
+        <app-field-error [control]="aliasForm.controls.alias" [submitted]="aliasSubmitted()" />
       </div>
-      <div class="account-row">
-        <dt>{{ 'auth.email' | translate }}</dt>
-        <dd>{{ account.email }}</dd>
-      </div>
-    </dl>
+    </form>
   </section>
-}
 
-<section class="card card-padded settings-section">
-  <h2>{{ 'settings.alias' | translate }}</h2>
-  <p class="subtitle">{{ 'settings.aliasHint' | translate }}</p>
-
-  <form [formGroup]="aliasForm" (ngSubmit)="saveAlias()" novalidate>
+  <section class="card card-padded settings-section">
+    <h2>{{ 'settings.theme' | translate }}</h2>
     <div class="field">
-      <label class="settings-label" for="settings-alias">{{ 'settings.alias' | translate }}</label>
-      <div class="alias-row">
-        <input
-          id="settings-alias"
-          class="input"
-          type="text"
-          formControlName="alias"
-          [placeholder]="'settings.aliasPlaceholder' | translate"
-        />
-        <button type="submit" class="btn btn-primary" [disabled]="savingAlias()">
-          {{ (savingAlias() ? 'common.loading' : 'settings.aliasSave') | translate }}
-        </button>
-      </div>
-      <app-field-error [control]="aliasForm.controls.alias" [submitted]="aliasSubmitted()" />
+      <label class="settings-label visually-hidden" for="settings-theme">
+        {{ 'settings.theme' | translate }}
+      </label>
+      <select id="settings-theme" class="select" (change)="onThemeChange($event)">
+        @for (option of themeOptions; track option) {
+          <option [value]="option" [selected]="option === theme()">
+            {{ 'theme.' + option.toLowerCase() | translate }}
+          </option>
+        }
+      </select>
     </div>
-  </form>
-</section>
+  </section>
 
-<section class="card card-padded settings-section">
-  <div class="field">
-    <label class="settings-label" for="settings-theme">{{ 'settings.theme' | translate }}</label>
-    <select id="settings-theme" class="select" (change)="onThemeChange($event)">
-      @for (option of themeOptions; track option) {
-        <option [value]="option" [selected]="option === theme()">
-          {{ 'theme.' + option.toLowerCase() | translate }}
-        </option>
-      }
-    </select>
-  </div>
-</section>
-
-<section class="card card-padded settings-section">
-  <div class="field">
-    <label class="settings-label" for="settings-language">
-      {{ 'settings.language' | translate }}
-    </label>
-    <select id="settings-language" class="select" (change)="onLanguageChange($event)">
-      @for (option of languageOptions; track option) {
-        <option [value]="option" [selected]="option === language()">
-          {{ languageLabels[option] }}
-        </option>
-      }
-    </select>
-  </div>
-</section>
+  <section class="card card-padded settings-section">
+    <h2>{{ 'settings.language' | translate }}</h2>
+    <div class="field">
+      <label class="settings-label visually-hidden" for="settings-language">
+        {{ 'settings.language' | translate }}
+      </label>
+      <select id="settings-language" class="select" (change)="onLanguageChange($event)">
+        @for (option of languageOptions; track option) {
+          <option [value]="option" [selected]="option === language()">
+            {{ languageLabels[option] }}
+          </option>
+        }
+      </select>
+    </div>
+  </section>
+</div>

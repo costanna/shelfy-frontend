@@ -7,6 +7,7 @@ import { Subject, catchError, debounceTime, distinctUntilChanged, of, switchMap 
 import { UserSummary } from '../../../core/models/social.model';
 import { FollowService } from '../../../core/services/follow.service';
 import { ToastService } from '../../../core/services/toast.service';
+import { avatarUrl, initials } from '../../../core/util/avatar-url';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { Spinner } from '../../../shared/components/spinner/spinner';
 
@@ -88,12 +89,9 @@ export class PeopleSearchPage {
     });
   }
 
-  protected initials(name: string): string {
-    return name
-      .split(/\s+/)
-      .filter((word) => word.length > 1)
-      .slice(0, 2)
-      .map((word) => word[0]?.toUpperCase() ?? '')
-      .join('');
+  protected readonly initials = initials;
+
+  protected avatarSrc(user: UserSummary): string | null {
+    return avatarUrl(user.id, user.avatarUpdatedAt);
   }
 }

@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { AuthService } from '../../core/services/auth.service';
 import { ToastService } from '../../core/services/toast.service';
+import { avatarUrl, initials } from '../../core/util/avatar-url';
 import { LanguageSwitcher } from '../../shared/components/language-switcher/language-switcher';
 import { ThemeToggle } from '../../shared/components/theme-toggle/theme-toggle';
 
@@ -19,6 +20,14 @@ export class Header {
   private readonly toast = inject(ToastService);
 
   protected readonly isLoggedIn = this.auth.isLoggedIn;
+  protected readonly user = this.auth.user;
+
+  protected readonly avatarSrc = computed(() => {
+    const account = this.user();
+    return account ? avatarUrl(account.id, account.avatarUpdatedAt) : null;
+  });
+
+  protected readonly avatarInitials = computed(() => initials(this.user()?.name ?? ''));
 
   protected readonly menuOpen = signal(false);
 

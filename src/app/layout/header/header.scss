@@ -65,6 +65,43 @@
   margin-inline-start: var(--space-2);
 }
 
+.avatar-link {
+  display: block;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  overflow: hidden;
+  outline-offset: 2px;
+  transition: box-shadow var(--transition);
+
+  &:hover {
+    box-shadow: 0 0 0 2px var(--primary-soft);
+  }
+
+  &.is-active {
+    box-shadow: 0 0 0 2px var(--primary);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.8125rem;
+}
+
 .menu-button {
   display: none;
   font-size: 1.125rem;

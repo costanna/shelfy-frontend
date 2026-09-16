@@ -28,7 +28,11 @@
     @for (user of users(); track user.id) {
       <li class="person card card-padded">
         <a class="person-link" [routerLink]="['/people', user.id]">
-          <span class="avatar" aria-hidden="true">{{ initials(user.name) }}</span>
+          @if (avatarSrc(user); as src) {
+            <img class="avatar" [src]="src" [alt]="user.name" />
+          } @else {
+            <span class="avatar avatar-fallback" aria-hidden="true">{{ initials(user.name) }}</span>
+          }
           <span class="person-info">
             <span class="name">{{ user.name }}</span>
             @if (user.alias) {

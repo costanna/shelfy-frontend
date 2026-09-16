@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -18,10 +18,13 @@ import {
 } from '../../core/services/language.service';
 import { ThemeService } from '../../core/services/theme.service';
 import { ToastService } from '../../core/services/toast.service';
+import { avatarUrl, initials } from '../../core/util/avatar-url';
 import { FieldError } from '../../shared/components/field-error/field-error';
 
 const THEME_OPTIONS: readonly ThemePreference[] = ['LIGHT', 'DARK', 'SYSTEM'];
 const ALIAS_PATTERN = /^[a-zA-Z0-9_]+$/;
+const ALLOWED_AVATAR_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
+const MAX_AVATAR_SIZE = 5 * 1024 * 1024;
 
 @Component({
   selector: 'app-settings-page',
@@ -54,6 +57,14 @@ export class SettingsPage {
 
   protected readonly savingAlias = signal(false);
   protected readonly aliasSubmitted = signal(false);
+  protected readonly uploadingAvatar = signal(false);
+
+  protected readonly avatarSrc = computed(() => {
+    const account = this.user();
+    return account ? avatarUrl(account.id, account.avatarUpdatedAt) : null;
+  });
+
+  protected readonly avatarInitials = computed(() => initials(this.user()?.name ?? ''));
 
   constructor() {
     effect(() => {
@@ -94,6 +105,48 @@ export class SettingsPage {
         this.savingAlias.set(false);
         this.aliasForm.controls.alias.setErrors({ server: aliasErrorMessage(error) });
       },
+    });
+  }
+
+  protected onAvatarSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0] ?? null;
+    input.value = '';
+
+    if (!file || this.uploadingAvatar()) {
+      return;
+    }
+    if (!ALLOWED_AVATAR_TYPES.includes(file.type)) {
+      this.toast.error('settings.avatarBadType');
+      return;
+    }
+    if (file.size > MAX_AVATAR_SIZE) {
+      this.toast.error('settings.avatarTooLarge');
+      return;
+    }
+
+    this.uploadingAvatar.set(true);
+    this.auth.uploadAvatar(file).subscribe({
+      next: () => {
+        this.uploadingAvatar.set(false);
+        this.toast.success('settings.avatarSaved');
+      },
+      error: () => this.uploadingAvatar.set(false),
+    });
+  }
+
+  protected removeAvatar(): void {
+    if (this.uploadingAvatar()) {
+      return;
+    }
+    this.uploadingAvatar.set(true);
+
+    this.auth.removeAvatar().subscribe({
+      next: () => {
+        this.uploadingAvatar.set(false);
+        this.toast.success('settings.avatarRemoved');
+      },
+      error: () => this.uploadingAvatar.set(false),
     });
   }
 

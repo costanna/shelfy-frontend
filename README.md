@@ -41,6 +41,7 @@ cualquiera que abra este README.
 - **Categorías propias**: cada usuario crea las suyas (p. ej. "fantasía", "pendientes de Sant Jordi") y las asigna libremente.
 - **Reseñas**: puntuación de 0.5 a 5 estrellas (con medias) y texto de opinión por libro, visibles para su autor y para quien le siga.
 - **Buscar y seguir a otros usuarios** por alias: seguir a alguien revela toda su biblioteca y sus reseñas (o nada, si no le sigues) — ver [`/people`](src/app/features/people).
+- **Foto de perfil**: se sube desde Ajustes (PNG/JPEG/WEBP, máx. 5 MB — el backend la recorta a cuadrado y la redimensiona), y aparece también en la cabecera como acceso directo a Ajustes.
 - **Añadir un libro escaneando su ISBN** con la cámara del móvil, o buscándolo a mano: título, autor, páginas, portada y sinopsis se rellenan solos (API pública de Open Library).
 - **Estadísticas de lectura**: cuántos libros llevas leídos, cuántos terminaste cada mes y cuántos días te costó cada uno, entre la fecha de inicio y la de fin que le pongas al libro.
 - **Modo claro / oscuro / según el sistema**, con la preferencia guardada en la cuenta (te sigue entre dispositivos).
