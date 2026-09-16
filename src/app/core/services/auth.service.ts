@@ -101,6 +101,12 @@ export class AuthService {
       .pipe(tap((user) => this.storeUser(user)));
   }
 
+  deleteAccount(password: string): Observable<void> {
+    return this.http
+      .delete<void>(`${this.baseUrl}/users/me`, { body: { password } })
+      .pipe(tap(() => this.logout()));
+  }
+
   private storeSession(response: AuthResponse): void {
     localStorage.setItem(TOKEN_KEY, response.token);
     this.storeUser(response.user);

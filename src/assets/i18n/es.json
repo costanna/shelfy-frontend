@@ -217,7 +217,14 @@
     "importLibrary": "Importar desde CSV",
     "importSuccess": "Importación completada",
     "importResultOne": "Se ha importado 1 libro ({{skipped}} omitidos).",
-    "importResult": "Se han importado {{imported}} libros ({{skipped}} omitidos)."
+    "importResult": "Se han importado {{imported}} libros ({{skipped}} omitidos).",
+    "dangerZone": "Zona de peligro",
+    "deleteAccountHint": "Elimina tu cuenta y todos tus datos de forma permanente: libros, reseñas, notas, categorías y seguidores. Esta acción no se puede deshacer.",
+    "deleteAccount": "Eliminar mi cuenta",
+    "deleteAccountWarning": "Esto borrará tu cuenta y todo tu contenido para siempre. Introduce tu contraseña para confirmar.",
+    "deleteAccountPasswordLabel": "Contraseña",
+    "deleteAccountConfirm": "Eliminar cuenta definitivamente",
+    "accountDeleted": "Tu cuenta ha sido eliminada"
   },
   "readingGoal": {
     "title": "Reto de lectura {{year}}",

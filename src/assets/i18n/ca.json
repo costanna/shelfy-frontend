@@ -217,7 +217,14 @@
     "importLibrary": "Importa des de CSV",
     "importSuccess": "Importació completada",
     "importResultOne": "S'ha importat 1 llibre ({{skipped}} omesos).",
-    "importResult": "S'han importat {{imported}} llibres ({{skipped}} omesos)."
+    "importResult": "S'han importat {{imported}} llibres ({{skipped}} omesos).",
+    "dangerZone": "Zona de perill",
+    "deleteAccountHint": "Elimina el teu compte i totes les teves dades de manera permanent: llibres, ressenyes, notes, categories i seguidors. Aquesta acció no es pot desfer.",
+    "deleteAccount": "Elimina el meu compte",
+    "deleteAccountWarning": "Això eliminarà el teu compte i tot el teu contingut per sempre. Introdueix la teva contrasenya per confirmar-ho.",
+    "deleteAccountPasswordLabel": "Contrasenya",
+    "deleteAccountConfirm": "Elimina el compte definitivament",
+    "accountDeleted": "El teu compte ha estat eliminat"
   },
   "readingGoal": {
     "title": "Repte de lectura {{year}}",

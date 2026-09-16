@@ -217,7 +217,14 @@
     "importLibrary": "Import from CSV",
     "importSuccess": "Import complete",
     "importResultOne": "Imported 1 book ({{skipped}} skipped).",
-    "importResult": "Imported {{imported}} books ({{skipped}} skipped)."
+    "importResult": "Imported {{imported}} books ({{skipped}} skipped).",
+    "dangerZone": "Danger zone",
+    "deleteAccountHint": "Permanently delete your account and all your data: books, reviews, notes, categories and followers. This action cannot be undone.",
+    "deleteAccount": "Delete my account",
+    "deleteAccountWarning": "This will permanently delete your account and all your content. Enter your password to confirm.",
+    "deleteAccountPasswordLabel": "Password",
+    "deleteAccountConfirm": "Permanently delete account",
+    "accountDeleted": "Your account has been deleted"
   },
   "readingGoal": {
     "title": "{{year}} reading challenge",

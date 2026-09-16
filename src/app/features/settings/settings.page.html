@@ -173,4 +173,39 @@
       </div>
     }
   </section>
+
+  <section class="card card-padded settings-section danger-zone">
+    <h2>{{ 'settings.dangerZone' | translate }}</h2>
+
+    @if (!deleteAccountOpen()) {
+      <p class="hint">{{ 'settings.deleteAccountHint' | translate }}</p>
+      <button type="button" class="btn btn-danger" (click)="openDeleteAccount()">
+        {{ 'settings.deleteAccount' | translate }}
+      </button>
+    } @else {
+      <form class="delete-account-form" [formGroup]="deleteAccountForm" (ngSubmit)="confirmDeleteAccount()" novalidate>
+        <p class="delete-account-warning">{{ 'settings.deleteAccountWarning' | translate }}</p>
+        <label class="label" for="delete-account-password">
+          {{ 'settings.deleteAccountPasswordLabel' | translate }}
+        </label>
+        <input
+          id="delete-account-password"
+          class="input"
+          type="password"
+          autocomplete="current-password"
+          formControlName="password"
+        />
+        <app-field-error [control]="deleteAccountForm.controls.password" [submitted]="deleteAccountSubmitted()" />
+
+        <div class="delete-account-actions">
+          <button type="button" class="btn btn-ghost" (click)="cancelDeleteAccount()">
+            {{ 'bookForm.cancel' | translate }}
+          </button>
+          <button type="submit" class="btn btn-danger" [disabled]="deletingAccount()">
+            {{ (deletingAccount() ? 'common.loading' : 'settings.deleteAccountConfirm') | translate }}
+          </button>
+        </div>
+      </form>
+    }
+  </section>
 </div>

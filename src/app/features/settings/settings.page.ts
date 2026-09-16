@@ -65,6 +65,14 @@ export class SettingsPage {
   protected readonly importingLibrary = signal(false);
   protected readonly importResult = signal<BookImportResult | null>(null);
 
+  protected readonly deleteAccountOpen = signal(false);
+  protected readonly deletingAccount = signal(false);
+  protected readonly deleteAccountSubmitted = signal(false);
+
+  protected readonly deleteAccountForm = this.formBuilder.nonNullable.group({
+    password: ['', [Validators.required]],
+  });
+
   protected readonly avatarSrc = computed(() => {
     const account = this.user();
     return account ? avatarUrl(account.id, account.avatarUpdatedAt) : null;
@@ -114,7 +122,7 @@ export class SettingsPage {
       },
       error: (error: HttpErrorResponse) => {
         this.savingAlias.set(false);
-        this.aliasForm.controls.alias.setErrors({ server: aliasErrorMessage(error) });
+        this.aliasForm.controls.alias.setErrors({ server: apiErrorMessage(error, 'alias') });
       },
     });
   }
@@ -199,6 +207,33 @@ export class SettingsPage {
     });
   }
 
+  protected openDeleteAccount(): void {
+    this.deleteAccountForm.reset({ password: '' });
+    this.deleteAccountSubmitted.set(false);
+    this.deleteAccountOpen.set(true);
+  }
+
+  protected cancelDeleteAccount(): void {
+    this.deleteAccountOpen.set(false);
+  }
+
+  protected confirmDeleteAccount(): void {
+    this.deleteAccountSubmitted.set(true);
+
+    if (this.deleteAccountForm.invalid || this.deletingAccount()) {
+      return;
+    }
+    this.deletingAccount.set(true);
+
+    this.auth.deleteAccount(this.deleteAccountForm.controls.password.value).subscribe({
+      next: () => this.toast.success('settings.accountDeleted'),
+      error: (error: HttpErrorResponse) => {
+        this.deletingAccount.set(false);
+        this.deleteAccountForm.controls.password.setErrors({ server: apiErrorMessage(error, 'password') });
+      },
+    });
+  }
+
   private savePreferences(preferences: {
     themePreference?: ThemePreference;
     languagePreference?: Language;
@@ -225,13 +260,13 @@ function aliasFormatValidator(control: AbstractControl): ValidationErrors | null
   return !value || ALIAS_PATTERN.test(value) ? null : { aliasFormat: true };
 }
 
-function aliasErrorMessage(error: HttpErrorResponse): string {
+function apiErrorMessage(error: HttpErrorResponse, fieldName: string): string {
   if (error.status === 0) {
     return 'errors.network';
   }
   const fieldErrors: unknown = error.error?.fieldErrors;
-  if (fieldErrors && typeof fieldErrors === 'object' && 'alias' in fieldErrors) {
-    const message = (fieldErrors as Record<string, unknown>)['alias'];
+  if (fieldErrors && typeof fieldErrors === 'object' && fieldName in fieldErrors) {
+    const message = (fieldErrors as Record<string, unknown>)[fieldName];
     if (typeof message === 'string') {
       return message;
     }
