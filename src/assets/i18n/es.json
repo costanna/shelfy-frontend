@@ -235,6 +235,7 @@
     "followingOne": "Sigue a 1",
     "followingCount": "Sigue a {{count}}",
     "backToSearch": "Volver a la búsqueda",
+    "loadMore": "Cargar más",
     "private": "Estantería privada",
     "privateHint": "Sigue a este usuario para ver su estantería y sus reseñas.",
     "booksEmpty": "Todavía no tiene libros en su estantería."

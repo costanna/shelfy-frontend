@@ -235,6 +235,7 @@
     "followingOne": "Following 1",
     "followingCount": "Following {{count}}",
     "backToSearch": "Back to search",
+    "loadMore": "Load more",
     "private": "Private shelf",
     "privateHint": "Follow this user to see their shelf and reviews.",
     "booksEmpty": "They don't have any books on their shelf yet."

@@ -60,4 +60,12 @@
       </li>
     }
   </ul>
+
+  @if (hasMore()) {
+    <div class="load-more-row">
+      <button type="button" class="btn btn-secondary" [disabled]="loadingMore()" (click)="loadMore()">
+        {{ (loadingMore() ? 'common.loading' : 'people.loadMore') | translate }}
+      </button>
+    </div>
+  }
 }

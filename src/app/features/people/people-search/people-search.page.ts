@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Subject, catchError, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
 
+import { emptyPage } from '../../../core/models/page.model';
 import { UserSummary } from '../../../core/models/social.model';
 import { FollowService } from '../../../core/services/follow.service';
 import { ToastService } from '../../../core/services/toast.service';
@@ -29,8 +30,13 @@ export class PeopleSearchPage {
   protected readonly query = signal('');
   protected readonly users = signal<UserSummary[]>([]);
   protected readonly loading = signal(false);
+  protected readonly loadingMore = signal(false);
   protected readonly searched = signal(false);
   protected readonly togglingId = signal<number | null>(null);
+
+  private readonly page = signal(0);
+  protected readonly hasMore = signal(false);
+  private searchGeneration = 0;
 
   constructor() {
     this.queries
@@ -38,16 +44,19 @@ export class PeopleSearchPage {
         debounceTime(SEARCH_DEBOUNCE_MS),
         distinctUntilChanged(),
         switchMap((q) => {
+          this.searchGeneration++;
           if (!q) {
-            return of<UserSummary[]>([]);
+            return of(emptyPage<UserSummary>());
           }
           this.loading.set(true);
-          return this.followService.search(q).pipe(catchError(() => of<UserSummary[]>([])));
+          return this.followService.search(q, 0).pipe(catchError(() => of(emptyPage<UserSummary>())));
         }),
         takeUntilDestroyed(),
       )
-      .subscribe((results) => {
-        this.users.set(results);
+      .subscribe((result) => {
+        this.users.set(result.content);
+        this.page.set(result.page);
+        this.hasMore.set(!result.last);
         this.loading.set(false);
         this.searched.set(this.query().trim() !== '');
       });
@@ -57,6 +66,28 @@ export class PeopleSearchPage {
     const value = (event.target as HTMLInputElement).value;
     this.query.set(value);
     this.queries.next(value.trim());
+  }
+
+  protected loadMore(): void {
+    const q = this.query().trim();
+    if (!q || this.loadingMore() || !this.hasMore()) {
+      return;
+    }
+    this.loadingMore.set(true);
+    const generation = this.searchGeneration;
+
+    this.followService
+      .search(q, this.page() + 1)
+      .pipe(catchError(() => of(emptyPage<UserSummary>())))
+      .subscribe((result) => {
+        this.loadingMore.set(false);
+        if (generation !== this.searchGeneration) {
+          return;
+        }
+        this.users.update((list) => [...list, ...result.content]);
+        this.page.set(result.page);
+        this.hasMore.set(!result.last);
+      });
   }
 
   protected toggleFollow(user: UserSummary): void {
