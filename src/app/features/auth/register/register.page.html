@@ -48,14 +48,17 @@
 
         <div class="field">
           <label class="label" for="password">{{ 'auth.password' | translate }}</label>
-          <input
-            id="password"
-            class="input"
-            type="password"
-            autocomplete="new-password"
-            formControlName="password"
-            [class.is-invalid]="form.controls.password.invalid && form.controls.password.touched"
-          />
+          <div class="password-field">
+            <input
+              id="password"
+              class="input"
+              [type]="showPassword() ? 'text' : 'password'"
+              autocomplete="new-password"
+              formControlName="password"
+              [class.is-invalid]="form.controls.password.invalid && form.controls.password.touched"
+            />
+            <app-password-toggle [visible]="showPassword()" (toggled)="showPassword.set(!showPassword())" />
+          </div>
           <app-field-error [control]="form.controls.password" [submitted]="submitted()" />
         </div>
 

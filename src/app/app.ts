@@ -4,12 +4,13 @@ import { RouterOutlet } from '@angular/router';
 import { AuthService } from './core/services/auth.service';
 import { LanguageService } from './core/services/language.service';
 import { ThemeService } from './core/services/theme.service';
+import { Footer } from './layout/footer/footer';
 import { Header } from './layout/header/header';
 import { ToastHost } from './shared/components/toast-host/toast-host';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, ToastHost],
+  imports: [RouterOutlet, Header, Footer, ToastHost],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.html',
   styleUrl: './app.scss',

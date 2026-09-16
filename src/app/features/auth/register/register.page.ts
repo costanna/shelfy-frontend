@@ -6,10 +6,11 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { AuthService } from '../../../core/services/auth.service';
 import { FieldError } from '../../../shared/components/field-error/field-error';
+import { PasswordToggle } from '../../../shared/components/password-toggle/password-toggle';
 
 @Component({
   selector: 'app-register-page',
-  imports: [ReactiveFormsModule, RouterLink, TranslatePipe, FieldError],
+  imports: [ReactiveFormsModule, RouterLink, TranslatePipe, FieldError, PasswordToggle],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './register.page.html',
   styleUrl: '../auth-card.scss',
@@ -28,6 +29,7 @@ export class RegisterPage {
   protected readonly submitted = signal(false);
   protected readonly serverError = signal<string | null>(null);
   protected readonly slowStart = signal(false);
+  protected readonly showPassword = signal(false);
 
   protected readonly registeredEmail = signal<string | null>(null);
 

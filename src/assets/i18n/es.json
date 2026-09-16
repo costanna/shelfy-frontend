@@ -1,7 +1,7 @@
 {
   "app": {
     "name": "Shelfy",
-    "tagline": "Tu biblioteca personal"
+    "tagline": "Tu estantería personal"
   },
   "nav": {
     "books": "Mis libros",
@@ -16,12 +16,14 @@
     "language": "Idioma"
   },
   "auth": {
-    "loginTitle": "Entra en tu biblioteca",
+    "loginTitle": "Entra en tu estantería",
     "loginSubtitle": "Organiza lo que lees, lo que te falta y lo que quieres comprar.",
     "registerTitle": "Crea tu cuenta",
     "registerSubtitle": "Empieza a ordenar tus lecturas en un minuto.",
     "email": "Email",
     "password": "Contraseña",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
     "name": "Nombre",
     "login": "Entrar",
     "register": "Crear cuenta",
@@ -43,7 +45,7 @@
     "forgotSentSubtitle": "Si esa cuenta existe, te hemos mandado un enlace para restablecer la contraseña. Caduca en 1 hora.",
     "verifyingTitle": "Verificando tu cuenta…",
     "verifySuccessTitle": "¡Cuenta verificada!",
-    "verifySuccessSubtitle": "Te hemos iniciado sesión. Entrando en tu biblioteca…",
+    "verifySuccessSubtitle": "Te hemos iniciado sesión. Entrando en tu estantería…",
     "verifyErrorTitle": "No hemos podido verificar tu cuenta",
     "verifyMissingToken": "Falta el enlace de verificación. Ábrelo desde el email que te mandamos.",
     "resetTitle": "Elige una nueva contraseña",
@@ -199,7 +201,7 @@
     "datesRemoved": "Fechas de lectura eliminadas",
     "removeDatesConfirm": "¿Eliminar las fechas de lectura de «{{title}}»? El libro no se borra, solo deja de tener fecha de inicio y de fin.",
     "totalRead": "Libros leídos",
-    "totalBooks": "Libros en tu biblioteca",
+    "totalBooks": "Libros en tu estantería",
     "byMonthTitle": "Libros terminados por mes",
     "byMonthEmpty": "Todavía no has terminado ningún libro con fecha de fin.",
     "bookOne": "1 libro",
@@ -211,7 +213,7 @@
   },
   "people": {
     "title": "Personas",
-    "subtitle": "Busca a otros usuarios de Shelfy y sigue su biblioteca.",
+    "subtitle": "Busca a otros usuarios de Shelfy y sigue su estantería.",
     "searchPlaceholder": "Buscar por alias",
     "searchHint": "Escribe un alias para buscar usuarios.",
     "empty": "No hemos encontrado a nadie con ese alias.",
@@ -224,9 +226,9 @@
     "followingOne": "Sigue a 1",
     "followingCount": "Sigue a {{count}}",
     "backToSearch": "Volver a la búsqueda",
-    "private": "Biblioteca privada",
-    "privateHint": "Sigue a este usuario para ver su biblioteca y sus reseñas.",
-    "booksEmpty": "Todavía no tiene libros en su biblioteca."
+    "private": "Estantería privada",
+    "privateHint": "Sigue a este usuario para ver su estantería y sus reseñas.",
+    "booksEmpty": "Todavía no tiene libros en su estantería."
   },
   "validation": {
     "required": "Este campo es obligatorio",
@@ -253,5 +255,8 @@
     "cancel": "Cancelar",
     "close": "Cerrar",
     "retry": "Reintentar"
+  },
+  "footer": {
+    "madeBy": "creado por"
   }
 }

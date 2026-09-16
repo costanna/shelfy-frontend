@@ -1,7 +1,7 @@
 {
   "app": {
     "name": "Shelfy",
-    "tagline": "La teva biblioteca personal"
+    "tagline": "La teva prestatgeria personal"
   },
   "nav": {
     "books": "Els meus llibres",
@@ -16,12 +16,14 @@
     "language": "Idioma"
   },
   "auth": {
-    "loginTitle": "Entra a la teva biblioteca",
+    "loginTitle": "Entra a la teva prestatgeria",
     "loginSubtitle": "Organitza el que llegeixes, el que tens pendent i el que vols comprar.",
     "registerTitle": "Crea el teu compte",
     "registerSubtitle": "Comença a ordenar les teves lectures en un minut.",
     "email": "Correu electrònic",
     "password": "Contrasenya",
+    "showPassword": "Mostra la contrasenya",
+    "hidePassword": "Amaga la contrasenya",
     "name": "Nom",
     "login": "Entra",
     "register": "Crea el compte",
@@ -43,7 +45,7 @@
     "forgotSentSubtitle": "Si aquest compte existeix, t'hem enviat un enllaç per restablir la contrasenya. Caduca en 1 hora.",
     "verifyingTitle": "Verificant el teu compte…",
     "verifySuccessTitle": "Compte verificat!",
-    "verifySuccessSubtitle": "T'hem iniciat la sessió. Entrant a la teva biblioteca…",
+    "verifySuccessSubtitle": "T'hem iniciat la sessió. Entrant a la teva prestatgeria…",
     "verifyErrorTitle": "No hem pogut verificar el teu compte",
     "verifyMissingToken": "Falta l'enllaç de verificació. Obre'l des de l'email que et vam enviar.",
     "resetTitle": "Tria una nova contrasenya",
@@ -199,7 +201,7 @@
     "datesRemoved": "Dates de lectura eliminades",
     "removeDatesConfirm": "Vols eliminar les dates de lectura de «{{title}}»? El llibre no s'esborra, només deixa de tenir data d'inici i de fi.",
     "totalRead": "Llibres llegits",
-    "totalBooks": "Llibres a la teva biblioteca",
+    "totalBooks": "Llibres a la teva prestatgeria",
     "byMonthTitle": "Llibres acabats per mes",
     "byMonthEmpty": "Encara no has acabat cap llibre amb data de fi.",
     "bookOne": "1 llibre",
@@ -211,7 +213,7 @@
   },
   "people": {
     "title": "Persones",
-    "subtitle": "Cerca altres usuaris de Shelfy i segueix la seva biblioteca.",
+    "subtitle": "Cerca altres usuaris de Shelfy i segueix la seva prestatgeria.",
     "searchPlaceholder": "Cerca per àlies",
     "searchHint": "Escriu un àlies per cercar usuaris.",
     "empty": "No hem trobat ningú amb aquest àlies.",
@@ -224,9 +226,9 @@
     "followingOne": "Segueix 1",
     "followingCount": "Segueix {{count}}",
     "backToSearch": "Torna a la cerca",
-    "private": "Biblioteca privada",
-    "privateHint": "Segueix aquest usuari per veure la seva biblioteca i les seves ressenyes.",
-    "booksEmpty": "Encara no té llibres a la seva biblioteca."
+    "private": "Prestatgeria privada",
+    "privateHint": "Segueix aquest usuari per veure la seva prestatgeria i les seves ressenyes.",
+    "booksEmpty": "Encara no té llibres a la seva prestatgeria."
   },
   "validation": {
     "required": "Aquest camp és obligatori",
@@ -253,5 +255,8 @@
     "cancel": "Cancel·la",
     "close": "Tanca",
     "retry": "Torna-ho a provar"
+  },
+  "footer": {
+    "madeBy": "creat per"
   }
 }

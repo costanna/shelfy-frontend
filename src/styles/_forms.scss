@@ -4,6 +4,14 @@
   gap: var(--space-2);
 }
 
+.password-field {
+  position: relative;
+
+  .input {
+    padding-right: 2.75rem;
+  }
+}
+
 .label {
   font-size: 0.875rem;
   font-weight: 600;
