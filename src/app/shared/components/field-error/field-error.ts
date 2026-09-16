@@ -24,18 +24,6 @@ export class FieldError {
 
   readonly submitted = input(false);
 
-  /**
-   * `AbstractControl.touched`/`errors` son propiedades mutables, no
-   * señales: mutarlas (p. ej. `markAsTouched()` en el blur, o
-   * `setErrors()` desde un validador de grupo como `dateRangeValidator`)
-   * no invalida por sí solo un `computed()` que las lea. Sin esto, el
-   * mensaje solo se refrescaba cuando el input `submitted` cambiaba de
-   * valor y coincidía en el mismo ciclo con el estado ya actualizado —
-   * funcionaba la mayoría de las veces pero era una carrera, no algo
-   * garantizado. `control.events` sí emite en cada cambio real
-   * (touched, status, valor...), así que forzar la lectura aquí ata el
-   * recálculo al cambio real en vez de a un efecto colateral.
-   */
   private readonly controlEvents = toSignal(
     toObservable(this.control).pipe(switchMap((control) => control?.events ?? EMPTY)),
     { initialValue: null },

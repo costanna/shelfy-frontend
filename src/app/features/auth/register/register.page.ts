@@ -29,7 +29,6 @@ export class RegisterPage {
   protected readonly serverError = signal<string | null>(null);
   protected readonly slowStart = signal(false);
 
-  /** Email al que se acaba de mandar la verificación, una vez el registro sale bien. */
   protected readonly registeredEmail = signal<string | null>(null);
 
   protected submit(): void {
