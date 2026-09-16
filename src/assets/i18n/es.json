@@ -152,7 +152,10 @@
     "rename": "Renombrar",
     "save": "Guardar",
     "cancel": "Cancelar",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "addDefaults": "Añadir categorías básicas",
+    "addDefaultsHint": "Añade de golpe las categorías típicas (Ficción, Fantasía, Biografía…) que aún no tengas.",
+    "defaultsAdded": "Categorías básicas añadidas"
   },
   "reviews": {
     "title": "Mis reseñas",

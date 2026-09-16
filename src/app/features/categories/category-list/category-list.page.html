@@ -25,6 +25,13 @@
   </button>
 </form>
 
+<div class="seed-defaults-row">
+  <button type="button" class="btn btn-secondary" [disabled]="seedingDefaults()" (click)="seedDefaults()">
+    {{ (seedingDefaults() ? 'common.loading' : 'categories.addDefaults') | translate }}
+  </button>
+  <p class="hint">{{ 'categories.addDefaultsHint' | translate }}</p>
+</div>
+
 @if (loading()) {
   <app-spinner />
 } @else if (categories().length === 0) {

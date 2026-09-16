@@ -152,7 +152,10 @@
     "rename": "Rename",
     "save": "Save",
     "cancel": "Cancel",
-    "delete": "Delete"
+    "delete": "Delete",
+    "addDefaults": "Add basic categories",
+    "addDefaultsHint": "Add the typical categories (Fiction, Fantasy, Biography…) you don't already have, in one go.",
+    "defaultsAdded": "Basic categories added"
   },
   "reviews": {
     "title": "My reviews",

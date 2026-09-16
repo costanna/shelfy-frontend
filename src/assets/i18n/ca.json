@@ -152,7 +152,10 @@
     "rename": "Canvia el nom",
     "save": "Desa",
     "cancel": "Cancel·la",
-    "delete": "Elimina"
+    "delete": "Elimina",
+    "addDefaults": "Afegeix categories bàsiques",
+    "addDefaultsHint": "Afegeix d'un cop les categories típiques (Ficció, Fantasia, Biografia…) que encara no tinguis.",
+    "defaultsAdded": "Categories bàsiques afegides"
   },
   "reviews": {
     "title": "Les meves ressenyes",
