@@ -2,7 +2,7 @@
 
 > Tu biblioteca personal: lo que has leído, lo que estás leyendo, lo que quieres leer y lo que quieres comprar — con tus propias categorías y tus propias reseñas.
 
-[![Demo en vivo](https://img.shields.io/badge/demo-en%20vivo-brightgreen)](https://shelfy-frontend-six.vercel.app)
+[![Demo en vivo](https://img.shields.io/badge/demo-en%20vivo-brightgreen)](https://shelfy-reads.vercel.app)
 ![Angular](https://img.shields.io/badge/Angular-22-DD0031?logo=angular&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5-6DB33F?logo=springboot&logoColor=white)
@@ -10,7 +10,7 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-4169E1?logo=postgresql&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-**[🔗 Probar Shelfy](https://shelfy-frontend-six.vercel.app)** — cuenta de prueba ya cargada con libros, categorías y reseñas: `demo@shelfy.app` / `shelfy123` (o regístrate gratis en unos segundos).
+**[🔗 Probar Shelfy](https://shelfy-reads.vercel.app)** — cuenta de prueba ya cargada con libros, categorías y reseñas: `demo@shelfy.app` / `shelfy123` (o regístrate gratis en unos segundos).
 
 > El backend está en el plan gratuito de Render: si lleva un rato dormido, la primera petición puede tardar hasta un minuto en despertar. Es normal, no un error.
 
