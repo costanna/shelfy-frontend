@@ -204,6 +204,17 @@
     "language": "Language",
     "saved": "Preferences saved"
   },
+  "readingGoal": {
+    "title": "{{year}} reading challenge",
+    "set": "Set a goal",
+    "edit": "Edit goal",
+    "targetLabel": "Books you want to read this year",
+    "save": "Save",
+    "saved": "Goal saved",
+    "progress": "{{read}} of {{target}} books",
+    "complete": "🎉 Goal reached!",
+    "empty": "You haven't set a reading goal for this year yet."
+  },
   "stats": {
     "title": "Stats",
     "subtitle": "How long you take to read, and how many books you've read.",

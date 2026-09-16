@@ -8,6 +8,8 @@
 @if (loading()) {
   <app-spinner />
 } @else if (stats(); as data) {
+  <app-reading-goal-card />
+
   <h2 class="section-title">{{ 'stats.calendarTitle' | translate }}</h2>
   <app-reading-calendar />
 

@@ -14,6 +14,7 @@ import { EmptyState } from '../../shared/components/empty-state/empty-state';
 import { FieldError } from '../../shared/components/field-error/field-error';
 import { Spinner } from '../../shared/components/spinner/spinner';
 import { ReadingCalendar } from './reading-calendar/reading-calendar';
+import { ReadingGoalCard } from './reading-goal-card/reading-goal-card';
 
 @Component({
   selector: 'app-stats-page',
@@ -26,6 +27,7 @@ import { ReadingCalendar } from './reading-calendar/reading-calendar';
     EmptyState,
     FieldError,
     ReadingCalendar,
+    ReadingGoalCard,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './stats.page.html',
