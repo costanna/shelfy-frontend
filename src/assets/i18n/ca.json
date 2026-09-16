@@ -204,6 +204,17 @@
     "language": "Idioma",
     "saved": "Preferències desades"
   },
+  "readingGoal": {
+    "title": "Repte de lectura {{year}}",
+    "set": "Marca un objectiu",
+    "edit": "Edita l'objectiu",
+    "targetLabel": "Llibres que vols llegir aquest any",
+    "save": "Desa",
+    "saved": "Objectiu desat",
+    "progress": "{{read}} de {{target}} llibres",
+    "complete": "🎉 Objectiu complert!",
+    "empty": "Encara no has marcat cap objectiu de lectura per a aquest any."
+  },
   "stats": {
     "title": "Estadístiques",
     "subtitle": "Quant trigues a llegir i quants llibres portes.",

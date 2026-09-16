@@ -204,6 +204,17 @@
     "language": "Idioma",
     "saved": "Preferencias guardadas"
   },
+  "readingGoal": {
+    "title": "Reto de lectura {{year}}",
+    "set": "Marcar objetivo",
+    "edit": "Editar objetivo",
+    "targetLabel": "Libros que quieres leer este año",
+    "save": "Guardar",
+    "saved": "Objetivo guardado",
+    "progress": "{{read}} de {{target}} libros",
+    "complete": "🎉 ¡Objetivo cumplido!",
+    "empty": "Aún no has marcado un objetivo de lectura para este año."
+  },
   "stats": {
     "title": "Estadísticas",
     "subtitle": "Cuánto tardas en leer y cuántos libros llevas.",

@@ -1,0 +1,39 @@
+@if (goal(); as g) {
+  <div class="goal-card card card-padded">
+    <div class="goal-header">
+      <h2>{{ 'readingGoal.title' | translate: { year: g.year } }}</h2>
+      @if (!editing()) {
+        <button type="button" class="btn btn-ghost" (click)="startEdit()">
+          {{ (g.targetBooks ? 'readingGoal.edit' : 'readingGoal.set') | translate }}
+        </button>
+      }
+    </div>
+
+    @if (editing()) {
+      <form class="goal-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+        <label class="label" for="goal-target">{{ 'readingGoal.targetLabel' | translate }}</label>
+        <div class="goal-form-row">
+          <input id="goal-target" class="input" type="number" min="1" max="1000" formControlName="targetBooks" />
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid || saving()">
+            {{ (saving() ? 'common.loading' : 'readingGoal.save') | translate }}
+          </button>
+          <button type="button" class="btn btn-ghost" (click)="cancelEdit()">
+            {{ 'bookForm.cancel' | translate }}
+          </button>
+        </div>
+      </form>
+    } @else if (g.targetBooks) {
+      <p class="goal-progress-label">
+        {{ 'readingGoal.progress' | translate: { read: g.booksRead, target: g.targetBooks } }}
+      </p>
+      <div class="goal-bar-track">
+        <span class="goal-bar" [style.width.%]="progressPercent()"></span>
+      </div>
+      @if (g.booksRead >= g.targetBooks) {
+        <p class="goal-complete">{{ 'readingGoal.complete' | translate }}</p>
+      }
+    } @else {
+      <p class="goal-empty">{{ 'readingGoal.empty' | translate }}</p>
+    }
+  </div>
+}
