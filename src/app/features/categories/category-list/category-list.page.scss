@@ -25,6 +25,20 @@
   width: 100%;
 }
 
+.seed-defaults-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+
+  .hint {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+  }
+}
+
 .category-list {
   display: flex;
   flex-direction: column;

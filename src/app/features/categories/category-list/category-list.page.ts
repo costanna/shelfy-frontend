@@ -25,6 +25,7 @@ export class CategoryListPage {
   protected readonly categories = signal<Category[]>([]);
   protected readonly loading = signal(true);
   protected readonly saving = signal(false);
+  protected readonly seedingDefaults = signal(false);
 
   protected readonly editingId = signal<number | null>(null);
 
@@ -94,6 +95,22 @@ export class CategoryListPage {
         this.toast.success('categories.deleted');
         this.load();
       },
+    });
+  }
+
+  protected seedDefaults(): void {
+    if (this.seedingDefaults()) {
+      return;
+    }
+    this.seedingDefaults.set(true);
+
+    this.categoryService.seedDefaults().subscribe({
+      next: (categories) => {
+        this.categories.set(categories);
+        this.seedingDefaults.set(false);
+        this.toast.success('categories.defaultsAdded');
+      },
+      error: () => this.seedingDefaults.set(false),
     });
   }
 

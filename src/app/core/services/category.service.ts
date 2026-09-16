@@ -25,4 +25,8 @@ export class CategoryService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
+
+  seedDefaults(): Observable<Category[]> {
+    return this.http.post<Category[]>(`${this.baseUrl}/seed-defaults`, {});
+  }
 }
