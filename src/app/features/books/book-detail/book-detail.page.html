@@ -41,13 +41,13 @@
         @if (item.startedAt) {
           <div class="meta-item">
             <dt>{{ 'bookForm.startedAt' | translate }}</dt>
-            <dd>{{ item.startedAt | date: 'mediumDate' : 'UTC' }}</dd>
+            <dd>{{ item.startedAt | date: 'mediumDate' }}</dd>
           </div>
         }
         @if (item.finishedAt) {
           <div class="meta-item">
             <dt>{{ 'bookForm.finishedAt' | translate }}</dt>
-            <dd>{{ item.finishedAt | date: 'mediumDate' : 'UTC' }}</dd>
+            <dd>{{ item.finishedAt | date: 'mediumDate' }}</dd>
           </div>
         }
       </dl>

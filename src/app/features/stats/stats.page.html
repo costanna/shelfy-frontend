@@ -51,8 +51,8 @@
         <li class="duration-row card card-padded">
           <a class="duration-title" [routerLink]="['/books', entry.bookId]">{{ entry.title }}</a>
           <span class="duration-dates">
-            {{ entry.startedAt | date: 'mediumDate' : 'UTC' }} —
-            {{ entry.finishedAt | date: 'mediumDate' : 'UTC' }}
+            {{ entry.startedAt | date: 'mediumDate' }} —
+            {{ entry.finishedAt | date: 'mediumDate' }}
           </span>
           <span class="duration-days">
             {{ (entry.daysReading === 1 ? 'stats.dayOne' : 'stats.days') | translate: { count: entry.daysReading } }}
