@@ -308,6 +308,7 @@
   },
   "common": {
     "loading": "S'està carregant…",
+    "slowLoading": "El servidor s'està despertant: la primera petició després d'una estona sense ús pot trigar fins a un minut. Gràcies per la paciència!",
     "edit": "Edita",
     "delete": "Elimina",
     "confirm": "Confirma",

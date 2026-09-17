@@ -6,13 +6,14 @@ import { LanguageService } from './core/services/language.service';
 import { ThemeService } from './core/services/theme.service';
 import { Footer } from './layout/footer/footer';
 import { Header } from './layout/header/header';
+import { SlowLoadingBanner } from './shared/components/slow-loading-banner/slow-loading-banner';
 import { ToastHost } from './shared/components/toast-host/toast-host';
 
 const SYNCED_USER_KEY = 'shelfy.synced-preferences-user-id';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Footer, ToastHost],
+  imports: [RouterOutlet, Header, Footer, ToastHost, SlowLoadingBanner],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.html',
   styleUrl: './app.scss',

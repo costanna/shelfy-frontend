@@ -18,11 +18,10 @@ import {
     <select
       id="language-select"
       class="select language-select"
-      [value]="current()"
       (change)="onChange($event)"
     >
       @for (language of languages; track language) {
-        <option [value]="language">{{ labels[language] }}</option>
+        <option [value]="language" [selected]="language === current()">{{ labels[language] }}</option>
       }
     </select>
   `,

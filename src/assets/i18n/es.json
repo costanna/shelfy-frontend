@@ -308,6 +308,7 @@
   },
   "common": {
     "loading": "Cargando…",
+    "slowLoading": "El servidor se está despertando: la primera petición tras un tiempo sin uso puede tardar hasta un minuto. ¡Gracias por la paciencia!",
     "edit": "Editar",
     "delete": "Eliminar",
     "confirm": "Confirmar",

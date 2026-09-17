@@ -308,6 +308,7 @@
   },
   "common": {
     "loading": "Loading…",
+    "slowLoading": "The server is waking up: the first request after a while of inactivity can take up to a minute. Thanks for your patience!",
     "edit": "Edit",
     "delete": "Delete",
     "confirm": "Confirm",

@@ -1,0 +1,6 @@
+@if (slow()) {
+  <div class="slow-banner" role="status">
+    <span class="slow-banner-spinner" aria-hidden="true"></span>
+    <span>{{ 'common.slowLoading' | translate }}</span>
+  </div>
+}
