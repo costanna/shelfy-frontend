@@ -25,11 +25,26 @@
       <h1 class="title">{{ item.title }}</h1>
       <p class="author">{{ item.author || ('books.noAuthor' | translate) }}</p>
 
+      @if (item.series) {
+        <p class="series">
+          {{ item.series }}
+          @if (item.seriesPosition) {
+            <span>#{{ item.seriesPosition }}</span>
+          }
+        </p>
+      }
+
       <dl class="meta">
         @if (item.pageCount) {
           <div class="meta-item">
             <dt>{{ 'bookForm.pageCount' | translate }}</dt>
             <dd>{{ item.pageCount }}</dd>
+          </div>
+        }
+        @if (item.format) {
+          <div class="meta-item">
+            <dt>{{ 'bookForm.format' | translate }}</dt>
+            <dd>{{ 'format.' + item.format | translate }}</dd>
           </div>
         }
         @if (item.isbn) {

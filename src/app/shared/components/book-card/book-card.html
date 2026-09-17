@@ -22,6 +22,12 @@
     @if (!compact()) {
       <p class="author">{{ book().author || ('books.noAuthor' | translate) }}</p>
 
+      @if (book().series) {
+        <p class="series">
+          {{ book().series }}@if (book().seriesPosition) { #{{ book().seriesPosition }} }
+        </p>
+      }
+
       @if (book().categories.length) {
         <ul class="categories">
           @for (category of book().categories; track category.id) {

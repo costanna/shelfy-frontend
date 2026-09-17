@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { catchError, of } from 'rxjs';
 
-import { BOOK_STATUSES, BookRequest } from '../../../core/models/book.model';
+import { BOOK_FORMATS, BOOK_STATUSES, BookRequest } from '../../../core/models/book.model';
 import { BookLookupResult } from '../../../core/models/book-lookup.model';
 import { BookLookupService } from '../../../core/services/book-lookup.service';
 import { BookService } from '../../../core/services/book.service';
@@ -35,6 +35,7 @@ export class BookFormPage {
   readonly id = input<string | undefined>(undefined);
 
   protected readonly statuses = BOOK_STATUSES;
+  protected readonly formats = BOOK_FORMATS;
   protected readonly isEdit = computed(() => this.id() !== undefined);
 
   protected readonly loading = signal(false);
@@ -59,6 +60,9 @@ export class BookFormPage {
       isbn: ['', [Validators.maxLength(20)]],
       synopsis: ['', [Validators.maxLength(5000)]],
       pageCount: [null as number | null, [Validators.min(1)]],
+      series: ['', [Validators.maxLength(255)]],
+      seriesPosition: [null as number | null, [Validators.min(1)]],
+      format: [null as (typeof BOOK_FORMATS)[number] | null],
       status: [BOOK_STATUSES[0] as (typeof BOOK_STATUSES)[number], [Validators.required]],
       startedAt: [''],
       finishedAt: [''],
@@ -194,6 +198,9 @@ export class BookFormPage {
       isbn: value.isbn.trim() || null,
       synopsis: value.synopsis.trim() || null,
       pageCount: value.pageCount,
+      series: value.series.trim() || null,
+      seriesPosition: value.seriesPosition,
+      format: value.format,
       status: value.status,
       startedAt: value.startedAt || null,
       finishedAt: value.finishedAt || null,
@@ -213,6 +220,9 @@ export class BookFormPage {
           isbn: book.isbn ?? '',
           synopsis: book.synopsis ?? '',
           pageCount: book.pageCount,
+          series: book.series ?? '',
+          seriesPosition: book.seriesPosition,
+          format: book.format,
           status: book.status,
           startedAt: book.startedAt ?? '',
           finishedAt: book.finishedAt ?? '',

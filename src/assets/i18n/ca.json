@@ -128,6 +128,11 @@
     "synopsis": "Sinopsi",
     "synopsisPlaceholder": "De què va el llibre…",
     "pageCount": "Nombre de pàgines",
+    "series": "Saga",
+    "seriesPlaceholder": "El nom de la saga",
+    "seriesPosition": "Número dins la saga",
+    "format": "Format",
+    "formatUnset": "Sense especificar",
     "status": "Estat",
     "startedAt": "Començat el",
     "finishedAt": "Acabat el",
@@ -148,6 +153,11 @@
     "READING": "Llegint",
     "READ": "Llegit",
     "WANT_TO_BUY": "Per comprar"
+  },
+  "format": {
+    "PHYSICAL": "Físic",
+    "EBOOK": "Ebook",
+    "AUDIOBOOK": "Audiollibre"
   },
   "categories": {
     "title": "Les meves categories",

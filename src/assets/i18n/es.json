@@ -128,6 +128,11 @@
     "synopsis": "Sinopsis",
     "synopsisPlaceholder": "De qué va el libro…",
     "pageCount": "Número de páginas",
+    "series": "Saga",
+    "seriesPlaceholder": "El nombre de la saga",
+    "seriesPosition": "Número dentro de la saga",
+    "format": "Formato",
+    "formatUnset": "Sin especificar",
     "status": "Estado",
     "startedAt": "Empezado el",
     "finishedAt": "Terminado el",
@@ -148,6 +153,11 @@
     "READING": "Leyendo",
     "READ": "Leído",
     "WANT_TO_BUY": "Por comprar"
+  },
+  "format": {
+    "PHYSICAL": "Físico",
+    "EBOOK": "Ebook",
+    "AUDIOBOOK": "Audiolibro"
   },
   "categories": {
     "title": "Mis categorías",

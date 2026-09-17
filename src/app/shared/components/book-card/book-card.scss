@@ -91,6 +91,16 @@
   white-space: nowrap;
 }
 
+.series {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  font-style: italic;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .categories {
   display: flex;
   flex-wrap: wrap;

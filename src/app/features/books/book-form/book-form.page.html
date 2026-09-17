@@ -63,6 +63,42 @@
 
       <div class="field-row">
         <div class="field">
+          <label class="label" for="series">{{ 'bookForm.series' | translate }}</label>
+          <input
+            id="series"
+            class="input"
+            type="text"
+            formControlName="series"
+            [placeholder]="'bookForm.seriesPlaceholder' | translate"
+          />
+          <app-field-error [control]="form.controls.series" [submitted]="submitted()" />
+        </div>
+
+        <div class="field">
+          <label class="label" for="seriesPosition">{{ 'bookForm.seriesPosition' | translate }}</label>
+          <input
+            id="seriesPosition"
+            class="input"
+            type="number"
+            min="1"
+            formControlName="seriesPosition"
+          />
+          <app-field-error [control]="form.controls.seriesPosition" [submitted]="submitted()" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="format">{{ 'bookForm.format' | translate }}</label>
+        <select id="format" class="select" formControlName="format">
+          <option [ngValue]="null">{{ 'bookForm.formatUnset' | translate }}</option>
+          @for (format of formats; track format) {
+            <option [ngValue]="format">{{ 'format.' + format | translate }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
           <label class="label" for="startedAt">{{ 'bookForm.startedAt' | translate }}</label>
           <input id="startedAt" class="input" type="date" formControlName="startedAt" />
         </div>

@@ -73,6 +73,17 @@
   font-size: 1.0625rem;
 }
 
+.series {
+  margin: 0;
+  color: var(--text-faint);
+  font-size: 0.875rem;
+  font-style: italic;
+
+  span {
+    font-style: normal;
+  }
+}
+
 .meta {
   display: flex;
   flex-wrap: wrap;

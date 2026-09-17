@@ -128,6 +128,11 @@
     "synopsis": "Synopsis",
     "synopsisPlaceholder": "What the book is about…",
     "pageCount": "Page count",
+    "series": "Series",
+    "seriesPlaceholder": "The name of the series",
+    "seriesPosition": "Number in the series",
+    "format": "Format",
+    "formatUnset": "Not set",
     "status": "Status",
     "startedAt": "Started on",
     "finishedAt": "Finished on",
@@ -142,6 +147,11 @@
     "hint": "Point the camera at the barcode on the back cover.",
     "denied": "Can't access the camera. Check permissions or enter the ISBN by hand.",
     "unsupported": "This browser doesn't support camera access. Enter the ISBN by hand."
+  },
+  "format": {
+    "PHYSICAL": "Physical",
+    "EBOOK": "Ebook",
+    "AUDIOBOOK": "Audiobook"
   },
   "status": {
     "WANT_TO_READ": "To read",

@@ -4,6 +4,10 @@ export const BOOK_STATUSES = ['WANT_TO_READ', 'READING', 'READ', 'WANT_TO_BUY'] 
 
 export type BookStatus = (typeof BOOK_STATUSES)[number];
 
+export const BOOK_FORMATS = ['PHYSICAL', 'EBOOK', 'AUDIOBOOK'] as const;
+
+export type BookFormat = (typeof BOOK_FORMATS)[number];
+
 export interface Book {
   id: number;
   title: string;
@@ -12,6 +16,9 @@ export interface Book {
   isbn: string | null;
   synopsis: string | null;
   pageCount: number | null;
+  series: string | null;
+  seriesPosition: number | null;
+  format: BookFormat | null;
   status: BookStatus;
   startedAt: string | null;
   finishedAt: string | null;
@@ -27,6 +34,9 @@ export interface BookRequest {
   isbn: string | null;
   synopsis: string | null;
   pageCount: number | null;
+  series: string | null;
+  seriesPosition: number | null;
+  format: BookFormat | null;
   status: BookStatus;
   startedAt: string | null;
   finishedAt: string | null;
