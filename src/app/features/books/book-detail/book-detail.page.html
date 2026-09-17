@@ -34,7 +34,7 @@
         </p>
       }
 
-      @if (item.pageCount) {
+      @if (item.pageCount && item.status !== 'READ') {
         <div class="progress-block">
           @if (editingProgress()) {
             <div class="progress-edit">
