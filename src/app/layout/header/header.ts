@@ -6,11 +6,12 @@ import { AuthService } from '../../core/services/auth.service';
 import { ToastService } from '../../core/services/toast.service';
 import { avatarUrl, initials } from '../../core/util/avatar-url';
 import { LanguageSwitcher } from '../../shared/components/language-switcher/language-switcher';
+import { NotificationBell } from '../../shared/components/notification-bell/notification-bell';
 import { ThemeToggle } from '../../shared/components/theme-toggle/theme-toggle';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, TranslatePipe, ThemeToggle, LanguageSwitcher],
+  imports: [RouterLink, RouterLinkActive, TranslatePipe, ThemeToggle, LanguageSwitcher, NotificationBell],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './header.html',
   styleUrl: './header.scss',

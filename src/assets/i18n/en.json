@@ -9,6 +9,7 @@
     "settings": "Settings",
     "stats": "Stats",
     "people": "People",
+    "feed": "Activity",
     "addBook": "Add book",
     "logout": "Log out",
     "menu": "Menu",
@@ -342,6 +343,18 @@
     "cancel": "Cancel",
     "close": "Close",
     "retry": "Retry"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "empty": "You don't have any notifications yet.",
+    "newFollower": "started following you"
+  },
+  "feed": {
+    "title": "Activity",
+    "empty": "No activity yet. Follow someone in People to see what they're reading!",
+    "startedReading": "started reading",
+    "finishedReading": "finished reading",
+    "reviewed": "rated"
   },
   "footer": {
     "madeBy": "made by"

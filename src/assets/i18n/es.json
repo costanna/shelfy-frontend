@@ -9,6 +9,7 @@
     "settings": "Ajustes",
     "stats": "Estadísticas",
     "people": "Personas",
+    "feed": "Actividad",
     "addBook": "Añadir libro",
     "logout": "Cerrar sesión",
     "menu": "Menú",
@@ -342,6 +343,18 @@
     "cancel": "Cancelar",
     "close": "Cerrar",
     "retry": "Reintentar"
+  },
+  "notifications": {
+    "title": "Notificaciones",
+    "empty": "Todavía no tienes ninguna notificación.",
+    "newFollower": "ha empezado a seguirte"
+  },
+  "feed": {
+    "title": "Actividad",
+    "empty": "Todavía no hay actividad. ¡Sigue a alguien en Personas para ver qué lee!",
+    "startedReading": "ha empezado a leer",
+    "finishedReading": "ha terminado de leer",
+    "reviewed": "ha valorado"
   },
   "footer": {
     "madeBy": "creado por"

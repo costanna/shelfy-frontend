@@ -1,0 +1,37 @@
+<div class="page-header">
+  <h1>{{ 'feed.title' | translate }}</h1>
+</div>
+
+@if (loading()) {
+  <app-spinner />
+} @else if (items().length === 0) {
+  <app-empty-state icon="👥" [message]="'feed.empty' | translate" />
+} @else {
+  <ul class="feed-list">
+    @for (item of items(); track item.type + '-' + item.bookId + '-' + item.occurredAt) {
+      <li>
+        <a class="feed-item card card-padded" [routerLink]="['/people', item.actorId]">
+          <span class="avatar" aria-hidden="true">{{ initials(item.actorName) }}</span>
+
+          <div class="body">
+            <p class="line">
+              <strong>{{ item.actorAlias ? '@' + item.actorAlias : item.actorName }}</strong>
+              {{ actionKey(item) | translate }}
+              <em>{{ item.bookTitle }}</em>
+            </p>
+
+            @if (item.type === 'REVIEWED' && item.rating !== null) {
+              <app-star-rating [rating]="item.rating" />
+            }
+
+            <time class="when">{{ item.occurredAt | date: 'medium' }}</time>
+          </div>
+
+          @if (item.bookCoverUrl) {
+            <img class="cover" [src]="item.bookCoverUrl" [alt]="item.bookTitle" loading="lazy" />
+          }
+        </a>
+      </li>
+    }
+  </ul>
+}

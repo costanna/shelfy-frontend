@@ -47,6 +47,14 @@
         >
           {{ 'nav.people' | translate }}
         </a>
+        <a
+          class="nav-link"
+          routerLink="/feed"
+          routerLinkActive="is-active"
+          (click)="closeMenu()"
+        >
+          {{ 'nav.feed' | translate }}
+        </a>
       }
 
       <div class="nav-tools">
@@ -54,6 +62,8 @@
         <app-theme-toggle />
 
         @if (isLoggedIn()) {
+          <app-notification-bell />
+
           <a
             class="avatar-link"
             routerLink="/settings"

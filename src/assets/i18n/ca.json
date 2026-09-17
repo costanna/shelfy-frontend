@@ -9,6 +9,7 @@
     "settings": "Ajustos",
     "stats": "Estadístiques",
     "people": "Persones",
+    "feed": "Activitat",
     "addBook": "Afegeix un llibre",
     "logout": "Tanca la sessió",
     "menu": "Menú",
@@ -342,6 +343,18 @@
     "cancel": "Cancel·la",
     "close": "Tanca",
     "retry": "Torna-ho a provar"
+  },
+  "notifications": {
+    "title": "Notificacions",
+    "empty": "Encara no tens cap notificació.",
+    "newFollower": "ha començat a seguir-te"
+  },
+  "feed": {
+    "title": "Activitat",
+    "empty": "Encara no hi ha activitat. Segueix algú a Persones per veure què llegeix!",
+    "startedReading": "ha començat a llegir",
+    "finishedReading": "ha acabat de llegir",
+    "reviewed": "ha valorat"
   },
   "footer": {
     "madeBy": "creat per"

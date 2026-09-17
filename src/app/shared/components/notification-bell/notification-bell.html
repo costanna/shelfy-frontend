@@ -1,0 +1,40 @@
+<div class="bell-wrap">
+  <button
+    type="button"
+    class="btn btn-ghost btn-icon"
+    [attr.aria-label]="'notifications.title' | translate"
+    [attr.aria-expanded]="open()"
+    (click)="toggle()"
+  >
+    <span aria-hidden="true">🔔</span>
+    @if (unreadCount() > 0) {
+      <span class="badge">{{ unreadCount() > 9 ? '9+' : unreadCount() }}</span>
+    }
+  </button>
+
+  @if (open()) {
+    <div class="panel card">
+      <h2 class="panel-title">{{ 'notifications.title' | translate }}</h2>
+
+      @if (notifications(); as items) {
+        @if (items.length === 0) {
+          <p class="empty">{{ 'notifications.empty' | translate }}</p>
+        } @else {
+          <ul class="list">
+            @for (notification of items; track notification.id) {
+              <li>
+                <button type="button" class="item" (click)="goToProfile(notification)">
+                  <span class="avatar" aria-hidden="true">{{ initials(notification.actorName) }}</span>
+                  <span class="text">
+                    <strong>{{ notification.actorAlias ? '@' + notification.actorAlias : notification.actorName }}</strong>
+                    {{ 'notifications.newFollower' | translate }}
+                  </span>
+                </button>
+              </li>
+            }
+          </ul>
+        }
+      }
+    </div>
+  }
+</div>
