@@ -15,6 +15,7 @@ export interface MonthlyReadCount {
 export interface ReadingStats {
   totalBooksRead: number;
   totalBooks: number;
+  currentlyReading: number;
   readingDurations: BookReadingDuration[];
   booksByMonth: MonthlyReadCount[];
 }

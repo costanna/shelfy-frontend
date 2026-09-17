@@ -258,6 +258,7 @@
     "datesSaved": "Dates de lectura desades",
     "datesRemoved": "Dates de lectura eliminades",
     "removeDatesConfirm": "Vols eliminar les dates de lectura de «{{title}}»? El llibre no s'esborra, només deixa de tenir data d'inici i de fi.",
+    "currentlyReading": "Llegint ara",
     "totalRead": "Llibres llegits",
     "totalBooks": "Llibres a la teva prestatgeria",
     "byMonthTitle": "Llibres acabats per mes",

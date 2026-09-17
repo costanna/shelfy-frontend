@@ -258,6 +258,7 @@
     "datesSaved": "Reading dates saved",
     "datesRemoved": "Reading dates removed",
     "removeDatesConfirm": "Remove the reading dates for \"{{title}}\"? The book itself isn't deleted, it just loses its start and finish dates.",
+    "currentlyReading": "Currently reading",
     "totalRead": "Books read",
     "totalBooks": "Books on your shelf",
     "byMonthTitle": "Books finished per month",

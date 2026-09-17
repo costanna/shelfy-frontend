@@ -258,6 +258,7 @@
     "datesSaved": "Fechas de lectura guardadas",
     "datesRemoved": "Fechas de lectura eliminadas",
     "removeDatesConfirm": "¿Eliminar las fechas de lectura de «{{title}}»? El libro no se borra, solo deja de tener fecha de inicio y de fin.",
+    "currentlyReading": "Leyendo ahora",
     "totalRead": "Libros leídos",
     "totalBooks": "Libros en tu estantería",
     "byMonthTitle": "Libros terminados por mes",
