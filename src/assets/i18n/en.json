@@ -76,7 +76,17 @@
     "filterCategory": "Category",
     "allStatuses": "All statuses",
     "allCategories": "All categories",
+    "sortBy": "Sort by",
+    "sort": {
+      "createdAt,desc": "Recently added",
+      "title,asc": "Title (A-Z)",
+      "author,asc": "Author (A-Z)",
+      "pageCount,desc": "Most pages first"
+    },
     "clearFilters": "Clear filters",
+    "viewMode": "View type",
+    "viewGrid": "Cards",
+    "viewShelf": "Shelf",
     "empty": "You haven't added any books yet.",
     "emptyFiltered": "No books match these filters.",
     "emptyAction": "Add your first one",

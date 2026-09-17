@@ -58,6 +58,9 @@ function buildParams(filters: BookFilters): HttpParams {
   if (filters.q?.trim()) {
     params = params.set('q', filters.q.trim());
   }
+  if (filters.sort) {
+    params = params.set('sort', filters.sort);
+  }
   if (filters.page !== undefined) {
     params = params.set('page', filters.page);
   }

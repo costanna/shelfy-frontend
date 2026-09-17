@@ -14,6 +14,7 @@ import { StatusBadge } from '../status-badge/status-badge';
 })
 export class BookCard {
   readonly book = input.required<Book>();
+  readonly compact = input(false);
 
   protected readonly coverFailed = signal(false);
 

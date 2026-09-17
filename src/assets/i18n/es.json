@@ -76,7 +76,17 @@
     "filterCategory": "Categoría",
     "allStatuses": "Todos los estados",
     "allCategories": "Todas las categorías",
+    "sortBy": "Ordenar por",
+    "sort": {
+      "createdAt,desc": "Añadidos hace poco",
+      "title,asc": "Título (A-Z)",
+      "author,asc": "Autor (A-Z)",
+      "pageCount,desc": "Más páginas primero"
+    },
     "clearFilters": "Limpiar filtros",
+    "viewMode": "Tipo de vista",
+    "viewGrid": "Tarjetas",
+    "viewShelf": "Estantería",
     "empty": "Todavía no has añadido ningún libro.",
     "emptyFiltered": "Ningún libro coincide con los filtros.",
     "emptyAction": "Añade el primero",

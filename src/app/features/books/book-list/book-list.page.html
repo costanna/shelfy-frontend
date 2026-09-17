@@ -23,6 +23,29 @@
   <app-recommendations />
 }
 
+@if (!loading() && result().content.length > 0) {
+  <div class="view-toggle" role="group" [attr.aria-label]="'books.viewMode' | translate">
+    <button
+      type="button"
+      class="btn btn-ghost"
+      [class.is-active]="viewMode() === 'grid'"
+      [attr.aria-pressed]="viewMode() === 'grid'"
+      (click)="setViewMode('grid')"
+    >
+      {{ 'books.viewGrid' | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-ghost"
+      [class.is-active]="viewMode() === 'shelf'"
+      [attr.aria-pressed]="viewMode() === 'shelf'"
+      (click)="setViewMode('shelf')"
+    >
+      {{ 'books.viewShelf' | translate }}
+    </button>
+  </div>
+}
+
 @if (loading()) {
   <app-spinner />
 } @else if (result().content.length === 0) {
@@ -32,9 +55,9 @@
     }
   </app-empty-state>
 } @else {
-  <ul class="book-grid">
+  <ul class="book-grid" [class.is-shelf]="viewMode() === 'shelf'">
     @for (book of result().content; track book.id) {
-      <li><app-book-card [book]="book" /></li>
+      <li><app-book-card [book]="book" [compact]="viewMode() === 'shelf'" /></li>
     }
   </ul>
 

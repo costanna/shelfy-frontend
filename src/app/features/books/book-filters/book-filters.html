@@ -37,6 +37,17 @@
     </select>
   </div>
 
+  <div class="field">
+    <label class="visually-hidden" for="filter-sort">{{ 'books.sortBy' | translate }}</label>
+    <select id="filter-sort" class="select" (change)="onSort($event)">
+      @for (option of sortOptions; track option) {
+        <option [value]="option" [selected]="option === (value().sort || defaultSort)">
+          {{ 'books.sort.' + option | translate }}
+        </option>
+      }
+    </select>
+  </div>
+
   @if (hasActiveFilters()) {
     <button type="button" class="btn btn-ghost clear-button" (click)="clear()">
       {{ 'books.clearFilters' | translate }}

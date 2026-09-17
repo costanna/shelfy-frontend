@@ -4,6 +4,17 @@
   font-size: 0.875rem;
 }
 
+.view-toggle {
+  display: inline-flex;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+
+  .btn.is-active {
+    background: var(--primary-soft);
+    color: var(--primary);
+  }
+}
+
 .book-grid {
   display: grid;
   gap: var(--space-4);
@@ -14,5 +25,14 @@
 
   @media (min-width: 640px) {
     grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+  }
+
+  &.is-shelf {
+    gap: var(--space-3);
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+    }
   }
 }

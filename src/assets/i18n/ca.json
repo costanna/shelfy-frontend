@@ -76,7 +76,17 @@
     "filterCategory": "Categoria",
     "allStatuses": "Tots els estats",
     "allCategories": "Totes les categories",
+    "sortBy": "Ordena per",
+    "sort": {
+      "createdAt,desc": "Afegits fa poc",
+      "title,asc": "Títol (A-Z)",
+      "author,asc": "Autor (A-Z)",
+      "pageCount,desc": "Més pàgines primer"
+    },
     "clearFilters": "Neteja els filtres",
+    "viewMode": "Tipus de vista",
+    "viewGrid": "Targetes",
+    "viewShelf": "Prestatgeria",
     "empty": "Encara no has afegit cap llibre.",
     "emptyFiltered": "Cap llibre coincideix amb els filtres.",
     "emptyAction": "Afegeix-ne el primer",

@@ -1,4 +1,4 @@
-<a class="book-card" [routerLink]="['/books', book().id]">
+<a class="book-card" [class.is-compact]="compact()" [routerLink]="['/books', book().id]">
   <div class="cover">
     @if (book().coverUrl) {
       <img
@@ -18,14 +18,17 @@
 
   <div class="info">
     <h3 class="title">{{ book().title }}</h3>
-    <p class="author">{{ book().author || ('books.noAuthor' | translate) }}</p>
 
-    @if (book().categories.length) {
-      <ul class="categories">
-        @for (category of book().categories; track category.id) {
-          <li class="chip">{{ category.name }}</li>
-        }
-      </ul>
+    @if (!compact()) {
+      <p class="author">{{ book().author || ('books.noAuthor' | translate) }}</p>
+
+      @if (book().categories.length) {
+        <ul class="categories">
+          @for (category of book().categories; track category.id) {
+            <li class="chip">{{ category.name }}</li>
+          }
+        </ul>
+      }
     }
   </div>
 </a>

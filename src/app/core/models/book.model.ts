@@ -38,10 +38,20 @@ export interface UpdateReadingDatesRequest {
   finishedAt: string | null;
 }
 
+export const BOOK_SORT_OPTIONS = [
+  'createdAt,desc',
+  'title,asc',
+  'author,asc',
+  'pageCount,desc',
+] as const;
+
+export type BookSort = (typeof BOOK_SORT_OPTIONS)[number];
+
 export interface BookFilters {
   status?: BookStatus | null;
   categoryId?: number | null;
   q?: string | null;
+  sort?: BookSort | null;
   page?: number;
   size?: number;
 }

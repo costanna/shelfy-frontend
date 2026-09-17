@@ -17,6 +17,9 @@ import { Recommendations } from '../recommendations/recommendations';
 
 const PAGE_SIZE = 12;
 const SEARCH_DEBOUNCE_MS = 300;
+const VIEW_MODE_KEY = 'shelfy.book-view-mode';
+
+type ViewMode = 'grid' | 'shelf';
 
 interface Query extends BookFilterValue {
   page: number;
@@ -38,6 +41,7 @@ export class BookListPage {
 
   protected readonly query = signal<Query>(readQueryFromUrl(this.router.url));
   protected readonly loading = signal(true);
+  protected readonly viewMode = signal<ViewMode>(readStoredViewMode());
 
   protected readonly categories = toSignal(
     this.categoryService.list().pipe(catchError(() => of([]))),
@@ -78,6 +82,15 @@ export class BookListPage {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  protected setViewMode(mode: ViewMode): void {
+    this.viewMode.set(mode);
+    try {
+      localStorage.setItem(VIEW_MODE_KEY, mode);
+    } catch {
+      // Private browsing / storage disabled: the choice just won't persist across visits.
+    }
+  }
+
   private search(query: Query): void {
     this.query.set(query);
     this.loading.set(true);
@@ -91,10 +104,19 @@ export class BookListPage {
         status: query.status ?? null,
         categoryId: query.categoryId ?? null,
         q: query.q.trim() || null,
+        sort: query.sort ?? null,
         page: query.page || null,
       },
       replaceUrl: true,
     });
+  }
+}
+
+function readStoredViewMode(): ViewMode {
+  try {
+    return localStorage.getItem(VIEW_MODE_KEY) === 'shelf' ? 'shelf' : 'grid';
+  } catch {
+    return 'grid';
   }
 }
 
@@ -107,6 +129,7 @@ function readQueryFromUrl(url: string): Query {
     status: (params.get('status') as Query['status']) ?? null,
     categoryId: categoryId ? Number(categoryId) : null,
     q: params.get('q') ?? '',
+    sort: (params.get('sort') as Query['sort']) ?? null,
     page: page ? Number(page) : 0,
   };
 }
