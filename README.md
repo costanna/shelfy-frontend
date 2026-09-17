@@ -1,6 +1,6 @@
 # 📚 Shelfy
 
-> Tu biblioteca personal: lo que has leído, lo que estás leyendo, lo que quieres leer y lo que quieres comprar — con tus propias categorías y tus propias reseñas.
+> Tu biblioteca personal: lo que has leído, lo que estás leyendo, lo que quieres leer y lo que quieres comprar — con progreso por páginas, tus propias categorías, reseñas, estadísticas y un feed de lo que lee la gente que sigues.
 
 [![Demo en vivo](https://img.shields.io/badge/demo-en%20vivo-brightgreen)](https://shelfy-reads.vercel.app)
 ![Angular](https://img.shields.io/badge/Angular-22-DD0031?logo=angular&logoColor=white)
@@ -19,10 +19,11 @@
 ## 📖 Qué es
 
 Shelfy es una aplicación fullstack de biblioteca personal: cada usuario gestiona sus propios libros,
-categorías y reseñas, en su propio idioma y con el tema que prefiera. También tiene una capa social
-opcional — buscar a otros usuarios por alias y seguirlos para ver su biblioteca y sus reseñas —,
-pensada como un vistazo tipo Goodreads sin perder el control de quién ve qué: sin seguidor, nada es
-visible.
+categorías, reseñas y notas, en su propio idioma y con el tema que prefiera. También tiene una capa
+social opcional — buscar a otros usuarios por alias, seguirlos para ver su biblioteca y sus
+reseñas, recibir una notificación cuando alguien te sigue, y un feed con lo último que ha leído o
+reseñado la gente que sigues —, pensada como un vistazo tipo Goodreads/Leero sin perder el control
+de quién ve qué: sin seguidor, nada es visible.
 
 Este repositorio es el **frontend** (Angular). El backend (API REST en Spring Boot) vive en
 [**shelfy-backend**](https://github.com/costanna/shelfy-backend).
@@ -35,17 +36,27 @@ cualquiera que abra este README.
 
 ## ✨ Funcionalidades
 
-- **Cuenta propia** con registro e inicio de sesión (JWT).
-- **Gestión de libros**: título, autor, portada, sinopsis, páginas — añadir, editar, eliminar.
-- **Estados de lectura**: *quiero leer*, *leyendo*, *leído*, *quiero comprar*, con filtros por estado, por categoría y por texto libre.
-- **Categorías propias**: cada usuario crea las suyas (p. ej. "fantasía", "pendientes de Sant Jordi") y las asigna libremente.
+- **Cuenta propia** con registro e inicio de sesión (JWT), verificación por email y recuperación de contraseña.
+- **Gestión de libros**: título, autor, portada, sinopsis, páginas, saga y número dentro de ella, formato (físico/ebook/audiolibro) — añadir, editar, eliminar.
+- **Estados de lectura**: *quiero leer*, *leyendo*, *leído*, *quiero comprar*, con filtros por estado, categoría y texto libre, ordenación (recientes, título, autor, páginas) y dos vistas — Tarjetas y Estantería (solo portadas, al estilo visual de Goodreads).
+- **Progreso de lectura por páginas**: mientras un libro está en *leyendo*, actualiza "por qué página vas" desde su ficha y verás una barra de progreso ahí y en la tarjeta.
+- **Volver a leer un libro**: un botón en la ficha reabre un libro ya terminado (pasa a *leyendo* de nuevo) sin perder el rastro de cuándo lo leíste la primera vez — queda en su historial de lecturas.
+- **Categorías propias**: cada usuario crea las suyas (p. ej. "fantasía", "pendientes de Sant Jordi") y las asigna libremente; hay 8 por defecto al registrarse, y un botón para añadir las que falten si ya tenías cuenta.
 - **Reseñas**: puntuación de 0.5 a 5 estrellas (con medias) y texto de opinión por libro, visibles para su autor y para quien le siga.
+- **Notas privadas** por libro, solo visibles para ti.
+- **Importar/exportar tu biblioteca en CSV**, desde Ajustes — útil para llevártela a otro sitio o como copia de seguridad.
 - **Buscar y seguir a otros usuarios** por alias: seguir a alguien revela toda su biblioteca y sus reseñas (o nada, si no le sigues) — ver [`/people`](src/app/features/people).
+- **Notificaciones**: un aviso (con contador) cuando alguien empieza a seguirte, desde la campana de la cabecera.
+- **Feed de actividad** (`/feed`): lo último que ha empezado, terminado o reseñado la gente que sigues.
 - **Foto de perfil**: se sube desde Ajustes (PNG/JPEG/WEBP, máx. 5 MB — el backend la recorta a cuadrado y la redimensiona), y aparece también en la cabecera como acceso directo a Ajustes.
 - **Añadir un libro escaneando su ISBN** con la cámara del móvil, o buscándolo a mano: título, autor, páginas, portada y sinopsis se rellenan solos (API pública de Open Library).
 - **Buscar un libro por título o autor** (al estilo Goodreads) para añadirlo sin teclear nada a mano: se elige de una lista de resultados con portada y año, y el formulario se rellena solo. Dos fuentes a elegir: Open Library (siempre activa) y Google Books limitado a España (opcional, hace falta una clave gratuita — ver "Configuración").
-- **Estadísticas de lectura**: cuántos libros llevas leídos, cuántos terminaste cada mes y cuántos días te costó cada uno, entre la fecha de inicio y la de fin que le pongas al libro.
+- **Recomendaciones**: sugerencias de libros del autor que más lees, listas para añadir con un clic.
+- **Objetivo de lectura anual**: márcate cuántos libros quieres leer este año y sigue el progreso.
+- **Estadísticas de lectura**: cuántos libros llevas leídos, cuántos leyendo ahora mismo, cuántos terminaste cada mes (con una página de detalle por mes) y cuántos días te costó cada uno.
 - **Calendario de lectura interactivo**: marca qué libro(s) leíste cada día directamente sobre un calendario mensual (al estilo Leero) — independiente del rango de inicio/fin del libro, para llevar el día a día. Muestra también la racha actual y el récord de días seguidos. Estadísticas ya no es de solo lectura: se puede eliminar cualquier día marcado desde una lista por libro, y editar o borrar el rango de inicio/fin de cada libro sin salir de la página.
+- **Instalable como app** (PWA) en el móvil o el escritorio, con funcionamiento offline básico; también existe un envoltorio Android nativo (TWA) — ver [shelfy-android](https://github.com/costanna/shelfy-android).
+- **Aviso si el servidor tarda**: como el backend gratuito de Render se duerme tras un rato de inactividad, un aviso avisa cuando una petición lleva unos segundos en curso en vez de dejarte mirando una pantalla en blanco.
 - **Modo claro / oscuro / según el sistema**, con la preferencia guardada en la cuenta (te sigue entre dispositivos).
 - **Español, catalán e inglés**, cambiables al vuelo, sin recargar la página.
 - **Mostrar/ocultar la contraseña** al escribirla, en inicio de sesión, registro y restablecer contraseña.
@@ -68,6 +79,7 @@ Algunas decisiones concretas, por si son de interés:
 - **Integración con una API externa sin librería de terceros**: `BookLookupService` llama a Open Library con `fetch` directamente (no `HttpClient`), para no arrastrar el interceptor que añade el JWT de la app a toda petición saliente.
 - **Nombres de mes en el idioma activo sin datos de locale de Angular**: la sección "libros por mes" de Estadísticas usa `Intl.DateTimeFormat` directamente con el idioma de `LanguageService`, en vez de registrar `LOCALE_ID`/`registerLocaleData` solo para eso.
 - **Visibilidad social sin duplicar datos**: no hay una copia "pública" de libros o reseñas — el backend calcula al vuelo si el visitante puede verlos (`propio || le sigue`) y el frontend simplemente pinta lo que reciba (biblioteca completa o página bloqueada).
+- **Preferencias solo de este dispositivo en `localStorage`**: la vista de libros (Tarjetas/Estantería) no se guarda en la cuenta como el tema o el idioma — es una comodidad de "cómo lo veo aquí", no algo que tenga sentido sincronizar entre dispositivos.
 
 ## 🚀 Arrancar en local
 
@@ -119,14 +131,16 @@ para uso personal.
 ```text
 src/app/
 ├── core/           servicios, modelos, guards e interceptores HTTP compartidos
-├── layout/         cabecera de la aplicación
+├── layout/         cabecera (con notificaciones) y pie de la aplicación
 ├── shared/         componentes reutilizables (tarjetas, badges, spinner, toasts…)
 └── features/
-    ├── auth/       login y registro
-    ├── books/      listado, detalle, formulario y reseñas
+    ├── auth/       login, registro, verificación de email, recuperar contraseña
+    ├── books/      listado, detalle, formulario, reseñas, notas y recomendaciones
     ├── categories/ gestión de categorías propias
+    ├── feed/       actividad de la gente que sigues
     ├── people/     buscar usuarios, perfil público y seguir
-    └── settings/   ajustes de cuenta, tema e idioma
+    ├── stats/      estadísticas, calendario, objetivo de lectura y detalle por mes
+    └── settings/   ajustes de cuenta, tema, idioma e importar/exportar CSV
 ```
 
 ### Desplegar
@@ -142,10 +156,13 @@ ya rellenos.
 
 </details>
 
-## 🗺️ Próximos pasos
+## 📱 App instalable
 
-El mismo frontend Angular está pensado para envolverse con **Ionic + Capacitor** y generar una app
-móvil nativa (iOS/Android) sin tocar el backend.
+Shelfy es una PWA (`ngsw-config.json`, `public/manifest.webmanifest`): se puede instalar desde el
+navegador tanto en el móvil como en el escritorio, con funcionamiento offline básico. Además, el
+mismo frontend se envuelve como app Android nativa vía TWA (*Trusted Web Activity*, con
+[Bubblewrap](https://github.com/GoogleChromeLabs/bubblewrap)) sin tocar el backend ni el código
+Angular — ver [shelfy-android](https://github.com/costanna/shelfy-android).
 
 ## 📄 Licencia
 
