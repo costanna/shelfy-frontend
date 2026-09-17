@@ -263,6 +263,7 @@
     "totalBooks": "Libros en tu estantería",
     "byMonthTitle": "Libros terminados por mes",
     "byMonthEmpty": "Todavía no has terminado ningún libro con fecha de fin.",
+    "backToStats": "Volver a Estadísticas",
     "bookOne": "1 libro",
     "books": "{{count}} libros",
     "durationsTitle": "Días de lectura por libro",

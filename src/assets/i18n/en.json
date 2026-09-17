@@ -263,6 +263,7 @@
     "totalBooks": "Books on your shelf",
     "byMonthTitle": "Books finished per month",
     "byMonthEmpty": "You haven't finished a book with a finish date yet.",
+    "backToStats": "Back to Stats",
     "bookOne": "1 book",
     "books": "{{count}} books",
     "durationsTitle": "Reading days per book",

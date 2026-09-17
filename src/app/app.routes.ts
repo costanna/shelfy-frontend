@@ -72,7 +72,17 @@ export const routes: Routes = [
   {
     path: 'stats',
     canActivate: [authGuard],
-    loadComponent: () => import('./features/stats/stats.page').then((m) => m.StatsPage),
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./features/stats/stats.page').then((m) => m.StatsPage),
+      },
+      {
+        path: ':year/:month',
+        loadComponent: () =>
+          import('./features/stats/stats-month/stats-month.page').then((m) => m.StatsMonthPage),
+      },
+    ],
   },
   {
     path: 'people',

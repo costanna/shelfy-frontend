@@ -35,88 +35,18 @@
   } @else {
     <ul class="month-list">
       @for (entry of data.booksByMonth; track entry.year + '-' + entry.month) {
-        <li class="month-row">
-          <span class="month-label">{{ monthLabel(entry) }}</span>
-          <span class="month-bar-track">
-            <span class="month-bar" [style.width.%]="barWidth(entry, data.booksByMonth)"></span>
-          </span>
-          <span class="month-count">
-            {{
-              (entry.count === 1 ? 'stats.bookOne' : 'stats.books') | translate: { count: entry.count }
-            }}
-          </span>
-        </li>
-      }
-    </ul>
-  }
-
-  <h2 class="section-title">{{ 'stats.durationsTitle' | translate }}</h2>
-
-  @if (data.readingDurations.length === 0) {
-    <app-empty-state icon="🗓️" [message]="'stats.durationsEmpty' | translate" />
-  } @else {
-    <ul class="duration-list">
-      @for (entry of data.readingDurations; track entry.bookId) {
-        <li class="duration-row card card-padded">
-          @if (editingBookId() === entry.bookId) {
-            <form class="duration-edit-form" [formGroup]="datesForm" (ngSubmit)="saveDates(entry.bookId)">
-              <span class="duration-title">{{ entry.title }}</span>
-
-              <div class="duration-edit-fields">
-                <div class="field">
-                  <label class="visually-hidden" [for]="'edit-started-' + entry.bookId">
-                    {{ 'bookForm.startedAt' | translate }}
-                  </label>
-                  <input
-                    [id]="'edit-started-' + entry.bookId"
-                    class="input"
-                    type="date"
-                    formControlName="startedAt"
-                  />
-                </div>
-                <div class="field">
-                  <label class="visually-hidden" [for]="'edit-finished-' + entry.bookId">
-                    {{ 'bookForm.finishedAt' | translate }}
-                  </label>
-                  <input
-                    [id]="'edit-finished-' + entry.bookId"
-                    class="input"
-                    type="date"
-                    formControlName="finishedAt"
-                  />
-                </div>
-              </div>
-              <app-field-error [control]="datesForm.controls.finishedAt" [submitted]="editSubmitted()" />
-
-              <div class="actions">
-                <button type="button" class="btn btn-ghost" (click)="cancelEdit()">
-                  {{ 'common.cancel' | translate }}
-                </button>
-                <button type="submit" class="btn btn-primary" [disabled]="savingDates()">
-                  {{ (savingDates() ? 'common.loading' : 'common.confirm') | translate }}
-                </button>
-              </div>
-            </form>
-          } @else {
-            <a class="duration-title" [routerLink]="['/books', entry.bookId]">{{ entry.title }}</a>
-            <span class="duration-dates">
-              {{ entry.startedAt | date: 'mediumDate' }} —
-              {{ entry.finishedAt | date: 'mediumDate' }}
+        <li>
+          <a class="month-row" [routerLink]="['/stats', entry.year, entry.month]">
+            <span class="month-label">{{ monthLabel(entry) }}</span>
+            <span class="month-bar-track">
+              <span class="month-bar" [style.width.%]="barWidth(entry, data.booksByMonth)"></span>
             </span>
-            <span class="duration-days">
+            <span class="month-count">
               {{
-                (entry.daysReading === 1 ? 'stats.dayOne' : 'stats.days') | translate: { count: entry.daysReading }
+                (entry.count === 1 ? 'stats.bookOne' : 'stats.books') | translate: { count: entry.count }
               }}
             </span>
-            <div class="actions">
-              <button type="button" class="btn btn-ghost" (click)="startEdit(entry)">
-                {{ 'common.edit' | translate }}
-              </button>
-              <button type="button" class="btn btn-danger" (click)="removeDates(entry)">
-                {{ 'common.delete' | translate }}
-              </button>
-            </div>
-          }
+          </a>
         </li>
       }
     </ul>

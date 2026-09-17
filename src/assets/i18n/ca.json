@@ -263,6 +263,7 @@
     "totalBooks": "Llibres a la teva prestatgeria",
     "byMonthTitle": "Llibres acabats per mes",
     "byMonthEmpty": "Encara no has acabat cap llibre amb data de fi.",
+    "backToStats": "Torna a Estadístiques",
     "bookOne": "1 llibre",
     "books": "{{count}} llibres",
     "durationsTitle": "Dies de lectura per llibre",
