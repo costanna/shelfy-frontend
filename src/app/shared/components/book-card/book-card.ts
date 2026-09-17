@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -17,6 +17,14 @@ export class BookCard {
   readonly compact = input(false);
 
   protected readonly coverFailed = signal(false);
+
+  protected readonly progressPercent = computed(() => {
+    const item = this.book();
+    if (item.status !== 'READING' || !item.pageCount || !item.currentPage) {
+      return null;
+    }
+    return Math.min(100, Math.round((item.currentPage / item.pageCount) * 100));
+  });
 
   protected initials(title: string): string {
     return title

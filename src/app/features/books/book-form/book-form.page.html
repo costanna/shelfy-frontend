@@ -63,6 +63,14 @@
 
       <div class="field-row">
         <div class="field">
+          <label class="label" for="currentPage">{{ 'bookForm.currentPage' | translate }}</label>
+          <input id="currentPage" class="input" type="number" min="0" formControlName="currentPage" />
+          <app-field-error [control]="form.controls.currentPage" [submitted]="submitted()" />
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
           <label class="label" for="series">{{ 'bookForm.series' | translate }}</label>
           <input
             id="series"

@@ -47,6 +47,7 @@ export class Recommendations {
         isbn: result.isbn,
         synopsis: result.synopsis ?? null,
         pageCount: result.pageCount,
+        currentPage: null,
         series: null,
         seriesPosition: null,
         format: null,

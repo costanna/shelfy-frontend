@@ -101,7 +101,11 @@
     "details": "Details",
     "previous": "Previous",
     "next": "Next",
-    "pageOf": "Page {{page}} of {{total}}"
+    "pageOf": "Page {{page}} of {{total}}",
+    "currentPage": "Current page",
+    "updateProgress": "Update progress",
+    "progressLabel": "Page {{current}} of {{total}} ({{percent}}%)",
+    "progressSaved": "Progress saved"
   },
   "bookForm": {
     "searchBooks": "Looking for a book?",
@@ -128,6 +132,7 @@
     "synopsis": "Synopsis",
     "synopsisPlaceholder": "What the book is about…",
     "pageCount": "Page count",
+    "currentPage": "Current page",
     "series": "Series",
     "seriesPlaceholder": "The name of the series",
     "seriesPosition": "Number in the series",

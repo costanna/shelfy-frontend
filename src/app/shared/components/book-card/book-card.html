@@ -14,6 +14,12 @@
       <span class="cover-fallback" aria-hidden="true">{{ initials(book().title) }}</span>
     }
     <app-status-badge class="cover-badge" [status]="book().status" />
+
+    @if (progressPercent(); as percent) {
+      <span class="cover-progress-track" aria-hidden="true">
+        <span class="cover-progress" [style.width.%]="percent"></span>
+      </span>
+    }
   </div>
 
   <div class="info">

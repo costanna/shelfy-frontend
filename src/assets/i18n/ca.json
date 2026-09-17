@@ -101,7 +101,11 @@
     "details": "Detalls",
     "previous": "Anterior",
     "next": "Següent",
-    "pageOf": "Pàgina {{page}} de {{total}}"
+    "pageOf": "Pàgina {{page}} de {{total}}",
+    "currentPage": "Pàgina actual",
+    "updateProgress": "Actualitza el progrés",
+    "progressLabel": "Pàgina {{current}} de {{total}} ({{percent}}%)",
+    "progressSaved": "Progrés desat"
   },
   "bookForm": {
     "searchBooks": "Busques un llibre?",
@@ -128,6 +132,7 @@
     "synopsis": "Sinopsi",
     "synopsisPlaceholder": "De què va el llibre…",
     "pageCount": "Nombre de pàgines",
+    "currentPage": "Pàgina per on vas",
     "series": "Saga",
     "seriesPlaceholder": "El nom de la saga",
     "seriesPosition": "Número dins la saga",

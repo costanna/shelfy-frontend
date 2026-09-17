@@ -34,6 +34,54 @@
         </p>
       }
 
+      @if (item.pageCount) {
+        <div class="progress-block">
+          @if (editingProgress()) {
+            <div class="progress-edit">
+              <label class="visually-hidden" for="progress-input">
+                {{ 'books.currentPage' | translate }}
+              </label>
+              <input
+                id="progress-input"
+                class="input"
+                type="number"
+                min="0"
+                [max]="item.pageCount"
+                [ngModel]="progressInput()"
+                (ngModelChange)="progressInput.set($event)"
+              />
+              <span class="progress-total">/ {{ item.pageCount }}</span>
+              <button type="button" class="btn btn-ghost" (click)="cancelProgressEdit()">
+                {{ 'common.cancel' | translate }}
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                [disabled]="savingProgress()"
+                (click)="saveProgress()"
+              >
+                {{ (savingProgress() ? 'common.loading' : 'common.confirm') | translate }}
+              </button>
+            </div>
+          } @else {
+            <div class="progress-bar-track">
+              <span class="progress-bar" [style.width.%]="progressPercent()"></span>
+            </div>
+            <div class="progress-summary">
+              <span>
+                {{
+                  'books.progressLabel'
+                    | translate: { current: item.currentPage ?? 0, total: item.pageCount, percent: progressPercent() }
+                }}
+              </span>
+              <button type="button" class="btn btn-ghost" (click)="startProgressEdit()">
+                {{ 'books.updateProgress' | translate }}
+              </button>
+            </div>
+          }
+        </div>
+      }
+
       <dl class="meta">
         @if (item.pageCount) {
           <div class="meta-item">

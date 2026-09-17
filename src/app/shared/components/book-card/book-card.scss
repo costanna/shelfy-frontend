@@ -54,6 +54,20 @@
   inset-inline-start: var(--space-2);
 }
 
+.cover-progress-track {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: 0;
+  height: 4px;
+  background: rgb(0 0 0 / 25%);
+}
+
+.cover-progress {
+  display: block;
+  height: 100%;
+  background: var(--primary);
+}
+
 .info {
   display: flex;
   flex-direction: column;

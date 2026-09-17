@@ -16,6 +16,7 @@ export interface Book {
   isbn: string | null;
   synopsis: string | null;
   pageCount: number | null;
+  currentPage: number | null;
   series: string | null;
   seriesPosition: number | null;
   format: BookFormat | null;
@@ -34,6 +35,7 @@ export interface BookRequest {
   isbn: string | null;
   synopsis: string | null;
   pageCount: number | null;
+  currentPage: number | null;
   series: string | null;
   seriesPosition: number | null;
   format: BookFormat | null;
@@ -46,6 +48,10 @@ export interface BookRequest {
 export interface UpdateReadingDatesRequest {
   startedAt: string | null;
   finishedAt: string | null;
+}
+
+export interface UpdateProgressRequest {
+  currentPage: number;
 }
 
 export const BOOK_SORT_OPTIONS = [
