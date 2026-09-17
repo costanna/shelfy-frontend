@@ -36,6 +36,7 @@
     "slowStart": "The server can take up to a minute to wake up if it's been idle. One moment…",
     "checkEmailTitle": "Check your email",
     "checkEmailSubtitle": "We've sent a verification link to {{email}}. Open it to activate your account.",
+    "registerSuccess": "Account created. You can now sign in.",
     "forgotPassword": "Forgot your password?",
     "resendVerification": "Resend verification email",
     "resendSent": "Email resent. Check your inbox.",

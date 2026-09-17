@@ -36,6 +36,7 @@
     "slowStart": "El servidor puede tardar hasta un minuto en despertar si llevaba un rato sin uso. Un momento…",
     "checkEmailTitle": "Revisa tu correo",
     "checkEmailSubtitle": "Te hemos mandado un enlace de verificación a {{email}}. Ábrelo para activar tu cuenta.",
+    "registerSuccess": "Cuenta creada. Ya puedes iniciar sesión.",
     "forgotPassword": "¿Olvidaste tu contraseña?",
     "resendVerification": "Reenviar email de verificación",
     "resendSent": "Email reenviado. Revisa tu bandeja de entrada.",

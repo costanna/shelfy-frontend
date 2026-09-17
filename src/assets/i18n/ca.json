@@ -36,6 +36,7 @@
     "slowStart": "El servidor pot trigar fins a un minut a despertar si feia estona que no s'usava. Un moment…",
     "checkEmailTitle": "Revisa el teu correu",
     "checkEmailSubtitle": "T'hem enviat un enllaç de verificació a {{email}}. Obre'l per activar el teu compte.",
+    "registerSuccess": "Compte creat. Ja pots iniciar sessió.",
     "forgotPassword": "Has oblidat la contrasenya?",
     "resendVerification": "Reenvia l'email de verificació",
     "resendSent": "Email reenviat. Revisa la teva safata d'entrada.",
