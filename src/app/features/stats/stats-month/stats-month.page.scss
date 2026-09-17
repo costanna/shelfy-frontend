@@ -49,6 +49,13 @@
   white-space: nowrap;
 }
 
+.duration-past {
+  color: var(--text-faint);
+  font-size: 0.8125rem;
+  font-style: italic;
+  white-space: nowrap;
+}
+
 .actions {
   display: flex;
   gap: var(--space-2);

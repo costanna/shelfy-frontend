@@ -99,6 +99,9 @@
     "deleteConfirm": "Segur que vols eliminar «{{title}}»? També se'n esborraran les ressenyes.",
     "backToList": "Torna als meus llibres",
     "synopsis": "Sinopsi",
+    "reread": "Torna a llegir",
+    "rereadStarted": "Has tornat a marcar el llibre com a «Llegint»",
+    "readHistoryTitle": "Lectures anteriors",
     "details": "Detalls",
     "previous": "Anterior",
     "next": "Següent",
@@ -294,6 +297,7 @@
     "books": "{{count}} llibres",
     "durationsTitle": "Dies de lectura per llibre",
     "durationsEmpty": "Encara no tens llibres amb data d'inici i de fi.",
+    "pastRead": "Lectura anterior",
     "dayOne": "1 dia",
     "days": "{{count}} dies"
   },

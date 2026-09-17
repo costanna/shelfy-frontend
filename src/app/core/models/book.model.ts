@@ -8,6 +8,11 @@ export const BOOK_FORMATS = ['PHYSICAL', 'EBOOK', 'AUDIOBOOK'] as const;
 
 export type BookFormat = (typeof BOOK_FORMATS)[number];
 
+export interface ReadEvent {
+  startedAt: string | null;
+  finishedAt: string;
+}
+
 export interface Book {
   id: number;
   title: string;
@@ -23,6 +28,7 @@ export interface Book {
   status: BookStatus;
   startedAt: string | null;
   finishedAt: string | null;
+  readHistory: ReadEvent[];
   categories: Category[];
   createdAt: string;
   updatedAt: string;

@@ -46,6 +46,10 @@ export class BookService {
     return this.http.patch<Book>(`${this.baseUrl}/${id}/progress`, request);
   }
 
+  reread(id: number): Observable<Book> {
+    return this.http.post<Book>(`${this.baseUrl}/${id}/reread`, {});
+  }
+
   exportCsv(): Observable<Blob> {
     return this.http.get(`${this.baseUrl}/export`, { responseType: 'blob' });
   }

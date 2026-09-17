@@ -99,6 +99,9 @@
     "deleteConfirm": "¿Seguro que quieres eliminar «{{title}}»? También se borrarán sus reseñas.",
     "backToList": "Volver a mis libros",
     "synopsis": "Sinopsis",
+    "reread": "Volver a leer",
+    "rereadStarted": "Has vuelto a marcar el libro como «Leyendo»",
+    "readHistoryTitle": "Lecturas anteriores",
     "details": "Detalles",
     "previous": "Anterior",
     "next": "Siguiente",
@@ -294,6 +297,7 @@
     "books": "{{count}} libros",
     "durationsTitle": "Días de lectura por libro",
     "durationsEmpty": "Todavía no tienes libros con fecha de inicio y de fin.",
+    "pastRead": "Lectura anterior",
     "dayOne": "1 día",
     "days": "{{count}} días"
   },

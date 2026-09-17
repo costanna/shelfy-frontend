@@ -115,6 +115,22 @@
         }
       </dl>
 
+      @if (item.readHistory.length) {
+        <section class="read-history">
+          <h2>{{ 'books.readHistoryTitle' | translate }}</h2>
+          <ul>
+            @for (event of item.readHistory; track event.finishedAt + (event.startedAt ?? '')) {
+              <li>
+                @if (event.startedAt) {
+                  {{ event.startedAt | date: 'mediumDate' }} —
+                }
+                {{ event.finishedAt | date: 'mediumDate' }}
+              </li>
+            }
+          </ul>
+        </section>
+      }
+
       @if (item.categories.length) {
         <ul class="categories">
           @for (category of item.categories; track category.id) {
@@ -131,6 +147,11 @@
       }
 
       <div class="actions">
+        @if (item.status === 'READ') {
+          <button type="button" class="btn btn-secondary" [disabled]="rereading()" (click)="reread()">
+            {{ (rereading() ? 'common.loading' : 'books.reread') | translate }}
+          </button>
+        }
         <a class="btn btn-secondary" [routerLink]="['/books', item.id, 'edit']">
           {{ 'books.edit' | translate }}
         </a>

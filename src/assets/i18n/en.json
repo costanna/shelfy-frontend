@@ -99,6 +99,9 @@
     "deleteConfirm": "Delete \"{{title}}\"? Its reviews will be removed too.",
     "backToList": "Back to my books",
     "synopsis": "Synopsis",
+    "reread": "Read again",
+    "rereadStarted": "Marked the book as \"Reading\" again",
+    "readHistoryTitle": "Past reads",
     "details": "Details",
     "previous": "Previous",
     "next": "Next",
@@ -294,6 +297,7 @@
     "books": "{{count}} books",
     "durationsTitle": "Reading days per book",
     "durationsEmpty": "No books with both a start and finish date yet.",
+    "pastRead": "Past read",
     "dayOne": "1 day",
     "days": "{{count}} days"
   },

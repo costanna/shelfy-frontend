@@ -4,6 +4,8 @@ export interface BookReadingDuration {
   startedAt: string;
   finishedAt: string;
   daysReading: number;
+  /** False for an archived past read (e.g. before a re-read) — its dates can't be edited here. */
+  current: boolean;
 }
 
 export interface MonthlyReadCount {

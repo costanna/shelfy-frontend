@@ -34,6 +34,7 @@ export class BookDetailPage {
   protected readonly editingProgress = signal(false);
   protected readonly savingProgress = signal(false);
   protected readonly progressInput = signal<number | null>(null);
+  protected readonly rereading = signal(false);
 
   protected readonly progressPercent = computed(() => {
     const current = this.book();
@@ -72,6 +73,23 @@ export class BookDetailPage {
         this.toast.success('books.progressSaved');
       },
       error: () => this.savingProgress.set(false),
+    });
+  }
+
+  protected reread(): void {
+    const current = this.book();
+    if (!current || this.rereading()) {
+      return;
+    }
+    this.rereading.set(true);
+
+    this.bookService.reread(current.id).subscribe({
+      next: (book) => {
+        this.book.set(book);
+        this.rereading.set(false);
+        this.toast.success('books.rereadStarted');
+      },
+      error: () => this.rereading.set(false),
     });
   }
 
