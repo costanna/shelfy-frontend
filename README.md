@@ -1,5 +1,7 @@
 # 📚 Shelfy
 
+**🇪🇸 Español** (este documento) · **[🇬🇧 English](#english)**
+
 > Tu biblioteca personal: lo que has leído, lo que estás leyendo, lo que quieres leer y lo que quieres comprar — con progreso por páginas, tus propias categorías, reseñas, estadísticas y un feed de lo que lee la gente que sigues.
 
 [![Demo en vivo](https://img.shields.io/badge/demo-en%20vivo-brightgreen)](https://shelfy-reads.vercel.app)
@@ -165,5 +167,180 @@ mismo frontend se envuelve como app Android nativa vía TWA (*Trusted Web Activi
 Angular — ver [shelfy-android](https://github.com/costanna/shelfy-android).
 
 ## 📄 Licencia
+
+[MIT](./LICENSE)
+
+---
+
+## English
+
+**[🇪🇸 Español](#-shelfy)** · **🇬🇧 English** (this document)
+
+> Your personal library: what you've read, what you're reading, what you want to read and what
+> you want to buy — with page progress, your own categories, reviews, stats and a feed of what the
+> people you follow are reading.
+
+[![Live demo](https://img.shields.io/badge/demo-live-brightgreen)](https://shelfy-reads.vercel.app)
+![Angular](https://img.shields.io/badge/Angular-22-DD0031?logo=angular&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5-6DB33F?logo=springboot&logoColor=white)
+![Java](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-4169E1?logo=postgresql&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-blue)
+
+**[🔗 Try Shelfy](https://shelfy-reads.vercel.app)** — a demo account is already loaded with
+books, categories and reviews: `demo@shelfy.app` / `shelfy123` (or sign up for free in a few
+seconds).
+
+> The backend runs on Render's free plan: if it's been asleep for a while, the first request can
+> take up to a minute to wake up. That's expected, not an error.
+
+---
+
+### What it is
+
+Shelfy is a fullstack personal-library app: each user manages their own books, categories,
+reviews and notes, in their own language and with the theme they prefer. It also has an optional
+social layer — search other users by alias, follow them to see their library and reviews, get a
+notification when someone follows you, and a feed of what the people you follow have recently
+read or reviewed —, meant as a Goodreads/Leero-style glance without losing control of who sees
+what: with no follower, nothing is visible.
+
+This repository is the **frontend** (Angular). The backend (Spring Boot REST API) lives in
+[**shelfy-backend**](https://github.com/costanna/shelfy-backend).
+
+### Features
+
+- **Your own account** with registration and sign-in (JWT), email verification and password recovery.
+- **Book management**: title, author, cover, synopsis, pages, series and its number within it, format (physical/ebook/audiobook) — add, edit, delete.
+- **Reading statuses**: *want to read*, *reading*, *read*, *want to buy*, with filters by status, category and free text, sorting (recent, title, author, pages), and two views — Cards and Shelf (covers only, Goodreads-style).
+- **Reading progress by page**: while a book is *reading*, update "what page you're on" from its detail page and you'll see a progress bar there and on the card.
+- **Re-reading a book**: a button on the detail page reopens a finished book (moves back to *reading*) without losing track of when you first read it — it stays in its read history.
+- **Your own categories**: each user creates their own (e.g. "fantasy", "to buy for a birthday") and assigns them freely; there are 8 by default at sign-up, and a button to add any missing ones if you already had an account.
+- **Reviews**: a 0.5-to-5-star rating (with halves) and a text opinion per book, visible to its author and to whoever follows them.
+- **Private notes** per book, visible only to you.
+- **Import/export your library as CSV**, from Settings — handy for taking it elsewhere or as a backup.
+- **Search and follow other users** by alias: following someone reveals their whole library and reviews (or nothing, if you don't follow them) — see [`/people`](src/app/features/people).
+- **Notifications**: an alert (with a counter) when someone starts following you, from the bell in the header.
+- **Activity feed** (`/feed`): the latest books the people you follow have started, finished or reviewed.
+- **Profile picture**: uploaded from Settings (PNG/JPEG/WEBP, max. 5 MB — the backend crops it to a square and resizes it), and also shown in the header as a shortcut to Settings.
+- **Add a book by scanning its ISBN** with your phone's camera, or by searching by hand: title, author, pages, cover and synopsis fill themselves in (Open Library's public API).
+- **Search a book by title or author** (Goodreads-style) to add it without typing anything by hand: pick it from a list of results with cover and year, and the form fills itself in. Two sources to choose from: Open Library (always on) and Google Books limited to Spain (optional, needs a free key — see "Configuration").
+- **Recommendations**: suggestions of books by the author you read the most, ready to add with one click.
+- **Annual reading goal**: set how many books you want to read this year and track your progress.
+- **Reading stats**: how many books you've read, how many you're reading right now, how many you finished each month (with a detail page per month), and how many days each one took.
+- **Interactive reading calendar**: mark which book(s) you read each day directly on a monthly calendar (Leero-style) — independent of the book's start/finish range, for day-to-day tracking. Also shows your current streak and longest streak. Stats is no longer read-only: you can remove any marked day from a per-book list, and edit or clear each book's start/finish range without leaving the page.
+- **Installable as an app** (PWA) on mobile or desktop, with basic offline support; there's also a native Android wrapper (TWA) — see [shelfy-android](https://github.com/costanna/shelfy-android).
+- **Warning if the server is slow**: since the free-tier Render backend goes to sleep after a while of inactivity, a banner shows up when a request has been in flight for a few seconds instead of leaving you staring at a blank screen.
+- **Light / dark / system theme**, with the preference saved on your account (follows you across devices).
+- **Spanish, Catalan and English**, switchable on the fly, no page reload.
+- **Show/hide password** while typing it, on sign-in, registration and password reset.
+
+### How it's built
+
+| | |
+|---|---|
+| **Frontend** | Angular 22 · standalone components, no `NgModule` · strict TypeScript · `ngx-translate` |
+| **Backend** | Spring Boot 3.5 · Java 21 · Spring Data JPA · Spring Security with JWT |
+| **Database** | PostgreSQL (Neon) |
+| **Deployment** | Vercel (frontend) · Render (backend, Docker) — both with *Infrastructure as Code* ([`vercel.json`](./vercel.json), [`render.yaml`](./render.yaml)) |
+
+Some specific decisions, in case they're of interest:
+
+- **Lazy loading per screen** (`loadComponent` on every route) to keep the initial bundle small — see [`app.routes.ts`](src/app/app.routes.ts).
+- **Per-user isolation on the backend**: requesting another account's resource returns `404`, not `403`, so as not to leak that it exists.
+- **Theme and language with double persistence**: applied instantly from `localStorage` (before the first render) and synced to the account via `PATCH /api/users/me/preferences` when there's a session.
+- **Angular Signals** end to end for service state (`AuthService`, `ThemeService`, `LanguageService`...), with no external state libraries.
+- **Third-party API integration with no library**: `BookLookupService` calls Open Library directly with `fetch` (not `HttpClient`), to avoid dragging in the interceptor that adds the app's JWT to every outgoing request.
+- **Month names in the active language with no Angular locale data**: the "books per month" section in Stats uses `Intl.DateTimeFormat` directly with `LanguageService`'s language, instead of registering `LOCALE_ID`/`registerLocaleData` just for that.
+- **Social visibility without duplicating data**: there's no "public" copy of books or reviews — the backend computes on the fly whether the visitor can see them (`own || follows them`) and the frontend just renders whatever it gets back (full library or a blocked page).
+- **Device-only preferences in `localStorage`**: the book view (Cards/Shelf) isn't saved to the account like the theme or language — it's a "how I see it here" convenience, not something that makes sense to sync across devices.
+
+### Running locally
+
+```bash
+npm install
+npm start
+```
+
+Needs the backend running at `http://localhost:8080` — see
+[shelfy-backend](https://github.com/costanna/shelfy-backend#-arrancar-en-local) to start it with
+sample data in a single command.
+
+<details>
+<summary><strong>More details: configuration, i18n/theme, project structure, deployment</strong></summary>
+
+#### Configuration
+
+The backend URL is fixed at build time, not via an environment variable:
+
+| File | Used with | `apiUrl` |
+|---|---|---|
+| `src/environments/environment.ts` | `npm start` | `http://localhost:8080/api` |
+| `src/environments/environment.prod.ts` | `npm run build` | the backend on Render |
+
+**Google Books search (optional):** the "Google Books (Spain)" tab in the book search only shows
+up if a key is configured — without it, the app works the same, just with Open Library only. To
+enable it:
+
+1. In [Google Cloud Console](https://console.cloud.google.com/), create a project (or use one you
+   already have) and enable the **Books API**.
+2. Under **APIs & Services → Credentials**, create an **API key**. Restrict it to the Books API
+   and, under "Application restrictions", to **HTTP referrers** with your domain (e.g.
+   `https://shelfy-reads.vercel.app/*`) — it's a key that travels to the browser, so restricting
+   it keeps others from using it against your quota.
+3. On Vercel, **Project Settings → Environment Variables**, add `GOOGLE_BOOKS_API_KEY` with that
+   key (Production environment) and redeploy.
+
+`npm run build` injects it into `environment.prod.ts` at build time (`scripts/set-env.js`, via
+npm's `prebuild` hook) — the key is never stored in the repo, only in Vercel's environment
+variable. Google's free quota (1000 requests/day) is plenty for personal use.
+
+#### Internationalization and theme
+
+- **Languages**: `en` / `ca` / `es`, text in `src/assets/i18n/*.json`, managed by [`LanguageService`](src/app/core/services/language.service.ts).
+- **Theme**: light / dark / system, applied via `data-theme` on `<html>` from [`ThemeService`](src/app/core/services/theme.service.ts) (CSS custom properties in `src/styles/_tokens.scss`).
+- Both can be changed from the header or from **Settings** (`/settings`), the only screen where you can explicitly choose "system".
+
+#### Project structure
+
+```text
+src/app/
+├── core/           shared services, models, guards and HTTP interceptors
+├── layout/         app header (with notifications) and footer
+├── shared/         reusable components (cards, badges, spinner, toasts…)
+└── features/
+    ├── auth/       login, registration, email verification, password recovery
+    ├── books/      list, detail, form, reviews, notes and recommendations
+    ├── categories/ managing your own categories
+    ├── feed/       activity from the people you follow
+    ├── people/     search users, public profile and following
+    ├── stats/      stats, calendar, reading goal and per-month detail
+    └── settings/   account settings, theme, language and CSV import/export
+```
+
+#### Deploying
+
+**Vercel** (recommended for the frontend): the repo includes an already-configured
+[`vercel.json`](./vercel.json) — in the dashboard, **Add New → Project** → import this repository
+and deploy, no other changes needed. You just need to keep `apiUrl` in `environment.prod.ts`
+pointing at the backend, and `CORS_ALLOWED_ORIGINS` on the backend pointing at whatever URL
+Vercel gives you.
+
+**Render** (alternative): the repo also includes [`render.yaml`](./render.yaml) to deploy it as a
+Static Site via Blueprint (**New → Blueprint**), with the build command and publish directory
+already filled in.
+
+</details>
+
+### Installable app
+
+Shelfy is a PWA (`ngsw-config.json`, `public/manifest.webmanifest`): it can be installed from the
+browser on both mobile and desktop, with basic offline support. On top of that, the same frontend
+is wrapped as a native Android app via TWA (*Trusted Web Activity*, with
+[Bubblewrap](https://github.com/GoogleChromeLabs/bubblewrap)) without touching the backend or the
+Angular code — see [shelfy-android](https://github.com/costanna/shelfy-android).
+
+## License
 
 [MIT](./LICENSE)
