@@ -33,6 +33,12 @@ export class LoginPage {
   protected readonly slowStart = signal(false);
   protected readonly showPassword = signal(false);
 
+  // ⚠️ VERIFICACIÓN POR EMAIL DESACTIVADA — NO BORRAR esta señal ni el botón
+  // de "reenviar verificación" en login.page.html. El backend (AuthService.java)
+  // tiene la verificación forzada a false mientras el envío de emails no
+  // funcione, así que login nunca debería devolver 403 por esta causa y este
+  // bloque queda inerte. Se deja tal cual para poder reactivarlo sin rehacer
+  // la UI el día que se reactive la verificación en el backend.
   protected readonly unverifiedEmail = signal<string | null>(null);
   protected readonly resendingVerification = signal(false);
 
