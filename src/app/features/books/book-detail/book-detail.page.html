@@ -34,7 +34,7 @@
         </p>
       }
 
-      @if (item.pageCount && item.status !== 'READ') {
+      @if (item.pageCount && item.status === 'READING') {
         <div class="progress-block">
           @if (editingProgress()) {
             <div class="progress-edit">
@@ -115,11 +115,11 @@
         }
       </dl>
 
-      @if (item.readHistory.length) {
+      @if (item.readHistory?.length) {
         <section class="read-history">
           <h2>{{ 'books.readHistoryTitle' | translate }}</h2>
           <ul>
-            @for (event of item.readHistory; track event.finishedAt + (event.startedAt ?? '')) {
+            @for (event of item.readHistory; track $index) {
               <li>
                 @if (event.startedAt) {
                   {{ event.startedAt | date: 'mediumDate' }} —

@@ -7,6 +7,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Book } from '../../../core/models/book.model';
 import { BookService } from '../../../core/services/book.service';
 import { ToastService } from '../../../core/services/toast.service';
+import { readingProgressPercent } from '../../../core/util/reading-progress';
 import { Spinner } from '../../../shared/components/spinner/spinner';
 import { StatusBadge } from '../../../shared/components/status-badge/status-badge';
 import { NoteSection } from '../notes/note-section/note-section';
@@ -38,10 +39,7 @@ export class BookDetailPage {
 
   protected readonly progressPercent = computed(() => {
     const current = this.book();
-    if (!current?.pageCount || !current.currentPage) {
-      return 0;
-    }
-    return Math.min(100, Math.round((current.currentPage / current.pageCount) * 100));
+    return readingProgressPercent(current?.currentPage ?? null, current?.pageCount ?? null);
   });
 
   constructor() {
@@ -63,14 +61,18 @@ export class BookDetailPage {
     if (!current || value === null || value < 0 || this.savingProgress()) {
       return;
     }
+    const bookId = current.id;
+    const value$ = current.pageCount ? Math.min(value, current.pageCount) : value;
     this.savingProgress.set(true);
 
-    this.bookService.updateProgress(current.id, { currentPage: value }).subscribe({
+    this.bookService.updateProgress(bookId, { currentPage: value$ }).subscribe({
       next: (book) => {
-        this.book.set(book);
         this.savingProgress.set(false);
         this.editingProgress.set(false);
         this.toast.success('books.progressSaved');
+        if (Number(this.id()) === bookId) {
+          this.book.set(book);
+        }
       },
       error: () => this.savingProgress.set(false),
     });
@@ -81,13 +83,16 @@ export class BookDetailPage {
     if (!current || this.rereading()) {
       return;
     }
+    const bookId = current.id;
     this.rereading.set(true);
 
-    this.bookService.reread(current.id).subscribe({
+    this.bookService.reread(bookId).subscribe({
       next: (book) => {
-        this.book.set(book);
         this.rereading.set(false);
         this.toast.success('books.rereadStarted');
+        if (Number(this.id()) === bookId) {
+          this.book.set(book);
+        }
       },
       error: () => this.rereading.set(false),
     });

@@ -5,14 +5,14 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { FeedItem } from '../../core/models/feed.model';
 import { FeedService } from '../../core/services/feed.service';
-import { initials } from '../../core/util/avatar-url';
+import { AvatarInitials } from '../../shared/components/avatar-initials/avatar-initials';
 import { EmptyState } from '../../shared/components/empty-state/empty-state';
 import { Spinner } from '../../shared/components/spinner/spinner';
 import { StarRating } from '../../shared/components/star-rating/star-rating';
 
 @Component({
   selector: 'app-feed-page',
-  imports: [RouterLink, TranslatePipe, DatePipe, Spinner, EmptyState, StarRating],
+  imports: [RouterLink, TranslatePipe, DatePipe, Spinner, EmptyState, StarRating, AvatarInitials],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './feed.page.html',
   styleUrl: './feed.page.scss',
@@ -22,7 +22,6 @@ export class FeedPage {
 
   protected readonly items = signal<FeedItem[]>([]);
   protected readonly loading = signal(true);
-  protected readonly initials = initials;
 
   constructor() {
     this.feedService.list().subscribe({

@@ -1,7 +1,10 @@
 <a class="back-link" routerLink="/stats">← {{ 'stats.backToStats' | translate }}</a>
 
 <div class="page-header">
-  <h1>{{ monthLabel() }}</h1>
+  <div>
+    <h1>{{ monthLabel() }}</h1>
+    <p class="subtitle">{{ 'stats.durationsTitle' | translate }}</p>
+  </div>
 </div>
 
 @if (loading()) {

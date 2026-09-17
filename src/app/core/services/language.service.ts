@@ -2,6 +2,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Language } from '../models/user.model';
+import { tryGetLocalStorage, trySetLocalStorage } from '../util/local-storage';
 
 const STORAGE_KEY = 'shelfy.lang';
 
@@ -28,14 +29,14 @@ export class LanguageService {
 
   use(language: Language): void {
     this.current.set(language);
-    localStorage.setItem(STORAGE_KEY, language);
+    trySetLocalStorage(STORAGE_KEY, language);
     this.translate.use(language);
     document.documentElement.lang = language;
   }
 }
 
 function readStoredLanguage(): Language {
-  const stored = localStorage.getItem(STORAGE_KEY) as Language | null;
+  const stored = tryGetLocalStorage(STORAGE_KEY) as Language | null;
   if (stored && SUPPORTED_LANGUAGES.includes(stored)) {
     return stored;
   }

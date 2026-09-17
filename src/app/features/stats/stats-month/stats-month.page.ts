@@ -48,8 +48,8 @@ export class StatsMonthPage {
     const year = Number(this.year());
     const month = Number(this.month());
     return (this.allDurations() ?? []).filter((entry) => {
-      const finished = new Date(entry.finishedAt);
-      return finished.getFullYear() === year && finished.getMonth() + 1 === month;
+      const [finishedYear, finishedMonth] = entry.finishedAt.split('-').map(Number);
+      return finishedYear === year && finishedMonth === month;
     });
   });
 
@@ -63,7 +63,6 @@ export class StatsMonthPage {
 
   constructor() {
     effect(() => {
-      // Re-run whenever the route params change (e.g. navigating between months).
       this.year();
       this.month();
       this.loadStats();

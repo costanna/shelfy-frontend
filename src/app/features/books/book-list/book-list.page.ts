@@ -4,10 +4,11 @@ import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Subject, catchError, debounceTime, distinctUntilChanged, of, switchMap, tap } from 'rxjs';
 
-import { Book } from '../../../core/models/book.model';
+import { BOOK_SORT_OPTIONS, Book, BookSort } from '../../../core/models/book.model';
 import { emptyPage } from '../../../core/models/page.model';
 import { BookService } from '../../../core/services/book.service';
 import { CategoryService } from '../../../core/services/category.service';
+import { tryGetLocalStorage, trySetLocalStorage } from '../../../core/util/local-storage';
 import { BookCard } from '../../../shared/components/book-card/book-card';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { Pagination } from '../../../shared/components/pagination/pagination';
@@ -84,11 +85,7 @@ export class BookListPage {
 
   protected setViewMode(mode: ViewMode): void {
     this.viewMode.set(mode);
-    try {
-      localStorage.setItem(VIEW_MODE_KEY, mode);
-    } catch {
-      // Private browsing / storage disabled: the choice just won't persist across visits.
-    }
+    trySetLocalStorage(VIEW_MODE_KEY, mode);
   }
 
   private search(query: Query): void {
@@ -113,11 +110,7 @@ export class BookListPage {
 }
 
 function readStoredViewMode(): ViewMode {
-  try {
-    return localStorage.getItem(VIEW_MODE_KEY) === 'shelf' ? 'shelf' : 'grid';
-  } catch {
-    return 'grid';
-  }
+  return tryGetLocalStorage(VIEW_MODE_KEY) === 'shelf' ? 'shelf' : 'grid';
 }
 
 function readQueryFromUrl(url: string): Query {
@@ -129,7 +122,11 @@ function readQueryFromUrl(url: string): Query {
     status: (params.get('status') as Query['status']) ?? null,
     categoryId: categoryId ? Number(categoryId) : null,
     q: params.get('q') ?? '',
-    sort: (params.get('sort') as Query['sort']) ?? null,
+    sort: asValidSort(params.get('sort')),
     page: page ? Number(page) : 0,
   };
+}
+
+function asValidSort(value: string | null): BookSort | null {
+  return (BOOK_SORT_OPTIONS as readonly string[]).includes(value ?? '') ? (value as BookSort) : null;
 }

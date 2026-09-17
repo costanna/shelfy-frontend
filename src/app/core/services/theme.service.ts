@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 
 import { ThemePreference } from '../models/user.model';
+import { tryGetLocalStorage, trySetLocalStorage } from '../util/local-storage';
 
 const STORAGE_KEY = 'shelfy.theme';
 
@@ -23,7 +24,7 @@ export class ThemeService {
 
   set(theme: ThemePreference): void {
     this.preference.set(theme);
-    localStorage.setItem(STORAGE_KEY, theme);
+    trySetLocalStorage(STORAGE_KEY, theme);
     this.apply(theme);
   }
 
@@ -48,6 +49,6 @@ export class ThemeService {
 }
 
 function readStoredTheme(): ThemePreference {
-  const stored = localStorage.getItem(STORAGE_KEY);
+  const stored = tryGetLocalStorage(STORAGE_KEY);
   return stored === 'LIGHT' || stored === 'DARK' || stored === 'SYSTEM' ? stored : 'SYSTEM';
 }

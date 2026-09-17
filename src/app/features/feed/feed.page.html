@@ -11,7 +11,7 @@
     @for (item of items(); track item.type + '-' + item.bookId + '-' + item.occurredAt) {
       <li>
         <a class="feed-item card card-padded" [routerLink]="['/people', item.actorId]">
-          <span class="avatar" aria-hidden="true">{{ initials(item.actorName) }}</span>
+          <app-avatar-initials [name]="item.actorName" [size]="2.5" />
 
           <div class="body">
             <p class="line">

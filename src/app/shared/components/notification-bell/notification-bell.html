@@ -24,7 +24,7 @@
             @for (notification of items; track notification.id) {
               <li>
                 <button type="button" class="item" (click)="goToProfile(notification)">
-                  <span class="avatar" aria-hidden="true">{{ initials(notification.actorName) }}</span>
+                  <app-avatar-initials [name]="notification.actorName" [size]="2" />
                   <span class="text">
                     <strong>{{ notification.actorAlias ? '@' + notification.actorAlias : notification.actorName }}</strong>
                     {{ 'notifications.newFollower' | translate }}

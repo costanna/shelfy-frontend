@@ -9,6 +9,12 @@
   }
 }
 
+.subtitle {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+}
+
 .duration-list {
   display: flex;
   flex-direction: column;

@@ -1,14 +1,16 @@
 import { ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Subject, switchMap } from 'rxjs';
 
 import { Notification } from '../../../core/models/notification.model';
 import { NotificationService } from '../../../core/services/notification.service';
-import { initials } from '../../../core/util/avatar-url';
+import { AvatarInitials } from '../avatar-initials/avatar-initials';
 
 @Component({
   selector: 'app-notification-bell',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, AvatarInitials],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './notification-bell.html',
   styleUrl: './notification-bell.scss',
@@ -21,10 +23,18 @@ export class NotificationBell {
   protected readonly open = signal(false);
   protected readonly unreadCount = signal(0);
   protected readonly notifications = signal<Notification[] | null>(null);
-  protected readonly initials = initials;
+
+  private readonly openRequests = new Subject<void>();
 
   constructor() {
     this.refreshUnreadCount();
+
+    this.openRequests
+      .pipe(
+        switchMap(() => this.notificationService.list()),
+        takeUntilDestroyed(),
+      )
+      .subscribe((page) => this.notifications.set(page.content));
   }
 
   @HostListener('document:click', ['$event'])
@@ -39,7 +49,7 @@ export class NotificationBell {
     this.open.set(next);
 
     if (next) {
-      this.notificationService.list().subscribe((page) => this.notifications.set(page.content));
+      this.openRequests.next();
 
       if (this.unreadCount() > 0) {
         this.notificationService.markAllRead().subscribe(() => this.unreadCount.set(0));

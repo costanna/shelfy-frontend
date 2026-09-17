@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { Book } from '../../../core/models/book.model';
+import { readingProgressPercent } from '../../../core/util/reading-progress';
 import { StatusBadge } from '../status-badge/status-badge';
 
 @Component({
@@ -23,7 +24,7 @@ export class BookCard {
     if (item.status !== 'READING' || !item.pageCount || !item.currentPage) {
       return null;
     }
-    return Math.min(100, Math.round((item.currentPage / item.pageCount) * 100));
+    return readingProgressPercent(item.currentPage, item.pageCount);
   });
 
   protected initials(title: string): string {

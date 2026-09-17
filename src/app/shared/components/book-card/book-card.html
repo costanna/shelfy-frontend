@@ -15,9 +15,9 @@
     }
     <app-status-badge class="cover-badge" [status]="book().status" />
 
-    @if (progressPercent(); as percent) {
+    @if (progressPercent() !== null) {
       <span class="cover-progress-track" aria-hidden="true">
-        <span class="cover-progress" [style.width.%]="percent"></span>
+        <span class="cover-progress" [style.width.%]="progressPercent()"></span>
       </span>
     }
   </div>
