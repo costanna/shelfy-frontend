@@ -1,6 +1,7 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   ApplicationConfig,
+  ErrorHandler,
   inject,
   isDevMode,
   provideAppInitializer,
@@ -15,12 +16,14 @@ import { routes } from './app.routes';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
 import { loadingInterceptor } from './core/interceptors/loading.interceptor';
+import { ChunkErrorHandler, RELOAD_GUARD_KEY } from './core/services/chunk-error-handler';
 import { LanguageService } from './core/services/language.service';
 import { ThemeService } from './core/services/theme.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
+    { provide: ErrorHandler, useClass: ChunkErrorHandler },
 
     provideRouter(
       routes,
@@ -39,6 +42,9 @@ export const appConfig: ApplicationConfig = {
     }),
 
     provideAppInitializer(() => {
+      // Reaching here means the current bundle loaded fine: let a later chunk
+      // failure (a new deploy, not this one persisting) try to recover again.
+      sessionStorage.removeItem(RELOAD_GUARD_KEY);
       inject(ThemeService);
       inject(LanguageService).init();
     }),
