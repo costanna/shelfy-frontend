@@ -7,7 +7,7 @@ export interface BookLookupResult {
   isbn: string | null;
 }
 
-export type BookSearchSource = 'openLibrary' | 'googleBooks';
+export type BookSearchSource = 'openLibrary' | 'googleBooks' | 'bne';
 
 export interface BookSearchResult {
   key: string;

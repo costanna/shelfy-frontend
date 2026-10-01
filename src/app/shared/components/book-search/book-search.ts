@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe } from '@ngx-translate/core';
-import { Subject, catchError, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
+import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
 
 import { BookLookupResult, BookSearchResult, BookSearchSource } from '../../../core/models/book-lookup.model';
 import { BookLookupService } from '../../../core/services/book-lookup.service';
@@ -13,6 +13,15 @@ interface SearchQuery {
   query: string;
   source: BookSearchSource;
 }
+
+const SEARCH_FNS: Record<
+  BookSearchSource,
+  (bookLookup: BookLookupService, query: string) => Observable<BookSearchResult[]>
+> = {
+  openLibrary: (bookLookup, query) => bookLookup.search(query),
+  googleBooks: (bookLookup, query) => bookLookup.searchGoogleBooks(query),
+  bne: (bookLookup, query) => bookLookup.searchBne(query),
+};
 
 @Component({
   selector: 'app-book-search',
@@ -48,10 +57,7 @@ export class BookSearch {
             return of<BookSearchResult[]>([]);
           }
           this.loading.set(true);
-          const search$ =
-            source === 'googleBooks'
-              ? this.bookLookup.searchGoogleBooks(query)
-              : this.bookLookup.search(query);
+          const search$ = SEARCH_FNS[source](this.bookLookup, query);
           return search$.pipe(catchError(() => of<BookSearchResult[]>([])));
         }),
         takeUntilDestroyed(),

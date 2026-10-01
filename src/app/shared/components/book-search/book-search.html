@@ -27,16 +27,24 @@
       />
     </div>
 
-    @if (googleBooksAvailable) {
-      <div class="search-tabs">
-        <button
-          type="button"
-          class="search-tab"
-          [class.is-active]="source() === 'openLibrary'"
-          (click)="setSource('openLibrary')"
-        >
-          {{ 'bookForm.sourceOpenLibrary' | translate }}
-        </button>
+    <div class="search-tabs">
+      <button
+        type="button"
+        class="search-tab"
+        [class.is-active]="source() === 'openLibrary'"
+        (click)="setSource('openLibrary')"
+      >
+        {{ 'bookForm.sourceOpenLibrary' | translate }}
+      </button>
+      <button
+        type="button"
+        class="search-tab"
+        [class.is-active]="source() === 'bne'"
+        (click)="setSource('bne')"
+      >
+        {{ 'bookForm.sourceBne' | translate }}
+      </button>
+      @if (googleBooksAvailable) {
         <button
           type="button"
           class="search-tab"
@@ -45,8 +53,8 @@
         >
           {{ 'bookForm.sourceGoogleBooksEs' | translate }}
         </button>
-      </div>
-    }
+      }
+    </div>
 
     <div class="search-results">
       @if (loading()) {
