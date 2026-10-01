@@ -32,3 +32,8 @@ export interface RegisterRequest extends LoginRequest {
 export interface MessageResponse {
   message: string;
 }
+
+export interface RegisterResponse {
+  message: string;
+  requiresVerification: boolean;
+}

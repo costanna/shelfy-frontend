@@ -34,6 +34,8 @@ export class RegisterPage {
   protected readonly slowStart = signal(false);
   protected readonly showPassword = signal(false);
 
+  protected readonly registeredEmail = signal<string | null>(null);
+
   protected submit(): void {
     this.submitted.set(true);
     this.serverError.set(null);
@@ -45,11 +47,18 @@ export class RegisterPage {
     this.slowStart.set(false);
 
     const warmupTimer = setTimeout(() => this.slowStart.set(true), 4000);
+    const email = this.form.controls.email.value;
 
     this.auth.register(this.form.getRawValue()).subscribe({
-      next: () => {
+      next: (response) => {
         clearTimeout(warmupTimer);
         this.submitting.set(false);
+
+        if (response.requiresVerification) {
+          this.registeredEmail.set(email);
+          return;
+        }
+
         this.toast.success('auth.registerSuccess');
         void this.router.navigate(['/login']);
       },

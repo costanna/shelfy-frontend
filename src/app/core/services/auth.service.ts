@@ -9,6 +9,7 @@ import {
   LoginRequest,
   MessageResponse,
   RegisterRequest,
+  RegisterResponse,
   ThemePreference,
   User,
 } from '../models/user.model';
@@ -28,8 +29,8 @@ export class AuthService {
   readonly user = this.currentUser.asReadonly();
   readonly isLoggedIn = computed(() => this.currentUser() !== null);
 
-  register(request: RegisterRequest): Observable<MessageResponse> {
-    return this.http.post<MessageResponse>(`${this.baseUrl}/auth/register`, request);
+  register(request: RegisterRequest): Observable<RegisterResponse> {
+    return this.http.post<RegisterResponse>(`${this.baseUrl}/auth/register`, request);
   }
 
   login(request: LoginRequest): Observable<AuthResponse> {
