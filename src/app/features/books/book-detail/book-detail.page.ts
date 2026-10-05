@@ -42,6 +42,15 @@ export class BookDetailPage {
     return readingProgressPercent(current?.currentPage ?? null, current?.pageCount ?? null);
   });
 
+  protected readonly buyLink = computed(() => {
+    const current = this.book();
+    if (!current) {
+      return null;
+    }
+    const query = [current.title, current.author].filter(Boolean).join(' ');
+    return `https://www.google.com/search?tbm=shop&q=${encodeURIComponent(query)}`;
+  });
+
   constructor() {
     effect(() => this.load(Number(this.id())));
   }

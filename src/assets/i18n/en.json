@@ -95,6 +95,7 @@
     "emptyAction": "Add your first one",
     "pages": "{{count}} pages",
     "noAuthor": "Unknown author",
+    "findToBuy": "Find where to buy it",
     "created": "Book added",
     "updated": "Book updated",
     "deleted": "Book deleted",

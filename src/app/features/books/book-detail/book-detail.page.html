@@ -25,6 +25,12 @@
       <h1 class="title">{{ item.title }}</h1>
       <p class="author">{{ item.author || ('books.noAuthor' | translate) }}</p>
 
+      @if (item.status === 'WANT_TO_BUY' && buyLink(); as link) {
+        <a class="btn btn-secondary buy-link" [href]="link" target="_blank" rel="noopener">
+          {{ 'books.findToBuy' | translate }}
+        </a>
+      }
+
       @if (item.series) {
         <p class="series">
           {{ item.series }}
