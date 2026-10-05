@@ -7,6 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#5a4fcf">
   <meta name="description" content="Organiza los libros que lees, los que te faltan y los que quieres comprar.">
+  <!-- iOS no sigue el manifest.webmanifest para "Añadir a pantalla de inicio" (o lo hace de
+       forma poco fiable según la versión): sin estas etiquetas, el acceso directo abre Safari
+       con la barra de direcciones visible en vez de pantalla completa como una app. -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Shelfy">
   <!-- Precalienta la conexión a las APIs externas de búsqueda de libros (Google
        Books, Open Library, BNE), para que la primera búsqueda en el formulario
        de "añadir libro" no pague el coste de la conexión TLS en ese momento. -->
