@@ -1,5 +1,5 @@
 @if (visible() && !dismissed()) {
-  <div class="install-prompt-banner">
+  <div class="install-prompt-banner" role="status">
     <span>{{ 'installApp.promptMessage' | translate }}</span>
     <div class="install-prompt-actions">
       <button type="button" class="btn btn-primary btn-sm" (click)="install()">
