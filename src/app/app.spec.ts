@@ -1,24 +1,38 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideTranslateService } from '@ngx-translate/core';
+
 import { App } from './app';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
-    })
-      .compileComponents();
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideRouter([]),
+        // Sin loader real: basta con que el árbol de componentes (Header, Footer...)
+        // pueda inyectar TranslateService sin disparar peticiones HTTP de verdad.
+        provideTranslateService(),
+      ],
+    }).compileComponents();
   });
 
-  it('should create the app', () => {
+  it('creates the app shell (header, footer, router outlet) without errors', () => {
     const fixture = TestBed.createComponent(App);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+
+    expect(() => fixture.detectChanges()).not.toThrow();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('should render title', async () => {
+  it('renders the header with the app brand name', () => {
     const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
+    fixture.detectChanges();
+
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, shelfy-frontend');
+    expect(compiled.querySelector('.brand-name')).toBeTruthy();
   });
 });

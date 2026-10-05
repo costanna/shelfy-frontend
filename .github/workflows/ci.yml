@@ -1,0 +1,31 @@
+name: CI
+
+# Corre los tests y el build en cada push/PR a main, para detectar un cambio
+# que rompa algo antes de que llegue a producción (antes no había nada que
+# lo comprobase automáticamente).
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Tests unitarios
+        run: npx ng test --watch=false
+
+      - name: Build de producción
+        # npm run build (no "ng build" directo) para replicar exactamente el
+        # buildCommand que usa Vercel, prebuild (set-env.js) incluido.
+        run: npm run build

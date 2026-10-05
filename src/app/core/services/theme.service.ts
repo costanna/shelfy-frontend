@@ -11,7 +11,7 @@ export class ThemeService {
 
   readonly theme = this.preference.asReadonly();
 
-  private readonly systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+  private readonly systemDark = safeMatchMedia('(prefers-color-scheme: dark)');
 
   constructor() {
     this.apply(this.preference());
@@ -51,4 +51,23 @@ export class ThemeService {
 function readStoredTheme(): ThemePreference {
   const stored = tryGetLocalStorage(STORAGE_KEY);
   return stored === 'LIGHT' || stored === 'DARK' || stored === 'SYSTEM' ? stored : 'SYSTEM';
+}
+
+// window.matchMedia no existe en todos los entornos (p. ej. jsdom/happy-dom en los
+// tests unitarios no lo implementan por defecto): sin este resguardo, ThemeService
+// no se puede ni instanciar fuera de un navegador real.
+function safeMatchMedia(query: string): MediaQueryList {
+  if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+    return window.matchMedia(query);
+  }
+  return {
+    matches: false,
+    media: query,
+    onchange: null,
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    addListener: () => {},
+    removeListener: () => {},
+    dispatchEvent: () => false,
+  } satisfies MediaQueryList;
 }
