@@ -368,5 +368,10 @@
   },
   "footer": {
     "madeBy": "creado por"
+  },
+  "installApp": {
+    "title": "Llévate Shelfy al móvil",
+    "instructions": "Escanea el código con la cámara de tu móvil para abrir Shelfy y añadirlo a tu pantalla de inicio.",
+    "dismiss": "Cerrar este aviso"
   }
 }

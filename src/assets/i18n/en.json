@@ -368,5 +368,10 @@
   },
   "footer": {
     "madeBy": "made by"
+  },
+  "installApp": {
+    "title": "Take Shelfy to your phone",
+    "instructions": "Scan the code with your phone's camera to open Shelfy and add it to your home screen.",
+    "dismiss": "Dismiss this prompt"
   }
 }
