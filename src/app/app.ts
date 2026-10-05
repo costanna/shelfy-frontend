@@ -10,12 +10,22 @@ import { Header } from './layout/header/header';
 import { InstallAppCard } from './shared/components/install-app-card/install-app-card';
 import { SlowLoadingBanner } from './shared/components/slow-loading-banner/slow-loading-banner';
 import { ToastHost } from './shared/components/toast-host/toast-host';
+import { UpdateBanner } from './shared/components/update-banner/update-banner';
 
 const SYNCED_USER_KEY = 'shelfy.synced-preferences-user-id';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Footer, ToastHost, SlowLoadingBanner, InstallAppCard, TranslatePipe],
+  imports: [
+    RouterOutlet,
+    Header,
+    Footer,
+    ToastHost,
+    SlowLoadingBanner,
+    UpdateBanner,
+    InstallAppCard,
+    TranslatePipe,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.html',
   styleUrl: './app.scss',

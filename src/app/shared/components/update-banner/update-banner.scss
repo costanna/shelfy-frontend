@@ -1,0 +1,21 @@
+.update-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--primary-soft);
+  color: var(--primary);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.875rem;
+  text-align: center;
+  position: sticky;
+  top: var(--header-height);
+  z-index: 40;
+}
+
+.btn-sm {
+  padding: 0.375rem 0.625rem;
+  font-size: 0.8125rem;
+}

@@ -19,6 +19,7 @@ import { loadingInterceptor } from './core/interceptors/loading.interceptor';
 import { ChunkErrorHandler, RELOAD_GUARD_KEY } from './core/services/chunk-error-handler';
 import { LanguageService } from './core/services/language.service';
 import { ThemeService } from './core/services/theme.service';
+import { UpdateService } from './core/services/update.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -47,6 +48,7 @@ export const appConfig: ApplicationConfig = {
       sessionStorage.removeItem(RELOAD_GUARD_KEY);
       inject(ThemeService);
       inject(LanguageService).init();
+      inject(UpdateService);
     }),
 
     provideServiceWorker('ngsw-worker.js', {

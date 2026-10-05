@@ -369,6 +369,10 @@
   "footer": {
     "madeBy": "made by"
   },
+  "updateBanner": {
+    "message": "A new version of Shelfy is available.",
+    "reload": "Update"
+  },
   "installApp": {
     "title": "Take Shelfy to your phone",
     "instructions": "Scan the code with your phone's camera to open Shelfy and add it to your home screen.",

@@ -369,6 +369,10 @@
   "footer": {
     "madeBy": "creat per"
   },
+  "updateBanner": {
+    "message": "Hi ha una versió nova de Shelfy disponible.",
+    "reload": "Actualitza"
+  },
   "installApp": {
     "title": "Emporta't Shelfy al mòbil",
     "instructions": "Escaneja el codi amb la càmera del mòbil per obrir Shelfy i afegir-lo a la pantalla d'inici.",
