@@ -25,6 +25,16 @@
   --transition: 160ms ease;
 }
 
+// A partir de pantallas tipo tablet/escritorio, el contenedor crece con la
+// ventana (hasta un máximo razonable) en vez de quedarse fijo en 1120px: en
+// monitores normales o grandes eso dejaba mucho margen muerto a los lados.
+// Por debajo de este breakpoint se deja tal cual estaba (el móvil no se toca).
+@media (min-width: 960px) {
+  :root {
+    --container: min(1440px, 94vw);
+  }
+}
+
 :root,
 :root[data-theme='light'] {
   --bg: #faf7f2;

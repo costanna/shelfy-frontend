@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <!-- estante -->
+  <rect x="6" y="36" width="36" height="3" rx="1.5" fill="currentColor"/>
+
+  <!-- libros: tres lomos de distinta altura, el central ligeramente inclinado -->
+  <rect x="9" y="14" width="8" height="22" rx="1.6" fill="currentColor" opacity="0.55"/>
+  <rect x="30" y="18" width="8" height="18" rx="1.6" fill="currentColor" opacity="0.55"/>
+  <g transform="rotate(-8 24 25)">
+    <rect x="20" y="8" width="8" height="27" rx="1.6" fill="currentColor"/>
+    <path d="M21.6 8 H26.4 V17 L24 15 L21.6 17 Z" fill="var(--bg, #fff)"/>
+  </g>
+</svg>

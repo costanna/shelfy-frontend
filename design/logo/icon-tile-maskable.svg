@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6a5fe0"/>
+      <stop offset="100%" stop-color="#4a40b5"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <!-- estante -->
+  <rect x="126" y="366" width="260" height="22" rx="11" fill="#faf7f2"/>
+
+  <!-- libros: tres lomos de distinta altura, el central ligeramente inclinado -->
+  <rect x="150" y="186" width="54" height="180" rx="10" fill="#faf7f2"/>
+  <rect x="325" y="214" width="54" height="152" rx="10" fill="#faf7f2"/>
+  <g transform="rotate(-8 256 266)">
+    <rect x="229" y="150" width="54" height="216" rx="10" fill="#1b1726"/>
+  </g>
+
+  <!-- marcapáginas sobre el libro central -->
+  <path d="M243 150 h26 v44 l-13 -10 l-13 10 Z" fill="#faf7f2" transform="rotate(-8 256 266)"/>
+</svg>
