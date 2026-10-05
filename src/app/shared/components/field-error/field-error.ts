@@ -15,7 +15,7 @@ interface ErrorMessage {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (message(); as error) {
-      <p class="field-error">{{ error.key | translate: error.params }}</p>
+      <p class="field-error" role="alert">{{ error.key | translate: error.params }}</p>
     }
   `,
 })

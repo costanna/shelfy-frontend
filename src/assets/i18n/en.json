@@ -14,7 +14,8 @@
     "logout": "Log out",
     "menu": "Menu",
     "theme": "Switch theme",
-    "language": "Language"
+    "language": "Language",
+    "skipToContent": "Skip to content"
   },
   "auth": {
     "loginTitle": "Sign in to your shelf",

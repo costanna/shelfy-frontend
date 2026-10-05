@@ -27,5 +27,17 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "api",
+      "urls": ["https://shelfy-backend-prw2.onrender.com/api/**"],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 200,
+        "maxAge": "3d",
+        "timeout": "6s"
+      }
+    }
   ]
 }

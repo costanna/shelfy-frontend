@@ -14,7 +14,8 @@
     "logout": "Tanca la sessió",
     "menu": "Menú",
     "theme": "Canvia el tema",
-    "language": "Idioma"
+    "language": "Idioma",
+    "skipToContent": "Vés al contingut"
   },
   "auth": {
     "loginTitle": "Entra a la teva prestatgeria",

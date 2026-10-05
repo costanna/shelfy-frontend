@@ -14,7 +14,8 @@
     "logout": "Cerrar sesión",
     "menu": "Menú",
     "theme": "Cambiar tema",
-    "language": "Idioma"
+    "language": "Idioma",
+    "skipToContent": "Saltar al contenido"
   },
   "auth": {
     "loginTitle": "Entra en tu estantería",

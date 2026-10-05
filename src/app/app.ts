@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { AuthService } from './core/services/auth.service';
 import { LanguageService } from './core/services/language.service';
@@ -13,7 +14,7 @@ const SYNCED_USER_KEY = 'shelfy.synced-preferences-user-id';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Footer, ToastHost, SlowLoadingBanner],
+  imports: [RouterOutlet, Header, Footer, ToastHost, SlowLoadingBanner, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.html',
   styleUrl: './app.scss',
