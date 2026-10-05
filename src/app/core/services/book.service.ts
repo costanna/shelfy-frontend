@@ -8,6 +8,7 @@ import {
   BookFilters,
   BookImportResult,
   BookRequest,
+  BookStatusCounts,
   UpdateProgressRequest,
   UpdateReadingDatesRequest,
 } from '../models/book.model';
@@ -24,6 +25,10 @@ export class BookService {
 
   get(id: number): Observable<Book> {
     return this.http.get<Book>(`${this.baseUrl}/${id}`);
+  }
+
+  statusCounts(): Observable<BookStatusCounts> {
+    return this.http.get<BookStatusCounts>(`${this.baseUrl}/counts`);
   }
 
   create(request: BookRequest): Observable<Book> {

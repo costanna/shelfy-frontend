@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { catchError, of } from 'rxjs';
+import { catchError, map, of } from 'rxjs';
 
 import { BOOK_FORMATS, BOOK_STATUSES, BookRequest } from '../../../core/models/book.model';
 import { BookLookupResult } from '../../../core/models/book-lookup.model';
@@ -11,6 +11,7 @@ import { BookLookupService } from '../../../core/services/book-lookup.service';
 import { BookService } from '../../../core/services/book.service';
 import { CategoryService } from '../../../core/services/category.service';
 import { ToastService } from '../../../core/services/toast.service';
+import { findLikelyDuplicate } from '../../../core/util/book-duplicate.util';
 import { dateRangeValidator } from '../../../core/util/date-range.validator';
 import { BookSearch } from '../../../shared/components/book-search/book-search';
 import { FieldError } from '../../../shared/components/field-error/field-error';
@@ -51,6 +52,27 @@ export class BookFormPage {
     this.categoryService.list().pipe(catchError(() => of([]))),
     { initialValue: [] },
   );
+
+  // Para avisar en el buscador si un resultado se parece a un libro que ya
+  // tienes (ver findLikelyDuplicate). size alto porque es una lista plana
+  // para comparar, no paginada — así de simple basta para una biblioteca
+  // personal.
+  private readonly allOwnedBooks = toSignal(
+    this.bookService.list({ size: 1000 }).pipe(
+      map((page) => page.content.map((book) => ({ id: book.id, title: book.title, author: book.author }))),
+      catchError(() => of([])),
+    ),
+    { initialValue: [] },
+  );
+
+  // Al editar, el propio libro no cuenta como "ya lo tienes" si se vuelve a
+  // buscar para refrescar sus datos.
+  protected readonly ownedBooks = computed(() => {
+    const editingId = this.id();
+    return editingId
+      ? this.allOwnedBooks().filter((book) => book.id !== Number(editingId))
+      : this.allOwnedBooks();
+  });
 
   protected readonly form = this.formBuilder.nonNullable.group(
     {
@@ -130,8 +152,9 @@ export class BookFormPage {
         return;
       }
 
-      this.applyLookupResult(result);
-      this.toast.success('bookForm.lookupSuccess');
+      if (!this.applyLookupResult(result)) {
+        this.toast.success('bookForm.lookupSuccess');
+      }
     });
   }
 
@@ -145,11 +168,14 @@ export class BookFormPage {
 
   protected onBookSelected(result: BookLookupResult): void {
     this.searchOpen.set(false);
-    this.applyLookupResult(result);
-    this.toast.success('bookForm.lookupSuccess');
+    if (!this.applyLookupResult(result)) {
+      this.toast.success('bookForm.lookupSuccess');
+    }
   }
 
-  private applyLookupResult(result: BookLookupResult): void {
+  /** Devuelve true si se ha avisado de un posible duplicado (y por tanto no
+   *  hace falta además mostrar el toast de éxito de la búsqueda). */
+  private applyLookupResult(result: BookLookupResult): boolean {
     this.form.patchValue({
       title: result.title ?? this.form.controls.title.value,
       author: result.author ?? this.form.controls.author.value,
@@ -158,6 +184,13 @@ export class BookFormPage {
       synopsis: result.synopsis ?? this.form.controls.synopsis.value,
       isbn: result.isbn ?? this.form.controls.isbn.value,
     });
+
+    const title = result.title ?? this.form.controls.title.value;
+    if (findLikelyDuplicate(title, result.author, this.ownedBooks())) {
+      this.toast.error('bookForm.possibleDuplicate');
+      return true;
+    }
+    return false;
   }
 
   protected submit(): void {

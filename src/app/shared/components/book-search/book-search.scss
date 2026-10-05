@@ -153,6 +153,18 @@
   white-space: nowrap;
 }
 
+.search-owned-badge {
+  align-self: flex-start;
+  margin-top: var(--space-1);
+  padding: 0.0625rem var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--status-reading-soft);
+  color: var(--status-reading);
+  font-size: 0.6875rem;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
 .search-adding {
   flex-shrink: 0;
   color: var(--text-muted);

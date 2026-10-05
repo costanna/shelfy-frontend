@@ -88,6 +88,9 @@
                       · {{ result.firstPublishYear }}
                     }
                   </span>
+                  @if (alreadyOwned(result)) {
+                    <span class="search-owned-badge">{{ 'bookForm.alreadyOwned' | translate }}</span>
+                  }
                 </span>
                 @if (addingKey() === result.key) {
                   <span class="search-adding">{{ 'common.loading' | translate }}</span>

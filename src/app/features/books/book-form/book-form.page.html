@@ -212,5 +212,5 @@
 }
 
 @if (searchOpen()) {
-  <app-book-search (selected)="onBookSelected($event)" (closed)="closeSearch()" />
+  <app-book-search [ownedBooks]="ownedBooks()" (selected)="onBookSelected($event)" (closed)="closeSearch()" />
 }

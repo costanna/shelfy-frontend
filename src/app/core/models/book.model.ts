@@ -78,6 +78,13 @@ export interface BookFilters {
   size?: number;
 }
 
+export interface BookStatusCounts {
+  wantToRead: number;
+  reading: number;
+  read: number;
+  wantToBuy: number;
+}
+
 export interface BookImportResult {
   imported: number;
   skipped: number;

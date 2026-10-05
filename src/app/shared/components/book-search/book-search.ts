@@ -1,13 +1,18 @@
-import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
 
 import { BookLookupResult, BookSearchResult, BookSearchSource } from '../../../core/models/book-lookup.model';
 import { BookLookupService } from '../../../core/services/book-lookup.service';
+import { OwnedBookRef, findLikelyDuplicate } from '../../../core/util/book-duplicate.util';
 import { Spinner } from '../spinner/spinner';
 
 const SEARCH_DEBOUNCE_MS = 400;
+// Open Library devuelve 422 (y probablemente otras fuentes se comporten mal
+// también) para búsquedas de 1-2 caracteres; además una búsqueda tan corta
+// casi nunca es útil, así que se espera a tener algo más escrito.
+const MIN_QUERY_LENGTH = 3;
 
 interface SearchQuery {
   query: string;
@@ -33,6 +38,8 @@ const SEARCH_FNS: Record<
 export class BookSearch {
   private readonly bookLookup = inject(BookLookupService);
 
+  readonly ownedBooks = input<readonly OwnedBookRef[]>([]);
+
   readonly selected = output<BookLookupResult>();
   readonly closed = output<void>();
 
@@ -53,7 +60,7 @@ export class BookSearch {
         debounceTime(SEARCH_DEBOUNCE_MS),
         distinctUntilChanged((a, b) => a.query === b.query && a.source === b.source),
         switchMap(({ query, source }) => {
-          if (!query) {
+          if (query.length < MIN_QUERY_LENGTH) {
             return of<BookSearchResult[]>([]);
           }
           this.loading.set(true);
@@ -65,7 +72,7 @@ export class BookSearch {
       .subscribe((results) => {
         this.results.set(results);
         this.loading.set(false);
-        this.searched.set(this.query().trim() !== '');
+        this.searched.set(this.query().trim().length >= MIN_QUERY_LENGTH);
       });
   }
 
@@ -85,6 +92,10 @@ export class BookSearch {
 
   protected close(): void {
     this.closed.emit();
+  }
+
+  protected alreadyOwned(result: BookSearchResult): boolean {
+    return findLikelyDuplicate(result.title, result.author, this.ownedBooks()) !== null;
   }
 
   protected pick(result: BookSearchResult): void {

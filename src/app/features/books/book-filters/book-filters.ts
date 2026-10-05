@@ -1,8 +1,15 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { BOOK_SORT_OPTIONS, BOOK_STATUSES, BookSort, BookStatus } from '../../../core/models/book.model';
+import { BOOK_SORT_OPTIONS, BOOK_STATUSES, BookSort, BookStatus, BookStatusCounts } from '../../../core/models/book.model';
 import { Category } from '../../../core/models/category.model';
+
+const COUNT_KEY_BY_STATUS: Record<BookStatus, keyof BookStatusCounts> = {
+  WANT_TO_READ: 'wantToRead',
+  READING: 'reading',
+  READ: 'read',
+  WANT_TO_BUY: 'wantToBuy',
+};
 
 export interface BookFilterValue {
   status: BookStatus | null;
@@ -21,6 +28,7 @@ export interface BookFilterValue {
 export class BookFilters {
   readonly value = input.required<BookFilterValue>();
   readonly categories = input.required<Category[]>();
+  readonly statusCounts = input<BookStatusCounts | null>(null);
 
   readonly valueChange = output<BookFilterValue>();
 
@@ -32,6 +40,11 @@ export class BookFilters {
     const current = this.value();
     return current.status !== null || current.categoryId !== null || current.q.trim() !== '';
   });
+
+  protected countFor(status: BookStatus): number | null {
+    const counts = this.statusCounts();
+    return counts ? counts[COUNT_KEY_BY_STATUS[status]] : null;
+  }
 
   protected onSearch(event: Event): void {
     const q = (event.target as HTMLInputElement).value;

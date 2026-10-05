@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { Subject, catchError, debounceTime, distinctUntilChanged, of, switchMap, tap } from 'rxjs';
+import { Subject, catchError, debounceTime, distinctUntilChanged, of, startWith, switchMap, tap } from 'rxjs';
 
-import { BOOK_SORT_OPTIONS, Book, BookSort } from '../../../core/models/book.model';
+import { BOOK_SORT_OPTIONS, Book, BookSort, BookStatusCounts } from '../../../core/models/book.model';
 import { emptyPage } from '../../../core/models/page.model';
 import { BookService } from '../../../core/services/book.service';
 import { CategoryService } from '../../../core/services/category.service';
@@ -39,6 +39,7 @@ export class BookListPage {
   private readonly router = inject(Router);
 
   private readonly queries = new Subject<Query>();
+  private readonly refreshCounts = new Subject<void>();
 
   protected readonly query = signal<Query>(readQueryFromUrl(this.router.url));
   protected readonly loading = signal(true);
@@ -63,6 +64,14 @@ export class BookListPage {
     { initialValue: emptyPage<Book>() },
   );
 
+  protected readonly statusCounts = toSignal(
+    this.refreshCounts.pipe(
+      startWith(undefined),
+      switchMap(() => this.bookService.statusCounts().pipe(catchError(() => of(null)))),
+    ),
+    { initialValue: null as BookStatusCounts | null },
+  );
+
   protected readonly hasFilters = computed(() => {
     const current = this.query();
     return current.status !== null || current.categoryId !== null || current.q.trim() !== '';
@@ -81,6 +90,13 @@ export class BookListPage {
   protected onPageChange(page: number): void {
     this.search({ ...this.query(), page });
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /** Las Recomendaciones añaden un libro sin navegar de página: sin esto, la
+   *  lista y los contadores de estado se quedaban con los datos de antes. */
+  protected onBookAddedElsewhere(): void {
+    this.queries.next(this.query());
+    this.refreshCounts.next();
   }
 
   protected setViewMode(mode: ViewMode): void {

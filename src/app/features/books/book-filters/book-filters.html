@@ -29,6 +29,9 @@
         (click)="selectStatus(status)"
       >
         {{ 'status.' + status | translate }}
+        @if (countFor(status); as count) {
+          <span class="shelf-pill-count">{{ count }}</span>
+        }
       </button>
     }
   </div>

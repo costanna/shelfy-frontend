@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { catchError, forkJoin, of, switchMap } from 'rxjs';
 
@@ -7,6 +7,7 @@ import { Book, BookStatus } from '../../../core/models/book.model';
 import { BookLookupService } from '../../../core/services/book-lookup.service';
 import { BookService } from '../../../core/services/book.service';
 import { ToastService } from '../../../core/services/toast.service';
+import { OwnedBookRef, findLikelyDuplicate } from '../../../core/util/book-duplicate.util';
 
 const LIBRARY_SCAN_SIZE = 200;
 const MAX_RECOMMENDATIONS = 5;
@@ -28,6 +29,10 @@ export class Recommendations {
   protected readonly results = signal<BookSearchResult[]>([]);
   protected readonly loading = signal(true);
   protected readonly addingKey = signal<string | null>(null);
+
+  /** Se emite tras añadir un libro con éxito, para que la página que
+   *  contiene este componente refresque su lista y sus contadores. */
+  readonly added = output<void>();
 
   constructor() {
     this.load();
@@ -61,6 +66,7 @@ export class Recommendations {
           this.addingKey.set(null);
           this.results.update((list) => list.filter((item) => item.key !== result.key));
           this.toast.success('recommendations.added');
+          this.added.emit();
         },
         error: () => this.addingKey.set(null),
       });
@@ -81,10 +87,14 @@ export class Recommendations {
           this.basedOnAuthor.set(topAuthor);
 
           if (!topAuthor) {
-            return of({ owned: new Set<string>(), results: [] as BookSearchResult[] });
+            return of({ owned: [] as OwnedBookRef[], results: [] as BookSearchResult[] });
           }
 
-          const owned = new Set((allBooks?.content ?? []).map((book) => normalize(book.title)));
+          const owned: OwnedBookRef[] = (allBooks?.content ?? []).map((book) => ({
+            id: book.id,
+            title: book.title,
+            author: book.author,
+          }));
           return this.bookLookup.search(topAuthor).pipe(
             catchError(() => of([])),
             switchMap((results) => of({ owned, results })),
@@ -93,7 +103,7 @@ export class Recommendations {
       )
       .subscribe(({ owned, results }) => {
         const filtered = results
-          .filter((result) => result.title && !owned.has(normalize(result.title)))
+          .filter((result) => result.title && !findLikelyDuplicate(result.title, result.author, owned))
           .slice(0, MAX_RECOMMENDATIONS);
         this.results.set(filtered);
         this.loading.set(false);
@@ -118,8 +128,4 @@ function pickTopAuthor(readBooks: Book[]): string | null {
     }
   }
   return best;
-}
-
-function normalize(title: string): string {
-  return title.trim().toLowerCase();
 }

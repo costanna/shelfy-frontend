@@ -16,11 +16,12 @@
 <app-book-filters
   [value]="query()"
   [categories]="categories()"
+  [statusCounts]="statusCounts()"
   (valueChange)="onFiltersChange($event)"
 />
 
 @if (!hasFilters()) {
-  <app-recommendations />
+  <app-recommendations (added)="onBookAddedElsewhere()" />
 }
 
 @if (!loading() && result().content.length > 0) {
