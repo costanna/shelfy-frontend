@@ -7,6 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#5a4fcf">
   <meta name="description" content="Organiza los libros que lees, los que te faltan y los que quieres comprar.">
+  <!-- Precalienta la conexión a las APIs externas de búsqueda de libros (Google
+       Books, Open Library, BNE), para que la primera búsqueda en el formulario
+       de "añadir libro" no pague el coste de la conexión TLS en ese momento. -->
+  <link rel="preconnect" href="https://www.googleapis.com">
+  <link rel="preconnect" href="https://openlibrary.org">
+  <link rel="preconnect" href="https://covers.openlibrary.org">
+  <link rel="preconnect" href="https://catalogo.bne.es">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
