@@ -119,6 +119,8 @@
     "searchBooks": "Busques un llibre?",
     "searchBooksHint": "Troba'l per títol o autor i emplena les dades automàticament.",
     "searchBooksAction": "Cerca un llibre",
+    "scanBooks": "Tens el llibre a la mà?",
+    "scanBooksHint": "Escaneja el codi de barres de la contraportada i omple les dades automàticament.",
     "searchTitle": "Cerca un llibre",
     "searchPlaceholder": "Títol o autor",
     "searchHint": "Escriu alguna cosa per cercar.",

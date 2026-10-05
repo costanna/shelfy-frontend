@@ -119,6 +119,8 @@
     "searchBooks": "¿Buscas un libro?",
     "searchBooksHint": "Encuéntralo por título o autor y rellena los datos automáticamente.",
     "searchBooksAction": "Buscar libro",
+    "scanBooks": "¿Tienes el libro en la mano?",
+    "scanBooksHint": "Escanea el código de barras de la contraportada y rellena los datos automáticamente.",
     "searchTitle": "Buscar un libro",
     "searchPlaceholder": "Título o autor",
     "searchHint": "Escribe algo para buscar.",

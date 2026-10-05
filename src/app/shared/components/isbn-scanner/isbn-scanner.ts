@@ -49,8 +49,21 @@ export class IsbnScanner implements AfterViewInit, OnDestroy {
     this.reader = new BrowserMultiFormatReader(hints);
 
     try {
-      const controls = await this.reader.decodeFromVideoDevice(
-        undefined,
+      // Sin esto, decodeFromVideoDevice(undefined, ...) deja que el navegador
+      // elija la cámara "por defecto", que en la mayoría de móviles es la
+      // frontal (la de selfies) — justo la que no sirve para escanear un
+      // lomo de libro. facingMode "environment" pide la trasera; "ideal" (no
+      // "exact") para no fallar en portátiles que solo tienen webcam frontal.
+      // El tamaño ideal más alto ayuda a que el código de barras, que suele
+      // ser pequeño, se lea con suficiente detalle para decodificarse.
+      const controls = await this.reader.decodeFromConstraints(
+        {
+          video: {
+            facingMode: { ideal: 'environment' },
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+          },
+        },
         this.video().nativeElement,
         (result) => {
           if (result && !this.hasScanned) {

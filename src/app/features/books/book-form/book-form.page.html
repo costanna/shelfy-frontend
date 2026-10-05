@@ -15,6 +15,16 @@
         🔍 {{ 'bookForm.searchBooksAction' | translate }}
       </button>
     </div>
+
+    <div class="search-cta card card-padded">
+      <div>
+        <p class="search-cta-title">{{ 'bookForm.scanBooks' | translate }}</p>
+        <p class="hint">{{ 'bookForm.scanBooksHint' | translate }}</p>
+      </div>
+      <button type="button" class="btn btn-secondary" (click)="openScanner()">
+        📷 {{ 'bookForm.scanIsbn' | translate }}
+      </button>
+    </div>
   }
 
   <form class="book-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
@@ -130,9 +140,11 @@
           >
             {{ (lookingUp() ? 'bookForm.lookingUp' : 'bookForm.lookupIsbn') | translate }}
           </button>
-          <button type="button" class="btn btn-secondary" (click)="openScanner()">
-            📷 {{ 'bookForm.scanIsbn' | translate }}
-          </button>
+          @if (isEdit()) {
+            <button type="button" class="btn btn-secondary" (click)="openScanner()">
+              📷 {{ 'bookForm.scanIsbn' | translate }}
+            </button>
+          }
         </div>
         <app-field-error [control]="form.controls.isbn" [submitted]="submitted()" />
       </div>

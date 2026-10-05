@@ -119,6 +119,8 @@
     "searchBooks": "Looking for a book?",
     "searchBooksHint": "Find it by title or author and fill in the details automatically.",
     "searchBooksAction": "Search for a book",
+    "scanBooks": "Have the book in hand?",
+    "scanBooksHint": "Scan the barcode on the back cover and fill in the details automatically.",
     "searchTitle": "Search for a book",
     "searchPlaceholder": "Title or author",
     "searchHint": "Type something to search.",
