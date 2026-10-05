@@ -206,7 +206,9 @@
 }
 
 @if (scannerOpen()) {
-  <app-isbn-scanner (scanned)="onScanned($event)" (closed)="closeScanner()" />
+  @defer (on immediate) {
+    <app-isbn-scanner (scanned)="onScanned($event)" (closed)="closeScanner()" />
+  }
 }
 
 @if (searchOpen()) {
