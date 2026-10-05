@@ -17,6 +17,7 @@ import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
 import { loadingInterceptor } from './core/interceptors/loading.interceptor';
 import { ChunkErrorHandler, RELOAD_GUARD_KEY } from './core/services/chunk-error-handler';
+import { InstallPromptService } from './core/services/install-prompt.service';
 import { LanguageService } from './core/services/language.service';
 import { ThemeService } from './core/services/theme.service';
 import { UpdateService } from './core/services/update.service';
@@ -49,6 +50,7 @@ export const appConfig: ApplicationConfig = {
       inject(ThemeService);
       inject(LanguageService).init();
       inject(UpdateService);
+      inject(InstallPromptService);
     }),
 
     provideServiceWorker('ngsw-worker.js', {

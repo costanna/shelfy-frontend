@@ -64,7 +64,8 @@
   "recommendations": {
     "title": "Perquè has llegit {{author}}",
     "add": "Afegeix a la meva prestatgeria",
-    "added": "Llibre afegit a \"Vull llegir\""
+    "added": "Llibre afegit a \"Vull llegir\"",
+    "dismiss": "Amaga les recomanacions"
   },
   "books": {
     "title": "Els meus llibres",
@@ -249,6 +250,9 @@
     "notifications": "Notificacions",
     "remindersEnabled": "Avisa'm per correu si deixo un llibre començat molt de temps sense avançar",
     "remindersHint": "Només si fa més de 30 dies que no avances en un llibre que estàs llegint.",
+    "recommendations": "Recomanacions",
+    "recommendationsEnabled": "Mostra recomanacions a la llista de llibres",
+    "recommendationsHint": "Suggeriments basats en els llibres que ja has llegit.",
     "libraryData": "La teva estanteria",
     "libraryDataHint": "Exporta els teus llibres a un fitxer CSV o importa'n un per afegir llibres en bloc.",
     "exportLibrary": "Exporta a CSV",
@@ -376,6 +380,8 @@
   "installApp": {
     "title": "Emporta't Shelfy al mòbil",
     "instructions": "Escaneja el codi amb la càmera del mòbil per obrir Shelfy i afegir-lo a la pantalla d'inici.",
-    "dismiss": "Tanca aquest avís"
+    "dismiss": "Tanca aquest avís",
+    "promptMessage": "Vols instal·lar Shelfy en aquest dispositiu?",
+    "promptInstall": "Instal·la"
   }
 }

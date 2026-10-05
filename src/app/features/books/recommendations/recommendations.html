@@ -1,8 +1,19 @@
-@if (!loading() && results().length > 0) {
+@if (!hidden() && !loading() && results().length > 0) {
   <section class="recommendations">
-    <h2 class="section-title">
-      {{ 'recommendations.title' | translate: { author: basedOnAuthor() } }}
-    </h2>
+    <div class="section-header">
+      <h2 class="section-title">
+        {{ 'recommendations.title' | translate: { author: basedOnAuthor() } }}
+      </h2>
+      <button
+        type="button"
+        class="btn btn-ghost btn-icon"
+        [attr.aria-label]="'recommendations.dismiss' | translate"
+        [title]="'recommendations.dismiss' | translate"
+        (click)="dismiss()"
+      >
+        ✕
+      </button>
+    </div>
 
     <ul class="recommendation-list">
       @for (result of results(); track result.key) {

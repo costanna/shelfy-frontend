@@ -18,6 +18,7 @@ import {
   LanguageService,
   SUPPORTED_LANGUAGES,
 } from '../../core/services/language.service';
+import { RecommendationsVisibilityService } from '../../core/services/recommendations-visibility.service';
 import { ThemeService } from '../../core/services/theme.service';
 import { ToastService } from '../../core/services/toast.service';
 import { avatarUrl, initials } from '../../core/util/avatar-url';
@@ -42,10 +43,12 @@ export class SettingsPage {
   private readonly languageService = inject(LanguageService);
   private readonly toast = inject(ToastService);
   private readonly bookService = inject(BookService);
+  private readonly recommendationsVisibility = inject(RecommendationsVisibilityService);
 
   protected readonly user = this.auth.user;
   protected readonly theme = this.themeService.theme;
   protected readonly language = this.languageService.language;
+  protected readonly recommendationsHidden = this.recommendationsVisibility.hidden;
 
   protected readonly themeOptions = THEME_OPTIONS;
   protected readonly languageOptions = SUPPORTED_LANGUAGES;
@@ -104,6 +107,15 @@ export class SettingsPage {
   protected onRemindersToggle(event: Event): void {
     const remindersEnabled = (event.target as HTMLInputElement).checked;
     this.savePreferences({ remindersEnabled });
+  }
+
+  protected onRecommendationsToggle(event: Event): void {
+    const show = (event.target as HTMLInputElement).checked;
+    if (show) {
+      this.recommendationsVisibility.show();
+    } else {
+      this.recommendationsVisibility.hide();
+    }
   }
 
   protected saveAlias(): void {

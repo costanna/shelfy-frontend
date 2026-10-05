@@ -1,4 +1,4 @@
-@if (!dismissed()) {
+@if (!dismissed() && !installed()) {
   <aside class="install-card" aria-label="{{ 'installApp.title' | translate }}">
     <button
       type="button"
@@ -22,5 +22,11 @@
 
     <p class="install-title">{{ 'installApp.title' | translate }}</p>
     <p class="install-instructions">{{ 'installApp.instructions' | translate }}</p>
+
+    @if (canInstallDirectly()) {
+      <button type="button" class="btn btn-primary btn-sm install-direct-btn" (click)="install()">
+        {{ 'installApp.promptInstall' | translate }}
+      </button>
+    }
   </aside>
 }

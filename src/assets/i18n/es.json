@@ -64,7 +64,8 @@
   "recommendations": {
     "title": "Porque has leído a {{author}}",
     "add": "Añadir a mi estantería",
-    "added": "Libro añadido a \"Quiero leer\""
+    "added": "Libro añadido a \"Quiero leer\"",
+    "dismiss": "Ocultar recomendaciones"
   },
   "books": {
     "title": "Mis libros",
@@ -249,6 +250,9 @@
     "notifications": "Notificaciones",
     "remindersEnabled": "Avisarme por email si dejo un libro empezado mucho tiempo sin avanzar",
     "remindersHint": "Solo si llevas más de 30 días sin terminar un libro que estás leyendo.",
+    "recommendations": "Recomendaciones",
+    "recommendationsEnabled": "Mostrar recomendaciones en la lista de libros",
+    "recommendationsHint": "Sugerencias basadas en los libros que ya has leído.",
     "libraryData": "Tu biblioteca",
     "libraryDataHint": "Exporta tus libros a un archivo CSV o importa uno para añadir libros en bloque.",
     "exportLibrary": "Exportar a CSV",
@@ -376,6 +380,8 @@
   "installApp": {
     "title": "Llévate Shelfy al móvil",
     "instructions": "Escanea el código con la cámara de tu móvil para abrir Shelfy y añadirlo a tu pantalla de inicio.",
-    "dismiss": "Cerrar este aviso"
+    "dismiss": "Cerrar este aviso",
+    "promptMessage": "¿Instalar Shelfy en este dispositivo?",
+    "promptInstall": "Instalar"
   }
 }

@@ -1,0 +1,18 @@
+@if (visible() && !dismissed()) {
+  <div class="install-prompt-banner">
+    <span>{{ 'installApp.promptMessage' | translate }}</span>
+    <div class="install-prompt-actions">
+      <button type="button" class="btn btn-primary btn-sm" (click)="install()">
+        {{ 'installApp.promptInstall' | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-ghost btn-icon"
+        [attr.aria-label]="'installApp.dismiss' | translate"
+        (click)="dismiss()"
+      >
+        ✕
+      </button>
+    </div>
+  </div>
+}

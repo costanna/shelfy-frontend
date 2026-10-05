@@ -6,6 +6,7 @@ import { BookSearchResult } from '../../../core/models/book-lookup.model';
 import { Book, BookStatus } from '../../../core/models/book.model';
 import { BookLookupService } from '../../../core/services/book-lookup.service';
 import { BookService } from '../../../core/services/book.service';
+import { RecommendationsVisibilityService } from '../../../core/services/recommendations-visibility.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { OwnedBookRef, findLikelyDuplicate } from '../../../core/util/book-duplicate.util';
 
@@ -24,6 +25,9 @@ export class Recommendations {
   private readonly bookService = inject(BookService);
   private readonly bookLookup = inject(BookLookupService);
   private readonly toast = inject(ToastService);
+  private readonly visibility = inject(RecommendationsVisibilityService);
+
+  protected readonly hidden = this.visibility.hidden;
 
   protected readonly basedOnAuthor = signal<string | null>(null);
   protected readonly results = signal<BookSearchResult[]>([]);
@@ -35,7 +39,13 @@ export class Recommendations {
   readonly added = output<void>();
 
   constructor() {
-    this.load();
+    if (!this.hidden()) {
+      this.load();
+    }
+  }
+
+  protected dismiss(): void {
+    this.visibility.hide();
   }
 
   protected add(result: BookSearchResult): void {

@@ -20,7 +20,7 @@
   (valueChange)="onFiltersChange($event)"
 />
 
-@if (!hasFilters()) {
+@if (!hasFilters() && !recommendationsHidden()) {
   <app-recommendations (added)="onBookAddedElsewhere()" />
 }
 

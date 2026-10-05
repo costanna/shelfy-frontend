@@ -8,6 +8,7 @@ import { BOOK_SORT_OPTIONS, Book, BookSort, BookStatusCounts } from '../../../co
 import { emptyPage } from '../../../core/models/page.model';
 import { BookService } from '../../../core/services/book.service';
 import { CategoryService } from '../../../core/services/category.service';
+import { RecommendationsVisibilityService } from '../../../core/services/recommendations-visibility.service';
 import { tryGetLocalStorage, trySetLocalStorage } from '../../../core/util/local-storage';
 import { BookCard } from '../../../shared/components/book-card/book-card';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
@@ -37,6 +38,8 @@ export class BookListPage {
   private readonly bookService = inject(BookService);
   private readonly categoryService = inject(CategoryService);
   private readonly router = inject(Router);
+
+  protected readonly recommendationsHidden = inject(RecommendationsVisibilityService).hidden;
 
   private readonly queries = new Subject<Query>();
   private readonly refreshCounts = new Subject<void>();
