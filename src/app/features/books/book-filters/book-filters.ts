@@ -38,14 +38,12 @@ export class BookFilters {
     this.valueChange.emit({ ...this.value(), q });
   }
 
-  protected onStatus(event: Event): void {
-    const raw = (event.target as HTMLSelectElement).value;
-    this.valueChange.emit({ ...this.value(), status: raw ? (raw as BookStatus) : null });
+  protected selectStatus(status: BookStatus | null): void {
+    this.valueChange.emit({ ...this.value(), status });
   }
 
-  protected onCategory(event: Event): void {
-    const raw = (event.target as HTMLSelectElement).value;
-    this.valueChange.emit({ ...this.value(), categoryId: raw ? Number(raw) : null });
+  protected selectCategory(categoryId: number | null): void {
+    this.valueChange.emit({ ...this.value(), categoryId });
   }
 
   protected onSort(event: Event): void {

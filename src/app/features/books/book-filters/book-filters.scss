@@ -1,35 +1,97 @@
 .filters {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: var(--space-3);
   margin-bottom: var(--space-5);
   padding: var(--space-4);
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-
-  grid-template-columns: 1fr;
-
-  @media (min-width: 640px) {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @media (min-width: 900px) {
-    grid-template-columns: 2fr 1fr 1fr 1fr auto;
-    align-items: center;
-  }
 }
 
 .search-field {
-  @media (min-width: 640px) and (max-width: 899px) {
-    grid-column: 1 / -1;
+  max-width: 100%;
+
+  @media (min-width: 640px) {
+    max-width: 320px;
   }
 }
 
-.clear-button {
-  justify-self: start;
-  white-space: nowrap;
+.shelf-row {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  padding-bottom: var(--space-1);
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
 
-  @media (max-width: 899px) {
-    grid-column: 1 / -1;
+.shelf-pill {
+  flex: none;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--transition),
+    color var(--transition),
+    border-color var(--transition);
+
+  &:hover {
+    border-color: var(--border-strong);
   }
+
+  &.is-active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--primary-contrast);
+  }
+}
+
+// Cada estado usa su propio color (el mismo que su badge en otras partes de
+// la app), menos cuando está activo: ahí manda el color "primary" uniforme
+// de selección, igual que el resto de pastillas.
+.shelf-pill.status-want_to_read:not(.is-active) {
+  background: var(--status-want-to-read-soft);
+  color: var(--status-want-to-read);
+  border-color: transparent;
+}
+
+.shelf-pill.status-reading:not(.is-active) {
+  background: var(--status-reading-soft);
+  color: var(--status-reading);
+  border-color: transparent;
+}
+
+.shelf-pill.status-read:not(.is-active) {
+  background: var(--status-read-soft);
+  color: var(--status-read);
+  border-color: transparent;
+}
+
+.shelf-pill.status-want_to_buy:not(.is-active) {
+  background: var(--status-want-to-buy-soft);
+  color: var(--status-want-to-buy);
+  border-color: transparent;
+}
+
+.bottom-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.sort-field {
+  min-width: 10rem;
+}
+
+.clear-button {
+  white-space: nowrap;
 }

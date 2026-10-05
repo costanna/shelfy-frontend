@@ -11,46 +11,68 @@
     />
   </div>
 
-  <div class="field">
-    <label class="visually-hidden" for="filter-status">{{ 'books.filterStatus' | translate }}</label>
-    <select id="filter-status" class="select" (change)="onStatus($event)">
-      <option value="" [selected]="!value().status">{{ 'books.allStatuses' | translate }}</option>
-      @for (status of statuses; track status) {
-        <option [value]="status" [selected]="status === value().status">
-          {{ 'status.' + status | translate }}
-        </option>
-      }
-    </select>
-  </div>
-
-  <div class="field">
-    <label class="visually-hidden" for="filter-category">
-      {{ 'books.filterCategory' | translate }}
-    </label>
-    <select id="filter-category" class="select" (change)="onCategory($event)">
-      <option value="" [selected]="!value().categoryId">{{ 'books.allCategories' | translate }}</option>
-      @for (category of categories(); track category.id) {
-        <option [value]="category.id" [selected]="category.id === value().categoryId">
-          {{ category.name }}
-        </option>
-      }
-    </select>
-  </div>
-
-  <div class="field">
-    <label class="visually-hidden" for="filter-sort">{{ 'books.sortBy' | translate }}</label>
-    <select id="filter-sort" class="select" (change)="onSort($event)">
-      @for (option of sortOptions; track option) {
-        <option [value]="option" [selected]="option === (value().sort || defaultSort)">
-          {{ 'books.sort.' + option | translate }}
-        </option>
-      }
-    </select>
-  </div>
-
-  @if (hasActiveFilters()) {
-    <button type="button" class="btn btn-ghost clear-button" (click)="clear()">
-      {{ 'books.clearFilters' | translate }}
+  <div class="shelf-row" role="group" [attr.aria-label]="'books.filterStatus' | translate">
+    <button
+      type="button"
+      class="shelf-pill"
+      [class.is-active]="!value().status"
+      (click)="selectStatus(null)"
+    >
+      {{ 'books.allStatuses' | translate }}
     </button>
+    @for (status of statuses; track status) {
+      <button
+        type="button"
+        class="shelf-pill status-{{ status.toLowerCase() }}"
+        [class.is-active]="status === value().status"
+        [attr.aria-pressed]="status === value().status"
+        (click)="selectStatus(status)"
+      >
+        {{ 'status.' + status | translate }}
+      </button>
+    }
+  </div>
+
+  @if (categories().length > 0) {
+    <div class="shelf-row" role="group" [attr.aria-label]="'books.filterCategory' | translate">
+      <button
+        type="button"
+        class="shelf-pill"
+        [class.is-active]="!value().categoryId"
+        (click)="selectCategory(null)"
+      >
+        {{ 'books.allCategories' | translate }}
+      </button>
+      @for (category of categories(); track category.id) {
+        <button
+          type="button"
+          class="shelf-pill"
+          [class.is-active]="category.id === value().categoryId"
+          [attr.aria-pressed]="category.id === value().categoryId"
+          (click)="selectCategory(category.id)"
+        >
+          {{ category.name }}
+        </button>
+      }
+    </div>
   }
+
+  <div class="bottom-row">
+    <div class="field sort-field">
+      <label class="visually-hidden" for="filter-sort">{{ 'books.sortBy' | translate }}</label>
+      <select id="filter-sort" class="select" (change)="onSort($event)">
+        @for (option of sortOptions; track option) {
+          <option [value]="option" [selected]="option === (value().sort || defaultSort)">
+            {{ 'books.sort.' + option | translate }}
+          </option>
+        }
+      </select>
+    </div>
+
+    @if (hasActiveFilters()) {
+      <button type="button" class="btn btn-ghost clear-button" (click)="clear()">
+        {{ 'books.clearFilters' | translate }}
+      </button>
+    }
+  </div>
 </div>
