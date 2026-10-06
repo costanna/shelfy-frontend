@@ -3,6 +3,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { BOOK_SORT_OPTIONS, BOOK_STATUSES, BookSort, BookStatus, BookStatusCounts } from '../../../core/models/book.model';
 import { Category } from '../../../core/models/category.model';
+import { FilterPresets } from '../../../shared/components/filter-presets/filter-presets';
 
 const COUNT_KEY_BY_STATUS: Record<BookStatus, keyof BookStatusCounts> = {
   WANT_TO_READ: 'wantToRead',
@@ -20,7 +21,7 @@ export interface BookFilterValue {
 
 @Component({
   selector: 'app-book-filters',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, FilterPresets],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './book-filters.html',
   styleUrl: './book-filters.scss',

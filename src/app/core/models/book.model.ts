@@ -90,3 +90,21 @@ export interface BookImportResult {
   skipped: number;
   messages: string[];
 }
+
+export interface BookKey {
+  id: number;
+  title: string;
+  author: string | null;
+}
+
+export interface RecommendationItem {
+  title: string;
+  author: string | null;
+  coverUrl: string | null;
+  readerCount: number;
+}
+
+export interface RecommendationResponse {
+  basedOnAuthor: string | null;
+  items: RecommendationItem[];
+}

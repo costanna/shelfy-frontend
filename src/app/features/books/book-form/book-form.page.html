@@ -20,6 +20,10 @@
       <div>
         <p class="search-cta-title">{{ 'bookForm.scanBooks' | translate }}</p>
         <p class="hint">{{ 'bookForm.scanBooksHint' | translate }}</p>
+        <label class="quick-add-toggle">
+          <input type="checkbox" [checked]="quickAdd()" (change)="quickAdd.set($any($event.target).checked)" />
+          <span>{{ 'bookForm.quickAdd' | translate }}</span>
+        </label>
       </div>
       <button type="button" class="btn btn-secondary" (click)="openScanner()">
         📷 {{ 'bookForm.scanIsbn' | translate }}

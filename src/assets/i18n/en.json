@@ -63,6 +63,9 @@
   },
   "recommendations": {
     "title": "Because you've read {{author}}",
+    "socialTitle": "What people you follow are reading",
+    "readersOne": "Read by 1 person you follow",
+    "readers": "Read by {{count}} people you follow",
     "add": "Add to my shelf",
     "added": "Book added to \"Want to read\"",
     "dismiss": "Hide recommendations"
@@ -113,7 +116,15 @@
     "currentPage": "Current page",
     "updateProgress": "Update progress",
     "progressLabel": "Page {{current}} of {{total}} ({{percent}}%)",
-    "progressSaved": "Progress saved"
+    "progressSaved": "Progress saved",
+    "trash": "Trash",
+    "trashEmpty": "Trash is empty.",
+    "backToBooks": "Back to books",
+    "restore": "Restore",
+    "restored": "Book restored",
+    "purge": "Delete permanently",
+    "purged": "Book permanently deleted",
+    "purgeConfirm": "Permanently delete “{{title}}”? This cannot be undone."
   },
   "bookForm": {
     "searchBooks": "Looking for a book?",
@@ -139,6 +150,7 @@
     "lookupIsbn": "Look up",
     "lookingUp": "Looking up…",
     "scanIsbn": "Scan",
+    "quickAdd": "Save each book automatically and keep scanning",
     "lookupSuccess": "Book details filled in",
     "possibleDuplicate": "Details filled in. By the way, it looks like you already have a similar book in your library.",
     "lookupNotFound": "We couldn't find that ISBN",
@@ -162,9 +174,11 @@
   },
   "scanner": {
     "title": "Scan ISBN",
-    "hint": "Point the camera at the barcode on the back cover.",
+    "hint": "Point the camera at the barcode on the back cover. You can scan several in a row.",
     "denied": "Can't access the camera. Check permissions or enter the ISBN by hand.",
-    "unsupported": "This browser doesn't support camera access. Enter the ISBN by hand."
+    "unsupported": "This browser doesn't support camera access. Enter the ISBN by hand.",
+    "scannedCount": "{{count}} scanned",
+    "done": "Done"
   },
   "format": {
     "PHYSICAL": "Physical",
@@ -209,6 +223,12 @@
     "updated": "Review updated",
     "deleted": "Review deleted",
     "deleteConfirm": "Delete this review?",
+    "like": "Like",
+    "unlike": "Unlike",
+    "comments": "Comments",
+    "commentsEmpty": "No comments yet. Write the first one.",
+    "commentPlaceholder": "Write a comment…",
+    "commentSend": "Comment",
     "starsOf": "{{rating}} out of 5 stars"
   },
   "notes": {
@@ -252,6 +272,9 @@
     "notifications": "Notifications",
     "remindersEnabled": "Email me if I leave a book unfinished for a long time",
     "remindersHint": "Only if it's been more than 30 days since you last made progress on a book you're reading.",
+    "reminderHour": "Reminder time",
+    "pushEnabled": "Notify me with push notifications (new followers)",
+    "pushHint": "You need to grant the browser permission. For now only for new followers.",
     "recommendations": "Recommendations",
     "recommendationsEnabled": "Show recommendations on the books list",
     "recommendationsHint": "Suggestions based on the books you've already read.",
@@ -260,6 +283,7 @@
     "exportLibrary": "Export to CSV",
     "importLibrary": "Import from CSV",
     "importSuccess": "Import complete",
+    "importReport": "Download the error report",
     "importResultOne": "Imported 1 book ({{skipped}} skipped).",
     "importResult": "Imported {{imported}} books ({{skipped}} skipped).",
     "dangerZone": "Danger zone",
@@ -302,6 +326,9 @@
     "currentlyReading": "Currently reading",
     "totalRead": "Books read",
     "totalBooks": "Books on your shelf",
+    "pagesPerDay": "Pages a day (pace)",
+    "etaTitle": "When you'll finish them",
+    "etaDays": "About {{count}} days",
     "byMonthTitle": "Books finished per month",
     "byMonthEmpty": "You haven't finished a book with a finish date yet.",
     "backToStats": "Back to Stats",
@@ -331,7 +358,8 @@
     "loadMore": "Load more",
     "private": "Private shelf",
     "privateHint": "Follow this user to see their shelf and reviews.",
-    "booksEmpty": "They don't have any books on their shelf yet."
+    "booksEmpty": "They don't have any books on their shelf yet.",
+    "loadMoreBooks": "Load more books"
   },
   "validation": {
     "required": "This field is required",
@@ -349,6 +377,25 @@
     "unexpected": "Something went wrong. Please try again.",
     "sessionExpired": "Your session expired. Please sign in again.",
     "notFound": "We couldn't find what you're looking for."
+  },
+  "dashboard": {
+    "goalProgress": "{{read}} of {{target}} books this year",
+    "streak": "{{count}}-day streak",
+    "streakHint": "Consecutive days logging reading",
+    "pagesPerDay": "{{count}} pages a day",
+    "etaDays": "You'll finish in about {{count}} days",
+    "presets": "Saved filters",
+    "presetSave": "Save these filters",
+    "presetName": "Filter name",
+    "presetApply": "Apply",
+    "presetDelete": "Delete",
+    "presetSaved": "Filter saved",
+    "presetDeleted": "Filter deleted"
+  },
+  "offline": {
+    "queued": "Saved offline. It will sync when you're back online.",
+    "synced": "Offline changes synced",
+    "pending": "{{count}} changes waiting to sync"
   },
   "common": {
     "loading": "Loading…",

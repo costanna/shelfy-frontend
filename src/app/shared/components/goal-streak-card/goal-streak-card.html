@@ -1,0 +1,17 @@
+@if (goal() || (streak() && streak()!.currentStreak > 0)) {
+  <a class="goal-streak card" routerLink="/stats">
+    @if (goal()?.targetBooks) {
+      <div class="goal">
+        <span class="label">{{ 'dashboard.goalProgress' | translate: { read: goal()!.booksRead, target: goal()!.targetBooks } }}</span>
+        <div class="bar" role="progressbar" [attr.aria-valuenow]="goalPercent()">
+          <div class="fill" [style.width.%]="goalPercent()"></div>
+        </div>
+      </div>
+    }
+    @if (streak() && streak()!.currentStreak > 0) {
+      <span class="streak" [title]="'dashboard.streakHint' | translate">
+        🔥 {{ 'dashboard.streak' | translate: { count: streak()!.currentStreak } }}
+      </span>
+    }
+  </a>
+}

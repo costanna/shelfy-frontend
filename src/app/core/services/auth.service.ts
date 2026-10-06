@@ -69,13 +69,24 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem(TOKEN_KEY);
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (!token) {
+      return null;
+    }
+    if (isTokenExpired(token)) {
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
+      this.currentUser.set(null);
+      return null;
+    }
+    return token;
   }
 
   savePreferences(preferences: {
     themePreference?: ThemePreference;
     languagePreference?: Language;
     remindersEnabled?: boolean;
+    reminderHour?: number;
   }): Observable<User> {
     return this.http
       .patch<User>(`${this.baseUrl}/users/me/preferences`, preferences)
@@ -121,12 +132,30 @@ export class AuthService {
 
 function readStoredUser(): User | null {
   const raw = localStorage.getItem(USER_KEY);
-  if (!raw || !localStorage.getItem(TOKEN_KEY)) {
+  const token = localStorage.getItem(TOKEN_KEY);
+  if (!raw || !token || isTokenExpired(token)) {
     return null;
   }
   try {
     return JSON.parse(raw) as User;
   } catch {
     return null;
+  }
+}
+
+function isTokenExpired(token: string): boolean {
+  const parts = token.split('.');
+  if (parts.length !== 3) {
+    return true;
+  }
+  try {
+    const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
+    if (typeof payload.exp !== 'number') {
+      return false;
+    }
+    // Marge de 30s per desincronització de rellotges.
+    return payload.exp * 1000 <= Date.now() + 30000;
+  } catch {
+    return true;
   }
 }

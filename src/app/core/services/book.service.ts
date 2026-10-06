@@ -7,8 +7,10 @@ import {
   Book,
   BookFilters,
   BookImportResult,
+  BookKey,
   BookRequest,
   BookStatusCounts,
+  RecommendationResponse,
   UpdateProgressRequest,
   UpdateReadingDatesRequest,
 } from '../models/book.model';
@@ -29,6 +31,28 @@ export class BookService {
 
   statusCounts(): Observable<BookStatusCounts> {
     return this.http.get<BookStatusCounts>(`${this.baseUrl}/counts`);
+  }
+
+  keys(): Observable<BookKey[]> {
+    return this.http.get<BookKey[]>(`${this.baseUrl}/keys`);
+  }
+
+  trash(page = 0, size = 12): Observable<Page<Book>> {
+    return this.http.get<Page<Book>>(`${this.baseUrl}/trash`, {
+      params: { page, size },
+    });
+  }
+
+  restore(id: number): Observable<Book> {
+    return this.http.post<Book>(`${this.baseUrl}/${id}/restore`, {});
+  }
+
+  purge(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}/permanent`);
+  }
+
+  recommendations(): Observable<RecommendationResponse> {
+    return this.http.get<RecommendationResponse>(`${this.baseUrl}/recommendations`);
   }
 
   create(request: BookRequest): Observable<Book> {

@@ -3,7 +3,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { catchError, forkJoin, of, switchMap } from 'rxjs';
 
 import { BookSearchResult } from '../../../core/models/book-lookup.model';
-import { Book, BookStatus } from '../../../core/models/book.model';
+import { Book, BookStatus, RecommendationItem } from '../../../core/models/book.model';
 import { BookLookupService } from '../../../core/services/book-lookup.service';
 import { BookService } from '../../../core/services/book.service';
 import { RecommendationsVisibilityService } from '../../../core/services/recommendations-visibility.service';
@@ -31,6 +31,7 @@ export class Recommendations {
 
   protected readonly basedOnAuthor = signal<string | null>(null);
   protected readonly results = signal<BookSearchResult[]>([]);
+  protected readonly social = signal<RecommendationItem[]>([]);
   protected readonly loading = signal(true);
   protected readonly addingKey = signal<string | null>(null);
 
@@ -82,9 +83,69 @@ export class Recommendations {
       });
   }
 
+  protected addSocial(item: RecommendationItem): void {
+    if (this.addingKey() !== null) {
+      return;
+    }
+    const key = `social-${item.title}-${item.author ?? ''}`;
+    this.addingKey.set(key);
+
+    this.bookService
+      .create({
+        title: item.title,
+        author: item.author,
+        coverUrl: item.coverUrl,
+        isbn: null,
+        synopsis: null,
+        pageCount: null,
+        currentPage: null,
+        series: null,
+        seriesPosition: null,
+        format: null,
+        status: 'WANT_TO_READ',
+        startedAt: null,
+        finishedAt: null,
+        categoryIds: [],
+      })
+      .subscribe({
+        next: () => {
+          this.addingKey.set(null);
+          this.social.update((list) => list.filter((entry) => entry !== item));
+          this.toast.success('recommendations.added');
+          this.added.emit();
+        },
+        error: () => this.addingKey.set(null),
+      });
+  }
+
+  protected socialKey(item: RecommendationItem): string {
+    return `social-${item.title}-${item.author ?? ''}`;
+  }
+
   private load(): void {
     this.loading.set(true);
 
+    this.bookService
+      .recommendations()
+      .pipe(catchError(() => of(null)))
+      .subscribe((response) => {
+        const items = response?.items ?? [];
+        this.social.set(items.slice(0, MAX_RECOMMENDATIONS));
+        if (response?.basedOnAuthor) {
+          this.basedOnAuthor.set(response.basedOnAuthor);
+        }
+        // Amb cercle social amb lectores ja n'hi ha prou; si no, cau al
+        // catàleg obert per autor (flux antic).
+        if (items.length > 0) {
+          this.results.set([]);
+          this.loading.set(false);
+          return;
+        }
+        this.loadFromOpenLibrary();
+      });
+  }
+
+  private loadFromOpenLibrary(): void {
     forkJoin({
       readBooks: this.bookService.list({ status: READ_STATUS, size: LIBRARY_SCAN_SIZE }).pipe(
         catchError(() => of(null)),

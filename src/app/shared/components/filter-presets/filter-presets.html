@@ -1,0 +1,40 @@
+<div class="presets">
+  <span class="presets-label">{{ 'dashboard.presets' | translate }}</span>
+  @for (preset of presets(); track preset.name) {
+    <span class="preset-chip">
+      <button type="button" class="preset-apply" (click)="apply.emit(preset.value)">
+        {{ preset.name }}
+      </button>
+      <button
+        type="button"
+        class="preset-delete"
+        [attr.aria-label]="'dashboard.presetDelete' | translate"
+        [title]="'dashboard.presetDelete' | translate"
+        (click)="remove(preset.name)"
+      >
+        ✕
+      </button>
+    </span>
+  }
+  @if (naming()) {
+    <span class="preset-naming">
+      <label class="visually-hidden" for="preset-name">{{ 'dashboard.presetName' | translate }}</label>
+      <input
+        id="preset-name"
+        class="input"
+        type="text"
+        maxlength="40"
+        [placeholder]="'dashboard.presetName' | translate"
+        [(ngModel)]="nameInput"
+      />
+      <button type="button" class="btn btn-secondary btn-sm" (click)="save()">
+        {{ 'dashboard.presetSave' | translate }}
+      </button>
+      <button type="button" class="btn btn-ghost btn-sm" (click)="cancelNaming()">✕</button>
+    </span>
+  } @else {
+    <button type="button" class="btn btn-ghost btn-sm" (click)="startNaming()">
+      + {{ 'dashboard.presetSave' | translate }}
+    </button>
+  }
+</div>

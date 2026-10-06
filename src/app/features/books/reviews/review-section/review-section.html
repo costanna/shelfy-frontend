@@ -36,6 +36,21 @@
           }
 
           <div class="review-actions">
+            <button
+              type="button"
+              class="btn btn-ghost"
+              [attr.aria-pressed]="review.likedByMe"
+              [disabled]="likingId() === review.id"
+              (click)="toggleLike(review)"
+            >
+              {{ (review.likedByMe ? 'reviews.unlike' : 'reviews.like') | translate }}
+              @if (review.likesCount > 0) {
+                <span class="like-count">({{ review.likesCount }})</span>
+              }
+            </button>
+            <button type="button" class="btn btn-ghost" (click)="toggleComments(review)">
+              {{ 'reviews.comments' | translate }}
+            </button>
             <button type="button" class="btn btn-ghost" (click)="startEdit(review)">
               {{ 'books.edit' | translate }}
             </button>
@@ -43,6 +58,50 @@
               {{ 'common.delete' | translate }}
             </button>
           </div>
+
+          @if (isCommentsOpen(review)) {
+            <div class="comments">
+              <ul class="comment-list">
+                @for (comment of commentsFor(review); track comment.id) {
+                  <li class="comment">
+                    <p class="comment-author">{{ comment.authorName }}</p>
+                    <p class="comment-text">{{ comment.text }}</p>
+                    <button
+                      type="button"
+                      class="btn btn-ghost btn-sm"
+                      (click)="removeComment(review, comment)"
+                    >
+                      {{ 'common.delete' | translate }}
+                    </button>
+                  </li>
+                } @empty {
+                  <li class="comment-empty">{{ 'reviews.commentsEmpty' | translate }}</li>
+                }
+              </ul>
+              <div class="comment-form">
+                <label class="visually-hidden" [for]="'comment-' + review.id">
+                  {{ 'reviews.commentPlaceholder' | translate }}
+                </label>
+                <textarea
+                  class="input"
+                  rows="2"
+                  maxlength="500"
+                  [id]="'comment-' + review.id"
+                  [placeholder]="'reviews.commentPlaceholder' | translate"
+                  [value]="draftFor(review)"
+                  (input)="onDraftInput(review, $event)"
+                ></textarea>
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm"
+                  [disabled]="!draftFor(review).trim() || sendingCommentId() === review.id"
+                  (click)="sendComment(review)"
+                >
+                  {{ 'reviews.commentSend' | translate }}
+                </button>
+              </div>
+            </div>
+          }
         </li>
       }
     </ul>

@@ -29,7 +29,7 @@
       <li class="person card card-padded">
         <a class="person-link" [routerLink]="['/people', user.id]">
           @if (avatarSrc(user); as src) {
-            <img class="avatar" [src]="src" [alt]="user.name" />
+            <img class="avatar" [src]="src" [alt]="user.name" loading="lazy" decoding="async" />
           } @else {
             <span class="avatar avatar-fallback" aria-hidden="true">{{ initials(user.name) }}</span>
           }

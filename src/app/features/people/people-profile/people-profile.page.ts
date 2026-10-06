@@ -3,13 +3,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   inject,
   input,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { catchError, map, of, switchMap } from 'rxjs';
 
 import { UserProfile } from '../../../core/models/social.model';
 import { FollowService } from '../../../core/services/follow.service';
@@ -37,9 +38,55 @@ export class PeopleProfilePage {
   protected readonly profile = signal<UserProfile | null>(null);
   protected readonly loading = signal(true);
   protected readonly toggling = signal(false);
+  protected readonly loadingMoreBooks = signal(false);
+  protected readonly booksExtraPage = signal(5);
+  protected readonly booksLast = signal(false);
 
   constructor() {
-    effect(() => this.load(Number(this.id())));
+    toObservable(this.id)
+      .pipe(
+        switchMap((id) => {
+          this.loading.set(true);
+          return this.followService.profile(Number(id)).pipe(
+            map((profile) => ({ ok: true as const, profile })),
+            catchError(() => of({ ok: false as const, profile: null })),
+          );
+        }),
+        takeUntilDestroyed(),
+      )
+      .subscribe((result) => {
+        if (!result.ok || !result.profile) {
+          this.loading.set(false);
+          this.toggling.set(false);
+          void this.router.navigate(['/people']);
+          return;
+        }
+        this.profile.set(result.profile);
+        this.booksExtraPage.set(5);
+        this.booksLast.set(result.profile.books.length < 100);
+        this.loading.set(false);
+        this.toggling.set(false);
+      });
+  }
+
+  protected loadMoreBooks(): void {
+    const current = this.profile();
+    if (!current || this.loadingMoreBooks() || this.booksLast()) {
+      return;
+    }
+    this.loadingMoreBooks.set(true);
+    const page = this.booksExtraPage();
+    this.followService.profileBooks(current.id, page, 20).subscribe({
+      next: (result) => {
+        this.profile.update((prev) =>
+          prev ? { ...prev, books: [...prev.books, ...result.content] } : prev,
+        );
+        this.booksExtraPage.set(page + 1);
+        this.booksLast.set(result.last || result.content.length === 0);
+        this.loadingMoreBooks.set(false);
+      },
+      error: () => this.loadingMoreBooks.set(false),
+    });
   }
 
   protected readonly initials = initials;
@@ -63,18 +110,20 @@ export class PeopleProfilePage {
     request.subscribe({
       next: () => {
         this.toast.success(current.followedByMe ? 'people.unfollowed' : 'people.followed');
-        this.load(current.id);
+        this.reload(current.id);
       },
       error: () => this.toggling.set(false),
     });
   }
 
-  private load(id: number): void {
+  private reload(id: number): void {
     this.loading.set(true);
 
     this.followService.profile(id).subscribe({
       next: (profile) => {
         this.profile.set(profile);
+        this.booksExtraPage.set(5);
+        this.booksLast.set(profile.books.length < 100);
         this.loading.set(false);
         this.toggling.set(false);
       },

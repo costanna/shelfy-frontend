@@ -1,7 +1,7 @@
 <div class="page-header">
   <div>
     <h1>{{ 'books.title' | translate }}</h1>
-    @if (!loading() && result().totalElements > 0) {
+    @if (!loading() && !showingTrash() && result().totalElements > 0) {
       <p class="count">
         {{
           (result().totalElements === 1 ? 'books.countOne' : 'books.count') | translate: countLabel()
@@ -10,8 +10,51 @@
     }
   </div>
 
-  <a class="btn btn-primary" routerLink="/books/new">{{ 'books.add' | translate }}</a>
+  <div class="header-actions">
+    <button type="button" class="btn btn-ghost" (click)="toggleTrash()">
+      {{ (showingTrash() ? 'books.backToBooks' : 'books.trash') | translate }}
+    </button>
+    @if (!showingTrash()) {
+      <a class="btn btn-primary" routerLink="/books/new">{{ 'books.add' | translate }}</a>
+    }
+  </div>
 </div>
+
+@if (showingTrash()) {
+  @if (trashLoading()) {
+    <app-spinner />
+  } @else if (trashResult().content.length === 0) {
+    <app-empty-state [message]="'books.trashEmpty' | translate" />
+  } @else {
+    <ul class="book-grid" [class.is-shelf]="viewMode() === 'shelf'">
+      @for (book of trashResult().content; track book.id) {
+        <li class="trash-item">
+          <app-book-card [book]="book" [compact]="viewMode() === 'shelf'" />
+          <div class="trash-actions">
+            <button type="button" class="btn btn-secondary" (click)="restoreBook(book.id)">
+              {{ 'books.restore' | translate }}
+            </button>
+            <button type="button" class="btn btn-ghost" (click)="purgeBook(book)">
+              {{ 'books.purge' | translate }}
+            </button>
+          </div>
+        </li>
+      }
+    </ul>
+
+    <app-pagination
+      [page]="trashResult().page"
+      [totalPages]="trashResult().totalPages"
+      (pageChange)="onTrashPageChange($event)"
+    />
+  }
+} @else {
+
+<app-goal-streak-card />
+
+@if (pendingCount() > 0) {
+  <p class="offline-pending">📶 {{ 'offline.pending' | translate: { count: pendingCount() } }}</p>
+}
 
 <app-book-filters
   [value]="query()"
@@ -67,4 +110,5 @@
     [totalPages]="result().totalPages"
     (pageChange)="onPageChange($event)"
   />
+  }
 }

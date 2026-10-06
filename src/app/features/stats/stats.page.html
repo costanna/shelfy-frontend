@@ -26,7 +26,27 @@
       <span class="stat-value">{{ data.totalBooks }}</span>
       <span class="stat-label">{{ 'stats.totalBooks' | translate }}</span>
     </div>
+    @if (pagesPerDay(); as pace) {
+      <div class="card card-padded stat-tile">
+        <span class="stat-value">{{ pace }}</span>
+        <span class="stat-label">{{ 'stats.pagesPerDay' | translate }}</span>
+      </div>
+    }
   </div>
+
+  @if (etas().length > 0) {
+    <h2 class="section-title">{{ 'stats.etaTitle' | translate }}</h2>
+    <ul class="eta-list">
+      @for (eta of etas(); track eta.id) {
+        <li>
+          <a class="eta-row" [routerLink]="['/books', eta.id]">
+            <span class="eta-title">{{ eta.title }}</span>
+            <span class="eta-days">{{ 'stats.etaDays' | translate: { count: eta.days } }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  }
 
   <h2 class="section-title">{{ 'stats.byMonthTitle' | translate }}</h2>
 

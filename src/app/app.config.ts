@@ -20,6 +20,8 @@ import { BackendKeepAliveService } from './core/services/backend-keep-alive.serv
 import { ChunkErrorHandler, RELOAD_GUARD_KEY } from './core/services/chunk-error-handler';
 import { InstallPromptService } from './core/services/install-prompt.service';
 import { LanguageService } from './core/services/language.service';
+import { OfflineQueueService } from './core/services/offline-queue.service';
+import { PushService } from './core/services/push.service';
 import { ThemeService } from './core/services/theme.service';
 import { UpdateService } from './core/services/update.service';
 
@@ -53,6 +55,10 @@ export const appConfig: ApplicationConfig = {
       inject(UpdateService);
       inject(InstallPromptService);
       inject(BackendKeepAliveService);
+      inject(PushService).startListening();
+      const offlineQueue = inject(OfflineQueueService);
+      void offlineQueue.flush();
+      window.addEventListener('online', () => void offlineQueue.flush());
     }),
 
     provideServiceWorker('ngsw-worker.js', {

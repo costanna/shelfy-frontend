@@ -63,6 +63,9 @@
   },
   "recommendations": {
     "title": "Porque has leído a {{author}}",
+    "socialTitle": "Lo que lee la gente a la que sigues",
+    "readersOne": "Lo ha leído 1 persona a la que sigues",
+    "readers": "Lo han leído {{count}} personas a las que sigues",
     "add": "Añadir a mi estantería",
     "added": "Libro añadido a \"Quiero leer\"",
     "dismiss": "Ocultar recomendaciones"
@@ -113,7 +116,15 @@
     "currentPage": "Página actual",
     "updateProgress": "Actualizar progreso",
     "progressLabel": "Página {{current}} de {{total}} ({{percent}}%)",
-    "progressSaved": "Progreso guardado"
+    "progressSaved": "Progreso guardado",
+    "trash": "Papelera",
+    "trashEmpty": "La papelera está vacía.",
+    "backToBooks": "Volver a los libros",
+    "restore": "Restaurar",
+    "restored": "Libro restaurado",
+    "purge": "Eliminar definitivamente",
+    "purged": "Libro eliminado definitivamente",
+    "purgeConfirm": "¿Seguro que quieres eliminar definitivamente «{{title}}»? No se puede deshacer."
   },
   "bookForm": {
     "searchBooks": "¿Buscas un libro?",
@@ -139,6 +150,7 @@
     "lookupIsbn": "Buscar",
     "lookingUp": "Buscando…",
     "scanIsbn": "Escanear",
+    "quickAdd": "Guardar cada libro automáticamente y seguir escaneando",
     "lookupSuccess": "Datos del libro completados",
     "possibleDuplicate": "Datos completados. Por cierto, parece que ya tienes un libro parecido en tu biblioteca.",
     "lookupNotFound": "No hemos encontrado ese ISBN",
@@ -162,9 +174,11 @@
   },
   "scanner": {
     "title": "Escanear ISBN",
-    "hint": "Apunta la cámara al código de barras de la contraportada.",
+    "hint": "Apunta la cámara al código de barras de la contraportada. Puedes escanear varios seguidos.",
     "denied": "No se puede acceder a la cámara. Comprueba los permisos o introduce el ISBN a mano.",
-    "unsupported": "Este navegador no permite usar la cámara. Introduce el ISBN a mano."
+    "unsupported": "Este navegador no permite usar la cámara. Introduce el ISBN a mano.",
+    "scannedCount": "{{count}} escaneados",
+    "done": "Hecho"
   },
   "status": {
     "WANT_TO_READ": "Pendiente",
@@ -209,6 +223,12 @@
     "updated": "Reseña actualizada",
     "deleted": "Reseña eliminada",
     "deleteConfirm": "¿Eliminar esta reseña?",
+    "like": "Me gusta",
+    "unlike": "Ya no me gusta",
+    "comments": "Comentarios",
+    "commentsEmpty": "Aún no hay comentarios. Escribe el primero.",
+    "commentPlaceholder": "Escribe un comentario…",
+    "commentSend": "Comentar",
     "starsOf": "{{rating}} de 5 estrellas"
   },
   "notes": {
@@ -252,6 +272,9 @@
     "notifications": "Notificaciones",
     "remindersEnabled": "Avisarme por email si dejo un libro empezado mucho tiempo sin avanzar",
     "remindersHint": "Solo si llevas más de 30 días sin terminar un libro que estás leyendo.",
+    "reminderHour": "Hora del aviso",
+    "pushEnabled": "Avísame con notificaciones push (nuevos seguidores)",
+    "pushHint": "Hay que aceptar el permiso del navegador. De momento solo para nuevos seguidores.",
     "recommendations": "Recomendaciones",
     "recommendationsEnabled": "Mostrar recomendaciones en la lista de libros",
     "recommendationsHint": "Sugerencias basadas en los libros que ya has leído.",
@@ -260,6 +283,7 @@
     "exportLibrary": "Exportar a CSV",
     "importLibrary": "Importar desde CSV",
     "importSuccess": "Importación completada",
+    "importReport": "Descargar el informe de errores",
     "importResultOne": "Se ha importado 1 libro ({{skipped}} omitidos).",
     "importResult": "Se han importado {{imported}} libros ({{skipped}} omitidos).",
     "dangerZone": "Zona de peligro",
@@ -302,6 +326,9 @@
     "currentlyReading": "Leyendo ahora",
     "totalRead": "Libros leídos",
     "totalBooks": "Libros en tu estantería",
+    "pagesPerDay": "Páginas al día (ritmo)",
+    "etaTitle": "Cuándo los terminarás",
+    "etaDays": "Unos {{count}} días",
     "byMonthTitle": "Libros terminados por mes",
     "byMonthEmpty": "Todavía no has terminado ningún libro con fecha de fin.",
     "backToStats": "Volver a Estadísticas",
@@ -331,7 +358,8 @@
     "loadMore": "Cargar más",
     "private": "Estantería privada",
     "privateHint": "Sigue a este usuario para ver su estantería y sus reseñas.",
-    "booksEmpty": "Todavía no tiene libros en su estantería."
+    "booksEmpty": "Todavía no tiene libros en su estantería.",
+    "loadMoreBooks": "Cargar más libros"
   },
   "validation": {
     "required": "Este campo es obligatorio",
@@ -349,6 +377,25 @@
     "unexpected": "Algo ha salido mal. Inténtalo de nuevo.",
     "sessionExpired": "Tu sesión ha caducado. Vuelve a entrar.",
     "notFound": "No encontramos lo que buscas."
+  },
+  "dashboard": {
+    "goalProgress": "{{read}} de {{target}} libros este año",
+    "streak": "Racha de {{count}} días",
+    "streakHint": "Días consecutivos marcando lectura",
+    "pagesPerDay": "{{count}} páginas al día",
+    "etaDays": "Lo terminarás en unos {{count}} días",
+    "presets": "Filtros guardados",
+    "presetSave": "Guardar estos filtros",
+    "presetName": "Nombre del filtro",
+    "presetApply": "Aplicar",
+    "presetDelete": "Borrar",
+    "presetSaved": "Filtro guardado",
+    "presetDeleted": "Filtro borrado"
+  },
+  "offline": {
+    "queued": "Guardado sin conexión. Se sincronizará cuando vuelvas a tener red.",
+    "synced": "Cambios sin conexión sincronizados",
+    "pending": "{{count}} cambios pendientes de sincronizar"
   },
   "common": {
     "loading": "Cargando…",

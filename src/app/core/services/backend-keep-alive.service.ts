@@ -20,10 +20,19 @@ export class BackendKeepAliveService {
       return;
     }
     this.ping();
-    setInterval(() => this.ping(), PING_INTERVAL_MS);
+    setInterval(() => {
+      // Sense pestanya visible no cal gastar bateria ni dades.
+      if (document.hidden) {
+        return;
+      }
+      this.ping();
+    }, PING_INTERVAL_MS);
   }
 
   private ping(): void {
+    if (typeof navigator !== 'undefined' && 'onLine' in navigator && !navigator.onLine) {
+      return;
+    }
     fetch(HEALTH_URL).catch(() => {});
   }
 }

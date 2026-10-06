@@ -28,10 +28,12 @@ export class IsbnScanner implements AfterViewInit, OnDestroy {
   readonly closed = output<void>();
 
   protected readonly error = signal<ScannerError | null>(null);
+  protected readonly scanCount = signal(0);
+  protected readonly lastCode = signal<string | null>(null);
 
   private reader: BrowserMultiFormatReader | null = null;
   private controls: IScannerControls | null = null;
-  private hasScanned = false;
+  private lastScanAt = 0;
   private destroyed = false;
 
   async ngAfterViewInit(): Promise<void> {
@@ -66,11 +68,19 @@ export class IsbnScanner implements AfterViewInit, OnDestroy {
         },
         this.video().nativeElement,
         (result) => {
-          if (result && !this.hasScanned) {
-            this.hasScanned = true;
-            this.controls?.stop();
-            this.scanned.emit(result.getText());
+          if (!result || this.destroyed) {
+            return;
           }
+          // Mode lot: sense aturar la càmera, amb refredament per no emetre
+          // el mateix codi diverses vegades mentre l'enfoques.
+          const now = Date.now();
+          if (now - this.lastScanAt < 1500) {
+            return;
+          }
+          this.lastScanAt = now;
+          this.lastCode.set(result.getText());
+          this.scanCount.update((count) => count + 1);
+          this.scanned.emit(result.getText());
         },
       );
 

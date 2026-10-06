@@ -1,45 +1,101 @@
-@if (!hidden() && !loading() && results().length > 0) {
-  <section class="recommendations">
-    <div class="section-header">
-      <h2 class="section-title">
-        {{ 'recommendations.title' | translate: { author: basedOnAuthor() } }}
-      </h2>
-      <button
-        type="button"
-        class="btn btn-ghost btn-icon"
-        [attr.aria-label]="'recommendations.dismiss' | translate"
-        [title]="'recommendations.dismiss' | translate"
-        (click)="dismiss()"
-      >
-        ✕
-      </button>
-    </div>
+@if (!hidden() && !loading() && (social().length > 0 || results().length > 0)) {
+  @if (social().length > 0) {
+    <section class="recommendations">
+      <div class="section-header">
+        <h2 class="section-title">
+          {{ 'recommendations.socialTitle' | translate }}
+        </h2>
+        <button
+          type="button"
+          class="btn btn-ghost btn-icon"
+          [attr.aria-label]="'recommendations.dismiss' | translate"
+          [title]="'recommendations.dismiss' | translate"
+          (click)="dismiss()"
+        >
+          ✕
+        </button>
+      </div>
 
-    <ul class="recommendation-list">
-      @for (result of results(); track result.key) {
-        <li class="recommendation card">
-          @if (result.coverUrl) {
-            <img class="recommendation-cover" [src]="result.coverUrl" [alt]="result.title" />
-          } @else {
-            <div class="recommendation-cover recommendation-cover-fallback" aria-hidden="true">📖</div>
-          }
-
-          <div class="recommendation-body">
-            <p class="recommendation-title">{{ result.title }}</p>
-            @if (result.author) {
-              <p class="recommendation-author">{{ result.author }}</p>
+      <ul class="recommendation-list">
+        @for (item of social(); track socialKey(item)) {
+          <li class="recommendation card">
+            @if (item.coverUrl) {
+              <img class="recommendation-cover" [src]="item.coverUrl" [alt]="item.title" />
+            } @else {
+              <div class="recommendation-cover recommendation-cover-fallback" aria-hidden="true">📖</div>
             }
-            <button
-              type="button"
-              class="btn btn-secondary btn-sm"
-              [disabled]="addingKey() === result.key"
-              (click)="add(result)"
-            >
-              {{ (addingKey() === result.key ? 'common.loading' : 'recommendations.add') | translate }}
-            </button>
-          </div>
-        </li>
-      }
-    </ul>
-  </section>
+
+            <div class="recommendation-body">
+              <p class="recommendation-title">{{ item.title }}</p>
+              @if (item.author) {
+                <p class="recommendation-author">{{ item.author }}</p>
+              }
+              <p class="recommendation-readers">
+                {{
+                  (item.readerCount === 1 ? 'recommendations.readersOne' : 'recommendations.readers')
+                    | translate: { count: item.readerCount }
+                }}
+              </p>
+              <button
+                type="button"
+                class="btn btn-secondary btn-sm"
+                [disabled]="addingKey() === socialKey(item)"
+                (click)="addSocial(item)"
+              >
+                {{ (addingKey() === socialKey(item) ? 'common.loading' : 'recommendations.add') | translate }}
+              </button>
+            </div>
+          </li>
+        }
+      </ul>
+    </section>
+  }
+
+  @if (results().length > 0) {
+    <section class="recommendations">
+      <div class="section-header">
+        <h2 class="section-title">
+          {{ 'recommendations.title' | translate: { author: basedOnAuthor() } }}
+        </h2>
+        @if (social().length === 0) {
+          <button
+            type="button"
+            class="btn btn-ghost btn-icon"
+            [attr.aria-label]="'recommendations.dismiss' | translate"
+            [title]="'recommendations.dismiss' | translate"
+            (click)="dismiss()"
+          >
+            ✕
+          </button>
+        }
+      </div>
+
+      <ul class="recommendation-list">
+        @for (result of results(); track result.key) {
+          <li class="recommendation card">
+            @if (result.coverUrl) {
+              <img class="recommendation-cover" [src]="result.coverUrl" [alt]="result.title" />
+            } @else {
+              <div class="recommendation-cover recommendation-cover-fallback" aria-hidden="true">📖</div>
+            }
+
+            <div class="recommendation-body">
+              <p class="recommendation-title">{{ result.title }}</p>
+              @if (result.author) {
+                <p class="recommendation-author">{{ result.author }}</p>
+              }
+              <button
+                type="button"
+                class="btn btn-secondary btn-sm"
+                [disabled]="addingKey() === result.key"
+                (click)="add(result)"
+              >
+                {{ (addingKey() === result.key ? 'common.loading' : 'recommendations.add') | translate }}
+              </button>
+            </div>
+          </li>
+        }
+      </ul>
+    </section>
+  }
 }

@@ -1,15 +1,17 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { catchError, map, of } from 'rxjs';
+import { catchError, map, of, switchMap } from 'rxjs';
 
 import { BOOK_FORMATS, BOOK_STATUSES, BookRequest } from '../../../core/models/book.model';
 import { BookLookupResult } from '../../../core/models/book-lookup.model';
 import { BookLookupService } from '../../../core/services/book-lookup.service';
 import { BookService } from '../../../core/services/book.service';
 import { CategoryService } from '../../../core/services/category.service';
+import { OfflineQueueService } from '../../../core/services/offline-queue.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { findLikelyDuplicate } from '../../../core/util/book-duplicate.util';
 import { dateRangeValidator } from '../../../core/util/date-range.validator';
@@ -28,6 +30,7 @@ import { Spinner } from '../../../shared/components/spinner/spinner';
 export class BookFormPage {
   private readonly formBuilder = inject(FormBuilder);
   private readonly bookService = inject(BookService);
+  private readonly offlineQueue = inject(OfflineQueueService);
   private readonly categoryService = inject(CategoryService);
   private readonly bookLookup = inject(BookLookupService);
   private readonly router = inject(Router);
@@ -47,22 +50,18 @@ export class BookFormPage {
   protected readonly lookingUp = signal(false);
 
   protected readonly selectedCategories = signal<ReadonlySet<number>>(new Set());
+  protected readonly quickAdd = signal(false);
 
   protected readonly categories = toSignal(
     this.categoryService.list().pipe(catchError(() => of([]))),
     { initialValue: [] },
   );
 
-  // Para avisar en el buscador si un resultado se parece a un libro que ya
-  // tienes (ver findLikelyDuplicate). size alto porque es una lista plana
-  // para comparar, no paginada — así de simple basta para una biblioteca
-  // personal.
+  // Claus lleugeres (id/title/author) per avisar de duplicats sense
+  // carregar tota la biblioteca paginada.
   private readonly allOwnedBooks = toSignal(
-    this.bookService.list({ size: 1000 }).pipe(
-      map((page) => page.content.map((book) => ({ id: book.id, title: book.title, author: book.author }))),
-      catchError(() => of([])),
-    ),
-    { initialValue: [] },
+    this.bookService.keys().pipe(catchError(() => of([]))),
+    { initialValue: [] as { id: number; title: string; author: string | null }[] },
   );
 
   // Al editar, el propio libro no cuenta como "ya lo tienes" si se vuelve a
@@ -99,12 +98,50 @@ export class BookFormPage {
   protected readonly coverPreviewFailed = signal(false);
 
   constructor() {
-    effect(() => {
-      const id = this.id();
-      if (id !== undefined) {
-        this.loadBook(Number(id));
-      }
-    });
+    // switchMap cancel·la la càrrega anterior si l'usuari navega ràpid
+    // entre llibres (el router reutilitza el component).
+    toObservable(this.id)
+      .pipe(
+        switchMap((id) => {
+          if (id === undefined) {
+            return of(null);
+          }
+          this.loading.set(true);
+          return this.bookService.get(Number(id)).pipe(
+            map((book) => ({ ok: true as const, book })),
+            catchError(() => of({ ok: false as const, book: null })),
+          );
+        }),
+        takeUntilDestroyed(),
+      )
+      .subscribe((result) => {
+        if (result === null) {
+          return;
+        }
+        if (!result.ok || !result.book) {
+          this.loading.set(false);
+          void this.router.navigate(['/books']);
+          return;
+        }
+        const book = result.book;
+        this.form.setValue({
+          title: book.title,
+          author: book.author ?? '',
+          coverUrl: book.coverUrl ?? '',
+          isbn: book.isbn ?? '',
+          synopsis: book.synopsis ?? '',
+          pageCount: book.pageCount,
+          currentPage: book.currentPage,
+          series: book.series ?? '',
+          seriesPosition: book.seriesPosition,
+          format: book.format,
+          status: book.status,
+          startedAt: book.startedAt ?? '',
+          finishedAt: book.finishedAt ?? '',
+        });
+        this.selectedCategories.set(new Set(book.categories.map((category) => category.id)));
+        this.loading.set(false);
+      });
   }
 
   protected toggleCategory(id: number): void {
@@ -132,9 +169,48 @@ export class BookFormPage {
   }
 
   protected onScanned(isbn: string): void {
+    if (this.quickAdd()) {
+      this.quickAddFromIsbn(isbn);
+      return;
+    }
     this.scannerOpen.set(false);
     this.form.controls.isbn.setValue(isbn);
     this.lookupIsbn();
+  }
+
+  /** Lot: busca l'ISBN i desa el llibre directament sense tancar l'escàner. */
+  private quickAddFromIsbn(isbn: string): void {
+    if (this.lookingUp()) {
+      return;
+    }
+    this.lookingUp.set(true);
+    this.bookLookup.lookupByIsbn(isbn).subscribe((result) => {
+      this.lookingUp.set(false);
+      if (!result?.title) {
+        this.toast.error('bookForm.lookupNotFound');
+        return;
+      }
+      this.bookService
+        .create({
+          title: result.title,
+          author: result.author,
+          coverUrl: result.coverUrl,
+          isbn: result.isbn ?? isbn,
+          synopsis: result.synopsis ?? null,
+          pageCount: result.pageCount,
+          currentPage: null,
+          series: null,
+          seriesPosition: null,
+          format: null,
+          status: 'WANT_TO_READ',
+          startedAt: null,
+          finishedAt: null,
+          categoryIds: [],
+        })
+        .subscribe({
+          next: () => this.toast.success('books.created'),
+        });
+    });
   }
 
   protected lookupIsbn(): void {
@@ -199,10 +275,18 @@ export class BookFormPage {
     if (this.form.invalid || this.saving()) {
       return;
     }
-    this.saving.set(true);
 
     const request = this.toRequest();
     const id = this.id();
+
+    if (!id && !navigator.onLine) {
+      this.offlineQueue.enqueue({ op: 'create-book', payload: request });
+      this.toast.success('offline.queued');
+      void this.router.navigate(['/books']);
+      return;
+    }
+
+    this.saving.set(true);
 
     const request$ = id
       ? this.bookService.update(Number(id), request)
@@ -241,35 +325,5 @@ export class BookFormPage {
       finishedAt: value.finishedAt || null,
       categoryIds: [...this.selectedCategories()],
     };
-  }
-
-  private loadBook(id: number): void {
-    this.loading.set(true);
-
-    this.bookService.get(id).subscribe({
-      next: (book) => {
-        this.form.setValue({
-          title: book.title,
-          author: book.author ?? '',
-          coverUrl: book.coverUrl ?? '',
-          isbn: book.isbn ?? '',
-          synopsis: book.synopsis ?? '',
-          pageCount: book.pageCount,
-          currentPage: book.currentPage,
-          series: book.series ?? '',
-          seriesPosition: book.seriesPosition,
-          format: book.format,
-          status: book.status,
-          startedAt: book.startedAt ?? '',
-          finishedAt: book.finishedAt ?? '',
-        });
-        this.selectedCategories.set(new Set(book.categories.map((category) => category.id)));
-        this.loading.set(false);
-      },
-      error: () => {
-        this.loading.set(false);
-        void this.router.navigate(['/books']);
-      },
-    });
   }
 }

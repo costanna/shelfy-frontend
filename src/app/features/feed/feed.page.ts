@@ -20,13 +20,42 @@ import { StarRating } from '../../shared/components/star-rating/star-rating';
 export class FeedPage {
   private readonly feedService = inject(FeedService);
 
+  private static readonly PAGE_SIZE = 20;
+
   protected readonly items = signal<FeedItem[]>([]);
   protected readonly loading = signal(true);
+  protected readonly loadingMore = signal(false);
+  protected readonly reachedEnd = signal(false);
 
   constructor() {
-    this.feedService.list().subscribe({
+    this.loadFirst();
+  }
+
+  protected loadMore(): void {
+    if (this.loadingMore() || this.reachedEnd()) {
+      return;
+    }
+    const current = this.items();
+    const last = current[current.length - 1];
+    if (!last) {
+      return;
+    }
+    this.loadingMore.set(true);
+    this.feedService.list(FeedPage.PAGE_SIZE, last.occurredAt).subscribe({
+      next: (next) => {
+        this.items.update((list) => [...list, ...next]);
+        this.reachedEnd.set(next.length < FeedPage.PAGE_SIZE);
+        this.loadingMore.set(false);
+      },
+      error: () => this.loadingMore.set(false),
+    });
+  }
+
+  private loadFirst(): void {
+    this.feedService.list(FeedPage.PAGE_SIZE).subscribe({
       next: (items) => {
         this.items.set(items);
+        this.reachedEnd.set(items.length < FeedPage.PAGE_SIZE);
         this.loading.set(false);
       },
       error: () => this.loading.set(false),

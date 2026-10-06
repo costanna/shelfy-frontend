@@ -1,0 +1,48 @@
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.presets-label {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.preset-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.preset-apply {
+  background: none;
+  border: none;
+  padding: 0.25rem 0.5rem 0.25rem 0.75rem;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+
+.preset-delete {
+  background: none;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.6;
+}
+
+.preset-naming {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.preset-naming .input {
+  width: 10rem;
+}

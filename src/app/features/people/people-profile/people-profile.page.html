@@ -5,7 +5,7 @@
 
   <header class="profile-header card card-padded">
     @if (avatarSrc(); as src) {
-      <img class="avatar" [src]="src" [alt]="item.name" />
+      <img class="avatar" [src]="src" [alt]="item.name" loading="lazy" decoding="async" />
     } @else {
       <span class="avatar avatar-fallback" aria-hidden="true">{{ initials(item.name) }}</span>
     }
@@ -98,5 +98,15 @@
         </li>
       }
     </ul>
+    @if (!booksLast() && item.books.length >= 100) {
+      <button
+        type="button"
+        class="btn btn-secondary"
+        [disabled]="loadingMoreBooks()"
+        (click)="loadMoreBooks()"
+      >
+        {{ 'people.loadMoreBooks' | translate }}
+      </button>
+    }
   }
 }

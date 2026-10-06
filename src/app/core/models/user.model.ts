@@ -11,6 +11,7 @@ export interface User {
   languagePreference: Language;
   avatarUpdatedAt: string | null;
   remindersEnabled: boolean;
+  reminderHour: number;
 }
 
 export interface AuthResponse {

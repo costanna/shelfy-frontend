@@ -63,6 +63,9 @@
   },
   "recommendations": {
     "title": "Perquè has llegit {{author}}",
+    "socialTitle": "El que llegeix la gent que segueixes",
+    "readersOne": "L'ha llegit 1 persona que segueixes",
+    "readers": "L'han llegit {{count}} persones que segueixes",
     "add": "Afegeix a la meva prestatgeria",
     "added": "Llibre afegit a \"Vull llegir\"",
     "dismiss": "Amaga les recomanacions"
@@ -113,7 +116,15 @@
     "currentPage": "Pàgina actual",
     "updateProgress": "Actualitza el progrés",
     "progressLabel": "Pàgina {{current}} de {{total}} ({{percent}}%)",
-    "progressSaved": "Progrés desat"
+    "progressSaved": "Progrés desat",
+    "trash": "Paperera",
+    "trashEmpty": "La paperera és buida.",
+    "backToBooks": "Torna als llibres",
+    "restore": "Restaura",
+    "restored": "Llibre restaurat",
+    "purge": "Elimina definitivament",
+    "purged": "Llibre eliminat definitivament",
+    "purgeConfirm": "Segur que vols eliminar definitivament «{{title}}»? No es pot desfer."
   },
   "bookForm": {
     "searchBooks": "Busques un llibre?",
@@ -139,6 +150,7 @@
     "lookupIsbn": "Cerca",
     "lookingUp": "Cercant…",
     "scanIsbn": "Escaneja",
+    "quickAdd": "Desa cada llibre automàticament i segueix escanejant",
     "lookupSuccess": "Dades del llibre completades",
     "possibleDuplicate": "Dades completades. Per cert, sembla que ja tens un llibre semblant a la teva biblioteca.",
     "lookupNotFound": "No hem trobat aquest ISBN",
@@ -162,9 +174,11 @@
   },
   "scanner": {
     "title": "Escaneja l'ISBN",
-    "hint": "Apunta la càmera al codi de barres de la contraportada.",
+    "hint": "Apunta la càmera al codi de barres de la contraportada. Pots escanejar-ne diversos seguits.",
     "denied": "No es pot accedir a la càmera. Comprova els permisos o introdueix l'ISBN a mà.",
-    "unsupported": "Aquest navegador no permet fer servir la càmera. Introdueix l'ISBN a mà."
+    "unsupported": "Aquest navegador no permet fer servir la càmera. Introdueix l'ISBN a mà.",
+    "scannedCount": "{{count}} escanejats",
+    "done": "Fet"
   },
   "status": {
     "WANT_TO_READ": "Pendent",
@@ -209,6 +223,12 @@
     "updated": "Ressenya actualitzada",
     "deleted": "Ressenya eliminada",
     "deleteConfirm": "Vols eliminar aquesta ressenya?",
+    "like": "M'agrada",
+    "unlike": "Ja no m'agrada",
+    "comments": "Comentaris",
+    "commentsEmpty": "Encara no hi ha comentaris. Escriu-ne el primer.",
+    "commentPlaceholder": "Escriu un comentari…",
+    "commentSend": "Comenta",
     "starsOf": "{{rating}} de 5 estrelles"
   },
   "notes": {
@@ -252,6 +272,9 @@
     "notifications": "Notificacions",
     "remindersEnabled": "Avisa'm per correu si deixo un llibre començat molt de temps sense avançar",
     "remindersHint": "Només si fa més de 30 dies que no avances en un llibre que estàs llegint.",
+    "reminderHour": "Hora de l'avís",
+    "pushEnabled": "Avisa'm amb notificacions push (nous seguidors)",
+    "pushHint": "Cal acceptar el permís del navegador. De moment només per a nous seguidors.",
     "recommendations": "Recomanacions",
     "recommendationsEnabled": "Mostra recomanacions a la llista de llibres",
     "recommendationsHint": "Suggeriments basats en els llibres que ja has llegit.",
@@ -260,6 +283,7 @@
     "exportLibrary": "Exporta a CSV",
     "importLibrary": "Importa des de CSV",
     "importSuccess": "Importació completada",
+    "importReport": "Descarrega l'informe d'errors",
     "importResultOne": "S'ha importat 1 llibre ({{skipped}} omesos).",
     "importResult": "S'han importat {{imported}} llibres ({{skipped}} omesos).",
     "dangerZone": "Zona de perill",
@@ -302,6 +326,9 @@
     "currentlyReading": "Llegint ara",
     "totalRead": "Llibres llegits",
     "totalBooks": "Llibres a la teva prestatgeria",
+    "pagesPerDay": "Pàgines al dia (ritme)",
+    "etaTitle": "Quan els acabaràs",
+    "etaDays": "Uns {{count}} dies",
     "byMonthTitle": "Llibres acabats per mes",
     "byMonthEmpty": "Encara no has acabat cap llibre amb data de fi.",
     "backToStats": "Torna a Estadístiques",
@@ -331,7 +358,8 @@
     "loadMore": "Carrega'n més",
     "private": "Prestatgeria privada",
     "privateHint": "Segueix aquest usuari per veure la seva prestatgeria i les seves ressenyes.",
-    "booksEmpty": "Encara no té llibres a la seva prestatgeria."
+    "booksEmpty": "Encara no té llibres a la seva prestatgeria.",
+    "loadMoreBooks": "Carrega més llibres"
   },
   "validation": {
     "required": "Aquest camp és obligatori",
@@ -349,6 +377,25 @@
     "unexpected": "Alguna cosa ha anat malament. Torna-ho a provar.",
     "sessionExpired": "La sessió ha caducat. Torna a entrar.",
     "notFound": "No hem trobat el que busques."
+  },
+  "dashboard": {
+    "goalProgress": "{{read}} de {{target}} llibres enguany",
+    "streak": "Ratxa de {{count}} dies",
+    "streakHint": "Dies consecutius marcant lectura",
+    "pagesPerDay": "{{count}} pàgines al dia",
+    "etaDays": "L'acabaràs en uns {{count}} dies",
+    "presets": "Filtres desats",
+    "presetSave": "Desa aquests filtres",
+    "presetName": "Nom del filtre",
+    "presetApply": "Aplica",
+    "presetDelete": "Esborra",
+    "presetSaved": "Filtre desat",
+    "presetDeleted": "Filtre esborrat"
+  },
+  "offline": {
+    "queued": "Desat offline. Se sincronitzarà quan tornis a tenir xarxa.",
+    "synced": "Canvis offline sincronitzats",
+    "pending": "{{count}} canvis pendents de sincronitzar"
   },
   "common": {
     "loading": "S'està carregant…",

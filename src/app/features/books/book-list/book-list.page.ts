@@ -1,17 +1,20 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Subject, catchError, debounceTime, distinctUntilChanged, of, startWith, switchMap, tap } from 'rxjs';
 
 import { BOOK_SORT_OPTIONS, Book, BookSort, BookStatusCounts } from '../../../core/models/book.model';
 import { emptyPage } from '../../../core/models/page.model';
 import { BookService } from '../../../core/services/book.service';
 import { CategoryService } from '../../../core/services/category.service';
+import { OfflineQueueService } from '../../../core/services/offline-queue.service';
 import { RecommendationsVisibilityService } from '../../../core/services/recommendations-visibility.service';
+import { ToastService } from '../../../core/services/toast.service';
 import { tryGetLocalStorage, trySetLocalStorage } from '../../../core/util/local-storage';
 import { BookCard } from '../../../shared/components/book-card/book-card';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
+import { GoalStreakCard } from '../../../shared/components/goal-streak-card/goal-streak-card';
 import { Pagination } from '../../../shared/components/pagination/pagination';
 import { Spinner } from '../../../shared/components/spinner/spinner';
 import { BookFilterValue, BookFilters } from '../book-filters/book-filters';
@@ -29,7 +32,7 @@ interface Query extends BookFilterValue {
 
 @Component({
   selector: 'app-book-list-page',
-  imports: [RouterLink, TranslatePipe, BookFilters, BookCard, EmptyState, Pagination, Spinner, Recommendations],
+  imports: [RouterLink, TranslatePipe, BookFilters, BookCard, EmptyState, Pagination, Spinner, Recommendations, GoalStreakCard],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './book-list.page.html',
   styleUrl: './book-list.page.scss',
@@ -38,6 +41,9 @@ export class BookListPage {
   private readonly bookService = inject(BookService);
   private readonly categoryService = inject(CategoryService);
   private readonly router = inject(Router);
+  private readonly toast = inject(ToastService);
+  private readonly translate = inject(TranslateService);
+  private readonly offlineQueue = inject(OfflineQueueService);
 
   protected readonly recommendationsHidden = inject(RecommendationsVisibilityService).hidden;
 
@@ -47,6 +53,11 @@ export class BookListPage {
   protected readonly query = signal<Query>(readQueryFromUrl(this.router.url));
   protected readonly loading = signal(true);
   protected readonly viewMode = signal<ViewMode>(readStoredViewMode());
+  protected readonly showingTrash = signal(false);
+  protected readonly trashPage = signal(0);
+  protected readonly trashResult = signal(emptyPage<Book>());
+  protected readonly trashLoading = signal(false);
+  protected readonly pendingCount = computed(() => this.offlineQueue.pending().length);
 
   protected readonly categories = toSignal(
     this.categoryService.list().pipe(catchError(() => of([]))),
@@ -100,6 +111,55 @@ export class BookListPage {
   protected onBookAddedElsewhere(): void {
     this.queries.next(this.query());
     this.refreshCounts.next();
+  }
+
+  protected toggleTrash(): void {
+    const next = !this.showingTrash();
+    this.showingTrash.set(next);
+    if (next) {
+      this.loadTrash(0);
+    }
+  }
+
+  protected onTrashPageChange(page: number): void {
+    this.loadTrash(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  protected restoreBook(id: number): void {
+    this.bookService.restore(id).subscribe({
+      next: () => {
+        this.toast.success('books.restored');
+        this.loadTrash(this.trashPage());
+        this.queries.next(this.query());
+        this.refreshCounts.next();
+      },
+    });
+  }
+
+  protected purgeBook(book: Book): void {
+    const message = this.translate.instant('books.purgeConfirm', { title: book.title });
+    if (!confirm(message)) {
+      return;
+    }
+    this.bookService.purge(book.id).subscribe({
+      next: () => {
+        this.toast.success('books.purged');
+        this.loadTrash(this.trashPage());
+      },
+    });
+  }
+
+  private loadTrash(page: number): void {
+    this.trashPage.set(page);
+    this.trashLoading.set(true);
+    this.bookService.trash(page, PAGE_SIZE).subscribe({
+      next: (result) => {
+        this.trashResult.set(result);
+        this.trashLoading.set(false);
+      },
+      error: () => this.trashLoading.set(false),
+    });
   }
 
   protected setViewMode(mode: ViewMode): void {

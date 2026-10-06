@@ -18,6 +18,7 @@ import {
   LanguageService,
   SUPPORTED_LANGUAGES,
 } from '../../core/services/language.service';
+import { PushService } from '../../core/services/push.service';
 import { RecommendationsVisibilityService } from '../../core/services/recommendations-visibility.service';
 import { ThemeService } from '../../core/services/theme.service';
 import { ToastService } from '../../core/services/toast.service';
@@ -44,6 +45,10 @@ export class SettingsPage {
   private readonly toast = inject(ToastService);
   private readonly bookService = inject(BookService);
   private readonly recommendationsVisibility = inject(RecommendationsVisibilityService);
+  private readonly push = inject(PushService);
+
+  protected readonly pushAvailable = signal(false);
+  protected readonly pushEnabled = signal(false);
 
   protected readonly user = this.auth.user;
   protected readonly theme = this.themeService.theme;
@@ -53,6 +58,7 @@ export class SettingsPage {
   protected readonly themeOptions = THEME_OPTIONS;
   protected readonly languageOptions = SUPPORTED_LANGUAGES;
   protected readonly languageLabels = LANGUAGE_LABELS;
+  protected readonly reminderHours = Array.from({ length: 24 }, (_, hour) => hour);
 
   protected readonly aliasForm = this.formBuilder.nonNullable.group({
     alias: [
@@ -90,6 +96,10 @@ export class SettingsPage {
         this.aliasForm.controls.alias.setValue(alias);
       }
     });
+    this.pushAvailable.set(this.push.available);
+    if (this.push.available) {
+      this.push.check().subscribe((enabled) => this.pushEnabled.set(enabled));
+    }
   }
 
   protected onThemeChange(event: Event): void {
@@ -109,6 +119,13 @@ export class SettingsPage {
     this.savePreferences({ remindersEnabled });
   }
 
+  protected onReminderHourChange(event: Event): void {
+    const reminderHour = Number((event.target as HTMLSelectElement).value);
+    if (Number.isInteger(reminderHour) && reminderHour >= 0 && reminderHour <= 23) {
+      this.savePreferences({ reminderHour });
+    }
+  }
+
   protected onRecommendationsToggle(event: Event): void {
     const show = (event.target as HTMLInputElement).checked;
     if (show) {
@@ -116,6 +133,20 @@ export class SettingsPage {
     } else {
       this.recommendationsVisibility.hide();
     }
+  }
+
+  protected onPushToggle(event: Event): void {
+    const enabled = (event.target as HTMLInputElement).checked;
+    const request = enabled ? this.push.subscribe() : this.push.unsubscribe();
+    request.subscribe({
+      next: () => {
+        this.pushEnabled.set(enabled);
+        this.toast.success('settings.saved');
+      },
+      error: () => {
+        (event.target as HTMLInputElement).checked = !enabled;
+      },
+    });
   }
 
   protected saveAlias(): void {
@@ -219,6 +250,20 @@ export class SettingsPage {
     });
   }
 
+  protected downloadImportReport(): void {
+    const result = this.importResult();
+    if (!result) {
+      return;
+    }
+    const lines = [
+      `Shelfy — informe d'importació (${new Date().toISOString()})`,
+      `Importats: ${result.imported} · Omessos: ${result.skipped}`,
+      '',
+      ...result.messages,
+    ];
+    downloadBlob(new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' }), 'shelfy-import.txt');
+  }
+
   protected openDeleteAccount(): void {
     this.deleteAccountForm.reset({ password: '' });
     this.deleteAccountSubmitted.set(false);
@@ -250,6 +295,7 @@ export class SettingsPage {
     themePreference?: ThemePreference;
     languagePreference?: Language;
     remindersEnabled?: boolean;
+    reminderHour?: number;
   }): void {
     this.auth.savePreferences(preferences).subscribe({
       next: () => this.toast.success('settings.saved'),

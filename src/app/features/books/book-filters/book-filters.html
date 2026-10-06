@@ -78,4 +78,6 @@
       </button>
     }
   </div>
+
+  <app-filter-presets [current]="value()" (apply)="valueChange.emit($event)" />
 </div>

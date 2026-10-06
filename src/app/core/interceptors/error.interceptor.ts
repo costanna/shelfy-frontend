@@ -11,7 +11,15 @@ export const errorInterceptor: HttpInterceptorFn = (request, next) => {
 
   return next(request).pipe(
     catchError((error: HttpErrorResponse) => {
-      const handledByForm = request.url.includes('/auth/');
+      const isAuthUrl = request.url.includes('/api/auth/');
+      const isNetworkError = error.status === 0;
+
+      if (isNetworkError) {
+        toast.error('errors.network');
+        return throwError(() => error);
+      }
+
+      const handledByForm = isAuthUrl;
 
       if (error.status === 401 && !handledByForm) {
         auth.logout();

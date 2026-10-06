@@ -80,7 +80,7 @@
             (click)="closeMenu()"
           >
             @if (avatarSrc(); as src) {
-              <img [src]="src" [alt]="user()?.name ?? ''" />
+              <img [src]="src" [alt]="user()?.name ?? ''" decoding="async" fetchpriority="low" />
             } @else {
               <span class="avatar-fallback" aria-hidden="true">{{ avatarInitials() }}</span>
             }

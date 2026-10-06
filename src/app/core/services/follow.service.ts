@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { Page } from '../models/page.model';
-import { UserProfile, UserSummary } from '../models/social.model';
+import { PublicBook, UserProfile, UserSummary } from '../models/social.model';
 
 const SEARCH_PAGE_SIZE = 20;
 
@@ -21,6 +21,12 @@ export class FollowService {
 
   profile(userId: number): Observable<UserProfile> {
     return this.http.get<UserProfile>(`${this.baseUrl}/${userId}/profile`);
+  }
+
+  profileBooks(userId: number, page = 0, size = 20): Observable<Page<PublicBook>> {
+    return this.http.get<Page<PublicBook>>(`${this.baseUrl}/${userId}/profile/books`, {
+      params: { page, size },
+    });
   }
 
   follow(userId: number): Observable<void> {

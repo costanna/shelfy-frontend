@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { Review, ReviewRequest } from '../models/review.model';
+import { Review, ReviewComment, ReviewCommentRequest, ReviewRequest } from '../models/review.model';
 
 @Injectable({ providedIn: 'root' })
 export class ReviewService {
@@ -23,6 +23,26 @@ export class ReviewService {
 
   delete(bookId: number, reviewId: number): Observable<void> {
     return this.http.delete<void>(`${this.urlFor(bookId)}/${reviewId}`);
+  }
+
+  like(reviewId: number): Observable<Review> {
+    return this.http.post<Review>(`${environment.apiUrl}/reviews/${reviewId}/like`, {});
+  }
+
+  unlike(reviewId: number): Observable<Review> {
+    return this.http.delete<Review>(`${environment.apiUrl}/reviews/${reviewId}/like`);
+  }
+
+  comments(reviewId: number): Observable<ReviewComment[]> {
+    return this.http.get<ReviewComment[]>(`${environment.apiUrl}/reviews/${reviewId}/comments`);
+  }
+
+  addComment(reviewId: number, request: ReviewCommentRequest): Observable<ReviewComment> {
+    return this.http.post<ReviewComment>(`${environment.apiUrl}/reviews/${reviewId}/comments`, request);
+  }
+
+  deleteComment(reviewId: number, commentId: number): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/reviews/${reviewId}/comments/${commentId}`);
   }
 
   private urlFor(bookId: number): string {

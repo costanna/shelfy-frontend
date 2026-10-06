@@ -13,7 +13,7 @@
       <div class="avatar-editor">
         <div class="avatar-preview">
           @if (avatarSrc(); as src) {
-            <img [src]="src" [alt]="account.name" />
+            <img [src]="src" [alt]="account.name" decoding="async" />
           } @else {
             <span class="avatar-fallback" aria-hidden="true">{{ avatarInitials() }}</span>
           }
@@ -132,6 +132,23 @@
       <span>{{ 'settings.remindersEnabled' | translate }}</span>
     </label>
     <p class="hint">{{ 'settings.remindersHint' | translate }}</p>
+    <label class="reminder-hour">
+      <span>{{ 'settings.reminderHour' | translate }}</span>
+      <select class="select" [value]="user()?.reminderHour ?? 9" (change)="onReminderHourChange($event)">
+        @for (hour of reminderHours; track hour) {
+          <option [value]="hour" [selected]="hour === (user()?.reminderHour ?? 9)">
+            {{ hour }}:00
+          </option>
+        }
+      </select>
+    </label>
+    @if (pushAvailable()) {
+      <label class="reminders-toggle">
+        <input type="checkbox" [checked]="pushEnabled()" (change)="onPushToggle($event)" />
+        <span>{{ 'settings.pushEnabled' | translate }}</span>
+      </label>
+      <p class="hint">{{ 'settings.pushHint' | translate }}</p>
+    }
   </section>
 
   <section class="card card-padded settings-section">
@@ -178,6 +195,9 @@
               <li>{{ message }}</li>
             }
           </ul>
+          <button type="button" class="btn btn-ghost btn-sm" (click)="downloadImportReport()">
+            {{ 'settings.importReport' | translate }}
+          </button>
         }
       </div>
     }
