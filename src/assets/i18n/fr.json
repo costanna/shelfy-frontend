@@ -427,8 +427,9 @@
     "reload": "Mettre à jour"
   },
   "installApp": {
+    "title": "Emportez Shelfy sur votre téléphone",
+    "instructions": "Scannez le code avec l'appareil photo de votre téléphone pour ouvrir Shelfy et l'ajouter à votre écran d'accueil.",
     "dismiss": "Fermer cet avis",
-    "promptMessage": "Installer Shelfy sur cet appareil ?",
     "promptInstall": "Installer"
   }
 }

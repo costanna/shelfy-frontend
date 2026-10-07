@@ -53,7 +53,7 @@ export class BookFormPage {
   protected readonly quickAdd = signal(false);
 
   protected readonly categories = toSignal(
-    this.categoryService.list().pipe(catchError(() => of([]))),
+    this.categoryService.seedDefaults().pipe(catchError(() => of([]))),
     { initialValue: [] },
   );
 

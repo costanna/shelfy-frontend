@@ -60,7 +60,10 @@ export class BookListPage {
   protected readonly pendingCount = computed(() => this.offlineQueue.pending().length);
 
   protected readonly categories = toSignal(
-    this.categoryService.list().pipe(catchError(() => of([]))),
+    // seedDefaults() retorna la llista igual que list(), però a més crea les
+    // categories de fàbrica que faltin i tradueix les originals a l'idioma
+    // actual: així la migració s'aplica sola sense haver de tancar sessió.
+    this.categoryService.seedDefaults().pipe(catchError(() => of([]))),
     { initialValue: [] },
   );
 

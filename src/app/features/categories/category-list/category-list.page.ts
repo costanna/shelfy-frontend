@@ -117,7 +117,9 @@ export class CategoryListPage {
   private load(): void {
     this.loading.set(true);
 
-    this.categoryService.list().subscribe({
+    // seedDefaults() retorna la llista igual que list(), però a més crea les
+    // categories de fàbrica que faltin i tradueix les originals a l'idioma actual.
+    this.categoryService.seedDefaults().subscribe({
       next: (categories) => {
         this.categories.set(categories);
         this.loading.set(false);

@@ -10,8 +10,28 @@
 } @else if (stats(); as data) {
   <app-reading-goal-card />
 
-  <h2 class="section-title">{{ 'stats.calendarTitle' | translate }}</h2>
-  <app-reading-calendar />
+  <div class="stats-columns">
+    <section class="stats-col">
+      <h2 class="section-title">{{ 'stats.calendarTitle' | translate }}</h2>
+      <app-reading-calendar />
+    </section>
+
+    @if (etas().length > 0) {
+      <section class="stats-col">
+        <h2 class="section-title">{{ 'stats.etaTitle' | translate }}</h2>
+        <ul class="eta-list">
+          @for (eta of etas(); track eta.id) {
+            <li>
+              <a class="eta-row" [routerLink]="['/books', eta.id]">
+                <span class="eta-title">{{ eta.title }}</span>
+                <span class="eta-days">{{ 'stats.etaDays' | translate: { count: eta.days } }}</span>
+              </a>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+  </div>
 
   <div class="stat-tiles">
     <div class="card card-padded stat-tile">
@@ -33,20 +53,6 @@
       </div>
     }
   </div>
-
-  @if (etas().length > 0) {
-    <h2 class="section-title">{{ 'stats.etaTitle' | translate }}</h2>
-    <ul class="eta-list">
-      @for (eta of etas(); track eta.id) {
-        <li>
-          <a class="eta-row" [routerLink]="['/books', eta.id]">
-            <span class="eta-title">{{ eta.title }}</span>
-            <span class="eta-days">{{ 'stats.etaDays' | translate: { count: eta.days } }}</span>
-          </a>
-        </li>
-      }
-    </ul>
-  }
 
   <h2 class="section-title">{{ 'stats.byMonthTitle' | translate }}</h2>
 

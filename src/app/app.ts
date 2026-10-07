@@ -7,7 +7,7 @@ import { LanguageService } from './core/services/language.service';
 import { ThemeService } from './core/services/theme.service';
 import { Footer } from './layout/footer/footer';
 import { Header } from './layout/header/header';
-import { InstallPromptBanner } from './shared/components/install-prompt-banner/install-prompt-banner';
+import { InstallAppCard } from './shared/components/install-app-card/install-app-card';
 import { SlowLoadingBanner } from './shared/components/slow-loading-banner/slow-loading-banner';
 import { ToastHost } from './shared/components/toast-host/toast-host';
 import { UpdateBanner } from './shared/components/update-banner/update-banner';
@@ -23,7 +23,7 @@ const SYNCED_USER_KEY = 'shelfy.synced-preferences-user-id';
     ToastHost,
     SlowLoadingBanner,
     UpdateBanner,
-    InstallPromptBanner,
+    InstallAppCard,
     TranslatePipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
