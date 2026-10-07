@@ -6,12 +6,13 @@ import { tryGetLocalStorage, trySetLocalStorage } from '../util/local-storage';
 
 const STORAGE_KEY = 'shelfy.lang';
 
-export const SUPPORTED_LANGUAGES: readonly Language[] = ['es', 'ca', 'en'] as const;
+export const SUPPORTED_LANGUAGES: readonly Language[] = ['es', 'ca', 'en', 'fr'] as const;
 
 export const LANGUAGE_LABELS: Record<Language, string> = {
   es: 'Español',
   ca: 'Català',
   en: 'English',
+  fr: 'Français',
 };
 
 @Injectable({ providedIn: 'root' })

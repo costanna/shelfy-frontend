@@ -427,8 +427,6 @@
     "reload": "Actualitza"
   },
   "installApp": {
-    "title": "Emporta't Shelfy al mòbil",
-    "instructions": "Escaneja el codi amb la càmera del mòbil per obrir Shelfy i afegir-lo a la pantalla d'inici.",
     "dismiss": "Tanca aquest avís",
     "promptMessage": "Vols instal·lar Shelfy en aquest dispositiu?",
     "promptInstall": "Instal·la"

@@ -2,6 +2,9 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { InstallPromptService } from '../../../core/services/install-prompt.service';
+import { tryGetLocalStorage, trySetLocalStorage } from '../../../core/util/local-storage';
+
+const DISMISSED_KEY = 'shelfy.install-banner-dismissed';
 
 @Component({
   selector: 'app-install-prompt-banner',
@@ -13,7 +16,7 @@ import { InstallPromptService } from '../../../core/services/install-prompt.serv
 export class InstallPromptBanner {
   private readonly installPrompt = inject(InstallPromptService);
 
-  protected readonly dismissed = signal(false);
+  protected readonly dismissed = signal(isDismissed());
   protected readonly visible = this.installPrompt.available;
 
   protected install(): void {
@@ -22,5 +25,10 @@ export class InstallPromptBanner {
 
   protected dismiss(): void {
     this.dismissed.set(true);
+    trySetLocalStorage(DISMISSED_KEY, '1');
   }
+}
+
+function isDismissed(): boolean {
+  return tryGetLocalStorage(DISMISSED_KEY) === '1';
 }

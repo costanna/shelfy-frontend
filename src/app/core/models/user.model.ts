@@ -1,6 +1,6 @@
 export type ThemePreference = 'LIGHT' | 'DARK' | 'SYSTEM';
 
-export type Language = 'en' | 'ca' | 'es';
+export type Language = 'en' | 'ca' | 'es' | 'fr';
 
 export interface User {
   id: number;
