@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, inject, input, output, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  afterNextRender,
+  inject,
+  input,
+  output,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
@@ -53,8 +63,13 @@ export class BookSearch {
   protected readonly addingKey = signal<string | null>(null);
 
   private readonly queries = new Subject<SearchQuery>();
+  private readonly searchInput = viewChild.required<ElementRef<HTMLInputElement>>('searchInput');
 
   constructor() {
+    // El buscador se abre para escribir: el foco va directo al campo. Se pone a mano porque
+    // el atributo autofocus solo actúa una vez por página y al reabrirlo ya no lo movía.
+    afterNextRender(() => this.searchInput().nativeElement.focus());
+
     this.queries
       .pipe(
         debounceTime(SEARCH_DEBOUNCE_MS),

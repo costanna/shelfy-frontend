@@ -1,5 +1,10 @@
-<div class="scanner-backdrop" (click)="close()">
-  <div class="scanner-panel card" (click)="$event.stopPropagation()">
+<div
+  class="scanner-backdrop"
+  role="presentation"
+  (click)="$event.target === $event.currentTarget && close()"
+  (keydown.escape)="close()"
+>
+  <div class="scanner-panel card">
     <div class="scanner-header">
       <h2>{{ 'scanner.title' | translate }}</h2>
       <button

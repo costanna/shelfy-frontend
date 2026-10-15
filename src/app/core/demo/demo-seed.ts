@@ -110,7 +110,11 @@ export interface DemoDb {
 export const DEMO_DB_VERSION = 1;
 
 type Lang = 'es' | 'ca' | 'en' | 'fr';
-type Localized = { es: string; ca: string; en: string };
+interface Localized {
+  es: string;
+  ca: string;
+  en: string;
+}
 const pick = (text: Localized, lang: Lang) => (lang === 'fr' ? text.en : text[lang]);
 
 /** Les mateixes categories de fàbrica que CategoryService del backend. */

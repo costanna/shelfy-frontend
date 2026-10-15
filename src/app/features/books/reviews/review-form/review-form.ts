@@ -20,7 +20,7 @@ export class ReviewForm {
   readonly saving = input(false);
 
   readonly save = output<ReviewRequest>();
-  readonly cancel = output<void>();
+  readonly cancelled = output<void>();
 
   protected readonly form = this.formBuilder.nonNullable.group({
     rating: [5, [Validators.required, Validators.min(0.5)]],

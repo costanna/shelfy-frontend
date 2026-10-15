@@ -1,5 +1,10 @@
-<div class="search-backdrop" (click)="close()">
-  <div class="search-panel card" (click)="$event.stopPropagation()">
+<div
+  class="search-backdrop"
+  role="presentation"
+  (click)="$event.target === $event.currentTarget && close()"
+  (keydown.escape)="close()"
+>
+  <div class="search-panel card">
     <div class="search-header">
       <h2>{{ 'bookForm.searchTitle' | translate }}</h2>
       <button
@@ -17,10 +22,10 @@
         {{ 'bookForm.searchPlaceholder' | translate }}
       </label>
       <input
+        #searchInput
         id="book-search-input"
         class="input"
         type="search"
-        autofocus
         [placeholder]="'bookForm.searchPlaceholder' | translate"
         [value]="query()"
         (input)="onSearch($event)"

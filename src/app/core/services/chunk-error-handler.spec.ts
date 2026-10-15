@@ -7,7 +7,7 @@ describe('ChunkErrorHandler', () => {
     sessionStorage.removeItem(RELOAD_GUARD_KEY);
     reload = vi.fn();
     vi.stubGlobal('location', { ...window.location, reload });
-    vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
   });
 
   afterEach(() => {

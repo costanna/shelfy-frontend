@@ -42,6 +42,8 @@
       <li class="category card">
         @if (editingId() === category.id) {
           <form class="edit-form" [formGroup]="editForm" (ngSubmit)="saveEdit(category.id)">
+            <!-- Al pulsar «editar» el foco va al nombre, que es lo que se quiere cambiar -->
+            <!-- eslint-disable-next-line @angular-eslint/template/no-autofocus -->
             <input class="input" type="text" formControlName="name" autofocus />
             <div class="actions">
               <button type="button" class="btn btn-ghost" (click)="cancelEdit()">

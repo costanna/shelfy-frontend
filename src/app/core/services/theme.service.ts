@@ -64,10 +64,10 @@ function safeMatchMedia(query: string): MediaQueryList {
     matches: false,
     media: query,
     onchange: null,
-    addEventListener: () => {},
-    removeEventListener: () => {},
-    addListener: () => {},
-    removeListener: () => {},
+    addEventListener: () => undefined,
+    removeEventListener: () => undefined,
+    addListener: () => undefined,
+    removeListener: () => undefined,
     dispatchEvent: () => false,
   } satisfies MediaQueryList;
 }

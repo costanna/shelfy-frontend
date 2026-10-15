@@ -397,7 +397,7 @@ function parseCsv(text: string): string[][] {
 }
 
 function importCsv(ownerId: number, text: string) {
-  const rows = parseCsv(text.replace(/^﻿/, ''));
+  const rows = parseCsv(text.replace(/^\uFEFF/, ''));
   const header = (rows[0] ?? []).map((h) => h.trim().toLowerCase());
   const col = (row: string[], name: string) => {
     const index = header.indexOf(name.toLowerCase());
