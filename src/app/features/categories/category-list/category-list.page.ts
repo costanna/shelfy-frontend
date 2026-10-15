@@ -1,8 +1,16 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 import { Category } from '../../../core/models/category.model';
+import { AuthService } from '../../../core/services/auth.service';
 import { CategoryService } from '../../../core/services/category.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
@@ -22,6 +30,9 @@ export class CategoryListPage {
   private readonly categoryService = inject(CategoryService);
   private readonly toast = inject(ToastService);
   private readonly translate = inject(TranslateService);
+  private readonly auth = inject(AuthService);
+  // Idioma desat a l'usuari: canvia quan el servidor confirma el canvi, no abans.
+  private readonly savedLanguage = computed(() => this.auth.user()?.languagePreference);
 
   protected readonly categories = signal<Category[]>([]);
   protected readonly loading = signal(true);
@@ -39,7 +50,13 @@ export class CategoryListPage {
   });
 
   constructor() {
-    this.load();
+    // Els noms venen traduïts a l'idioma desat a l'usuari: es torna a carregar
+    // quan aquest canvia. L'effect ja corre un cop a l'inici: sense load()
+    // directe per no demanar la llista dues vegades en obrir la pàgina.
+    effect(() => {
+      this.savedLanguage();
+      this.load();
+    });
   }
 
   protected create(): void {

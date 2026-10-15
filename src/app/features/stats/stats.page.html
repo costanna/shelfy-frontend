@@ -11,7 +11,7 @@
   <app-reading-goal-card />
 
   <div class="stats-columns">
-    <section class="stats-col">
+    <section class="stats-col stats-calendar">
       <h2 class="section-title">{{ 'stats.calendarTitle' | translate }}</h2>
       <app-reading-calendar />
     </section>
@@ -31,6 +31,32 @@
         </ul>
       </section>
     }
+
+    <section class="stats-col">
+      <h2 class="section-title">{{ 'stats.byMonthTitle' | translate }}</h2>
+
+      @if (data.booksByMonth.length === 0) {
+        <app-empty-state icon="📅" [message]="'stats.byMonthEmpty' | translate" />
+      } @else {
+        <ul class="month-list">
+          @for (entry of data.booksByMonth; track entry.year + '-' + entry.month) {
+            <li>
+              <a class="month-row" [routerLink]="['/stats', entry.year, entry.month]">
+                <span class="month-label">{{ monthLabel(entry) }}</span>
+                <span class="month-bar-track">
+                  <span class="month-bar" [style.width.%]="barWidth(entry, data.booksByMonth)"></span>
+                </span>
+                <span class="month-count">
+                  {{
+                    (entry.count === 1 ? 'stats.bookOne' : 'stats.books') | translate: { count: entry.count }
+                  }}
+                </span>
+              </a>
+            </li>
+          }
+        </ul>
+      }
+    </section>
   </div>
 
   <div class="stat-tiles">
@@ -53,28 +79,4 @@
       </div>
     }
   </div>
-
-  <h2 class="section-title">{{ 'stats.byMonthTitle' | translate }}</h2>
-
-  @if (data.booksByMonth.length === 0) {
-    <app-empty-state icon="📅" [message]="'stats.byMonthEmpty' | translate" />
-  } @else {
-    <ul class="month-list">
-      @for (entry of data.booksByMonth; track entry.year + '-' + entry.month) {
-        <li>
-          <a class="month-row" [routerLink]="['/stats', entry.year, entry.month]">
-            <span class="month-label">{{ monthLabel(entry) }}</span>
-            <span class="month-bar-track">
-              <span class="month-bar" [style.width.%]="barWidth(entry, data.booksByMonth)"></span>
-            </span>
-            <span class="month-count">
-              {{
-                (entry.count === 1 ? 'stats.bookOne' : 'stats.books') | translate: { count: entry.count }
-              }}
-            </span>
-          </a>
-        </li>
-      }
-    </ul>
-  }
 }

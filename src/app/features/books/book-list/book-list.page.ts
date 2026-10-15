@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -6,6 +13,7 @@ import { Subject, catchError, debounceTime, distinctUntilChanged, of, startWith,
 
 import { BOOK_SORT_OPTIONS, Book, BookSort, BookStatusCounts } from '../../../core/models/book.model';
 import { emptyPage } from '../../../core/models/page.model';
+import { AuthService } from '../../../core/services/auth.service';
 import { BookService } from '../../../core/services/book.service';
 import { CategoryService } from '../../../core/services/category.service';
 import { OfflineQueueService } from '../../../core/services/offline-queue.service';
@@ -44,11 +52,15 @@ export class BookListPage {
   private readonly toast = inject(ToastService);
   private readonly translate = inject(TranslateService);
   private readonly offlineQueue = inject(OfflineQueueService);
+  private readonly auth = inject(AuthService);
+  // Idioma desat a l'usuari: canvia quan el servidor confirma el canvi, no abans.
+  private readonly savedLanguage = computed(() => this.auth.user()?.languagePreference);
 
   protected readonly recommendationsHidden = inject(RecommendationsVisibilityService).hidden;
 
   private readonly queries = new Subject<Query>();
   private readonly refreshCounts = new Subject<void>();
+  private readonly refreshCategories = new Subject<void>();
 
   protected readonly query = signal<Query>(readQueryFromUrl(this.router.url));
   protected readonly loading = signal(true);
@@ -63,7 +75,10 @@ export class BookListPage {
     // seedDefaults() retorna la llista igual que list(), però a més crea les
     // categories de fàbrica que faltin i tradueix les originals a l'idioma
     // actual: així la migració s'aplica sola sense haver de tancar sessió.
-    this.categoryService.seedDefaults().pipe(catchError(() => of([]))),
+    // Es recarrega també en canviar d'idioma, perquè els noms venen del backend.
+    this.refreshCategories.pipe(
+      switchMap(() => this.categoryService.seedDefaults().pipe(catchError(() => of([])))),
+    ),
     { initialValue: [] },
   );
 
@@ -98,6 +113,14 @@ export class BookListPage {
 
   constructor() {
     this.search(this.query());
+    // Els noms de categories venen del backend, traduïts a l'idioma desat a
+    // l'usuari: es tornen a demanar quan aquest idioma canvia (si es fes en
+    // canviar el selector, la petició podria arribar abans i tornar-los en
+    // l'idioma anterior).
+    effect(() => {
+      this.savedLanguage();
+      this.refreshCategories.next();
+    });
   }
 
   protected onFiltersChange(value: BookFilterValue): void {

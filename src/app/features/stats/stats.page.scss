@@ -47,7 +47,14 @@
 @media (min-width: 56rem) {
   .stats-columns {
     grid-template-columns: 1.5fr 1fr;
+    // El calendari ocupa dues files: l'espai que li sobra va a la segona, perquè
+    // «Llibres per mes» quedi just sota «Quan els acabaràs» i no a mitja pàgina.
+    grid-template-rows: auto 1fr;
     align-items: start;
+  }
+
+  .stats-calendar {
+    grid-row: span 2;
   }
 }
 
