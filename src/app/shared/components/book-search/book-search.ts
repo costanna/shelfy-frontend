@@ -1,14 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  afterNextRender,
-  inject,
-  input,
-  output,
-  signal,
-  viewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
@@ -16,6 +6,7 @@ import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, of
 import { BookLookupResult, BookSearchResult, BookSearchSource } from '../../../core/models/book-lookup.model';
 import { BookLookupService } from '../../../core/services/book-lookup.service';
 import { OwnedBookRef, findLikelyDuplicate } from '../../../core/util/book-duplicate.util';
+import { Autofocus } from '../../directives/autofocus';
 import { Spinner } from '../spinner/spinner';
 
 const SEARCH_DEBOUNCE_MS = 400;
@@ -40,7 +31,7 @@ const SEARCH_FNS: Record<
 
 @Component({
   selector: 'app-book-search',
-  imports: [TranslatePipe, Spinner],
+  imports: [TranslatePipe, Spinner, Autofocus],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './book-search.html',
   styleUrl: './book-search.scss',
@@ -63,13 +54,8 @@ export class BookSearch {
   protected readonly addingKey = signal<string | null>(null);
 
   private readonly queries = new Subject<SearchQuery>();
-  private readonly searchInput = viewChild.required<ElementRef<HTMLInputElement>>('searchInput');
 
   constructor() {
-    // El buscador se abre para escribir: el foco va directo al campo. Se pone a mano porque
-    // el atributo autofocus solo actúa una vez por página y al reabrirlo ya no lo movía.
-    afterNextRender(() => this.searchInput().nativeElement.focus());
-
     this.queries
       .pipe(
         debounceTime(SEARCH_DEBOUNCE_MS),

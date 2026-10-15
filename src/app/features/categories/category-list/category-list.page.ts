@@ -8,10 +8,11 @@ import { ToastService } from '../../../core/services/toast.service';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { FieldError } from '../../../shared/components/field-error/field-error';
 import { Spinner } from '../../../shared/components/spinner/spinner';
+import { Autofocus } from '../../../shared/directives/autofocus';
 
 @Component({
   selector: 'app-category-list-page',
-  imports: [ReactiveFormsModule, TranslatePipe, EmptyState, FieldError, Spinner],
+  imports: [ReactiveFormsModule, TranslatePipe, EmptyState, FieldError, Spinner, Autofocus],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './category-list.page.html',
   styleUrl: './category-list.page.scss',
