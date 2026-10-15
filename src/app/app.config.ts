@@ -16,6 +16,7 @@ import { routes } from './app.routes';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
 import { loadingInterceptor } from './core/interceptors/loading.interceptor';
+import { demoInterceptor } from './core/demo/demo.interceptor';
 import { BackendKeepAliveService } from './core/services/backend-keep-alive.service';
 import { ChunkErrorHandler, RELOAD_GUARD_KEY } from './core/services/chunk-error-handler';
 import { InstallPromptService } from './core/services/install-prompt.service';
@@ -36,7 +37,10 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({ scrollPositionRestoration: 'top' }),
     ),
 
-    provideHttpClient(withInterceptors([loadingInterceptor, authInterceptor, errorInterceptor])),
+    // demoInterceptor va l'últim: a la demo fa de servidor, i així la resta tracta les seves respostes com les reals.
+    provideHttpClient(
+      withInterceptors([loadingInterceptor, authInterceptor, errorInterceptor, demoInterceptor]),
+    ),
 
     provideTranslateService({
       fallbackLang: 'es',

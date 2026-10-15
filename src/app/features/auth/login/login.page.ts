@@ -4,6 +4,15 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
+import {
+  DEMO_PASSWORD,
+  DEMO_READERS,
+  DemoReader,
+  exitDemo,
+  isDemoChosen,
+  resetDemo,
+  startDemo,
+} from '../../../core/demo/demo';
 import { AuthService } from '../../../core/services/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { FieldError } from '../../../shared/components/field-error/field-error';
@@ -35,6 +44,28 @@ export class LoginPage {
 
   protected readonly unverifiedEmail = signal<string | null>(null);
   protected readonly resendingVerification = signal(false);
+
+  // Demo al navegador (core/demo/demo.ts): fora, un botó per entrar-hi; dins, un botó per lector
+  // d'exemple que omple el formulari, com si n'escrivissis les dades.
+  protected readonly demo = isDemoChosen();
+  protected readonly readers = DEMO_READERS;
+  protected readonly demoPassword = DEMO_PASSWORD;
+
+  protected fillReader(reader: DemoReader): void {
+    this.form.setValue({ email: reader.email, password: DEMO_PASSWORD });
+  }
+
+  protected startDemo(): void {
+    startDemo();
+  }
+
+  protected resetDemo(): void {
+    resetDemo();
+  }
+
+  protected exitDemo(): void {
+    exitDemo();
+  }
 
   protected submit(): void {
     this.submitted.set(true);

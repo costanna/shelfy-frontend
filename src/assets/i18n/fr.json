@@ -431,5 +431,18 @@
     "instructions": "Scannez le code avec l'appareil photo de votre téléphone pour ouvrir Shelfy et l'ajouter à votre écran d'accueil.",
     "dismiss": "Fermer cet avis",
     "promptInstall": "Installer"
+  },
+  "demo": {
+    "try": "Essayer la démo",
+    "reset": "Recommencer à zéro",
+    "exit": "Quitter la démo",
+    "banner": "Vous êtes dans la démo : données d'exemple enregistrées uniquement dans ce navigateur.",
+    "login": {
+      "title": "Vous voulez juste jeter un œil ?",
+      "hint": "Sans compte : trois lecteurs d'exemple qui se suivent, avec des données enregistrées uniquement dans votre navigateur.",
+      "pickReader": "Vous êtes dans la démo : choisissez avec quel lecteur vous connecter.",
+      "password": "Mot de passe pour tous :",
+      "saved": "Vos modifications sont enregistrées dans ce navigateur : vous pouvez changer de lecteur sans rien perdre."
+    }
   }
 }

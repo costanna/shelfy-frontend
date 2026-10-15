@@ -431,5 +431,18 @@
     "instructions": "Scan the code with your phone's camera to open Shelfy and add it to your home screen.",
     "dismiss": "Dismiss this prompt",
     "promptInstall": "Install"
+  },
+  "demo": {
+    "try": "Try the demo",
+    "reset": "Start over",
+    "exit": "Leave the demo",
+    "banner": "You're in the demo: sample data saved only in this browser.",
+    "login": {
+      "title": "Just want to look around?",
+      "hint": "No account needed: three sample readers who follow each other, with data saved only in your browser.",
+      "pickReader": "You're in the demo: choose which reader to log in as.",
+      "password": "Password for everyone:",
+      "saved": "Your changes are saved in this browser: you can switch readers without losing anything."
+    }
   }
 }

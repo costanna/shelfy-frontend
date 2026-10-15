@@ -431,5 +431,18 @@
     "instructions": "Escanea el código con la cámara de tu móvil para abrir Shelfy y añadirlo a tu pantalla de inicio.",
     "dismiss": "Cerrar este aviso",
     "promptInstall": "Instalar"
+  },
+  "demo": {
+    "try": "Probar la demo",
+    "reset": "Empezar de cero",
+    "exit": "Salir de la demo",
+    "banner": "Estás en la demo: datos de prueba guardados solo en este navegador.",
+    "login": {
+      "title": "¿Solo quieres echar un vistazo?",
+      "hint": "Sin cuenta: tres lectores de ejemplo que se siguen, con datos guardados solo en tu navegador.",
+      "pickReader": "Estás en la demo: elige con qué lector quieres entrar.",
+      "password": "Contraseña para todos:",
+      "saved": "Tus cambios se guardan en este navegador: puedes cambiar de lector sin perder nada."
+    }
   }
 }
