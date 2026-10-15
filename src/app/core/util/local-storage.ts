@@ -9,5 +9,7 @@ export function tryGetLocalStorage(key: string): string | null {
 export function trySetLocalStorage(key: string, value: string): void {
   try {
     localStorage.setItem(key, value);
-  } catch {}
+  } catch {
+    // Sin almacenamiento (modo privado, cuota llena): simplemente no se guarda
+  }
 }

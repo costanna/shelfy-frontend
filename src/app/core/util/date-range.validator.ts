@@ -8,7 +8,8 @@ export function dateRangeValidator(group: AbstractControl): ValidationErrors | n
   if (startedAt && finishedAt && finishedAt < startedAt) {
     finishedControl?.setErrors({ ...finishedControl.errors, dateRange: true });
   } else if (finishedControl?.hasError('dateRange')) {
-    const { dateRange, ...rest } = finishedControl.errors ?? {};
+    const rest = { ...finishedControl.errors };
+    delete rest['dateRange'];
     finishedControl.setErrors(Object.keys(rest).length > 0 ? rest : null);
   }
 

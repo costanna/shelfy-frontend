@@ -68,5 +68,36 @@
       {{ 'auth.noAccount' | translate }}
       <a routerLink="/register">{{ 'auth.goToRegister' | translate }}</a>
     </p>
+
+    <div class="auth-demo">
+      @if (demo) {
+        <p>{{ 'demo.login.pickReader' | translate }}</p>
+        <p class="auth-demo-hint">
+          {{ 'demo.login.password' | translate }} <code>{{ demoPassword }}</code>
+        </p>
+        <div class="auth-demo-actions">
+          @for (reader of readers; track reader.key) {
+            <button type="button" class="btn btn-secondary" (click)="fillReader(reader)">
+              {{ reader.name }}
+            </button>
+          }
+        </div>
+        <p class="auth-demo-hint">{{ 'demo.login.saved' | translate }}</p>
+        <div class="auth-demo-actions">
+          <button type="button" class="btn btn-secondary" (click)="resetDemo()">
+            {{ 'demo.reset' | translate }}
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="exitDemo()">
+            {{ 'demo.exit' | translate }}
+          </button>
+        </div>
+      } @else {
+        <p>{{ 'demo.login.title' | translate }}</p>
+        <button type="button" class="btn btn-secondary" (click)="startDemo()">
+          {{ 'demo.try' | translate }}
+        </button>
+        <p class="auth-demo-hint">{{ 'demo.login.hint' | translate }}</p>
+      }
+    </div>
   </div>
 </div>

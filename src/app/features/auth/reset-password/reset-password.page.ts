@@ -67,7 +67,8 @@ function passwordsMatchValidator(group: AbstractControl): ValidationErrors | nul
   if (confirmPassword && newPassword !== confirmPassword) {
     confirmControl?.setErrors({ ...confirmControl.errors, mismatch: true });
   } else if (confirmControl?.hasError('mismatch')) {
-    const { mismatch, ...rest } = confirmControl.errors ?? {};
+    const rest = { ...confirmControl.errors };
+    delete rest['mismatch'];
     confirmControl.setErrors(Object.keys(rest).length > 0 ? rest : null);
   }
 

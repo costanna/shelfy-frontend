@@ -42,7 +42,7 @@
       <li class="category card">
         @if (editingId() === category.id) {
           <form class="edit-form" [formGroup]="editForm" (ngSubmit)="saveEdit(category.id)">
-            <input class="input" type="text" formControlName="name" autofocus />
+            <input class="input" type="text" formControlName="name" appAutofocus />
             <div class="actions">
               <button type="button" class="btn btn-ghost" (click)="cancelEdit()">
                 {{ 'categories.cancel' | translate }}

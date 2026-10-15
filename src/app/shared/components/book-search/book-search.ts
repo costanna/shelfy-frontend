@@ -6,6 +6,7 @@ import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, of
 import { BookLookupResult, BookSearchResult, BookSearchSource } from '../../../core/models/book-lookup.model';
 import { BookLookupService } from '../../../core/services/book-lookup.service';
 import { OwnedBookRef, findLikelyDuplicate } from '../../../core/util/book-duplicate.util';
+import { Autofocus } from '../../directives/autofocus';
 import { Spinner } from '../spinner/spinner';
 
 const SEARCH_DEBOUNCE_MS = 400;
@@ -30,7 +31,7 @@ const SEARCH_FNS: Record<
 
 @Component({
   selector: 'app-book-search',
-  imports: [TranslatePipe, Spinner],
+  imports: [TranslatePipe, Spinner, Autofocus],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './book-search.html',
   styleUrl: './book-search.scss',
